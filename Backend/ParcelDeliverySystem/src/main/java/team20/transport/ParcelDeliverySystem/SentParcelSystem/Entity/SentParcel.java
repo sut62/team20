@@ -37,6 +37,6 @@ public class Sentparcel {
     @JoinColumn(name = "STATION_ID", insertable = true)
     @JsonManagedReference
     private Station atStation;
-
+//
 
 }
