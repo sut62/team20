@@ -22,5 +22,5 @@ public class Cancelsend {
     @Column(name="Cancel_Price")
     private @NonNull Long price;
 
-
+//ew
 }
