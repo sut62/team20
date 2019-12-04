@@ -33,5 +33,6 @@ public class MemberCustomer {
     @JoinColumn(name = "MEMBER_LEVEL_ID", insertable = true)
     private MemberLevel MemberLevel;
 
+ //
 
 }
