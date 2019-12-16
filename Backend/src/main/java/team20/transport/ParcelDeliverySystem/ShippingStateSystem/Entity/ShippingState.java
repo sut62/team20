@@ -47,7 +47,6 @@ public class ShippingState {
     @JoinColumn(name = "STATION_ID", insertable = true)
     @JsonManagedReference
     private Packaging ofPackage;
-    // รอรับ Package จากไพรัช ต้นเขียน ครับบบบบ
 
 
 }
