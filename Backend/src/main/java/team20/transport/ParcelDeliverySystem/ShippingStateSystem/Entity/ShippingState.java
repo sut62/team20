@@ -43,8 +43,8 @@ public class ShippingState {
     @JsonManagedReference
     private Station atStation;
 
-    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Station.class)
-    @JoinColumn(name = "STATION_ID", insertable = true)
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Packaging.class)
+    @JoinColumn(name = "PACKAGING_ID", insertable = true)
     @JsonManagedReference
     private Packaging ofPackage;
 
