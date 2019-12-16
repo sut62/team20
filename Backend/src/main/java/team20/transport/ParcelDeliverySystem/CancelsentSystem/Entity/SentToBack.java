@@ -1,9 +1,9 @@
-package team20.transport.ParcelDeliverySystem.Entity;
+package team20.transport.ParcelDeliverySystem.CancelSent.Entity;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
-import team20.transport.ParcelDeliverySystem.CancelSent.Entity.CanCelSent;
 
 import javax.persistence.*;
 import java.util.Collection;
@@ -22,7 +22,7 @@ public class Senttoback {
     @Column(name="SENTTOBACK_NAME")
     private @NonNull String name;
 
-    @OneToMany(fetch = FetchType.LAZY, targetEntity = CanCelSent.class)
+    @OneToMany(fetch = FetchType.LAZY, targetEntity = Cancelsent.class)
     @JoinColumn(name = "CANCELSENT_ID")
     @JsonBackReference
     private Collection<Cancelsent> haveCancelSentToBack;

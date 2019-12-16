@@ -6,6 +6,7 @@ import lombok.NonNull;
 import lombok.Setter;
 
 import team20.transport.ParcelDeliverySystem.Entity.Status;
+import team20.transport.ParcelDeliverySystem.Entity.Employee;
 
 import javax.persistence.*;
 
@@ -29,14 +30,19 @@ public class Cancelsent {
     @JsonManagedReference
     private Status onStatus;
 
-    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Senttoback.class)
-    @JoinColumn(name = "SENTTOBACK_ID", insertable = true)
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Howtopay.class)
+    @JoinColumn(name = "HOWTOPAY_ID", insertable = true)
     @JsonManagedReference
-    private Status onSenttoback;
+    private Howtopay onHowtoPay;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Senttoback.class)
     @JoinColumn(name = "SENTTOBACK_ID", insertable = true)
     @JsonManagedReference
-    private Status onHowtoPay;
+    private Senttoback onSenttoback;
+
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Employee.class)
+    @JoinColumn(name = "EMPOLYEE_ID", insertable = true)
+    @JsonManagedReference
+    private Employee createBy;
 
 }
