@@ -4,8 +4,8 @@ import lombok.*;
 import javax.persistence.*;
 import java.util.Collection;
 import team20.transport.ParcelDeliverySystem.Entity.Employee;
-import team20.transport.ParcelDeliverySystem.MemberCustomerSystem.Entity.*;
-import team20.transport.ParcelDeliverySystem.AddPackageSystem.Entity.*;
+import team20.transport.ParcelDeliverySystem.PackagingSystem.Entity.Packaging;
+import team20.transport.ParcelDeliverySystem.ConfirmPackageSystem.Entity.SatisfactionLevel;
 
 import java.util.Date;
 @Data
@@ -30,8 +30,8 @@ public class ConfirmPackage {
     @JoinColumn(name = "EMPLOYEE_ID", insertable = true)
     private Employee CreateBy;
 
-    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Packaging.class)
-    @JoinColumn(name = "PACKAGEGING_ID", insertable = true)
+    @OneToOne(fetch = FetchType.EAGER, targetEntity = Packaging.class)
+    @JoinColumn(name = "PACKAGING_ID", insertable = true)
     private Packaging packaging;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = SatisfactionLevel.class)
