@@ -6,6 +6,7 @@ import lombok.Setter;
 import team20.transport.ParcelDeliverySystem.ShippingStateSystem.Entity.ShippingState;
 import team20.transport.ParcelDeliverySystem.MemberCustomerSystem.Entity.MemberCustomer;
 import team20.transport.ParcelDeliverySystem.ConfirmPackageSystem.Entity.ConfirmPackage;
+import team20.transport.ParcelDeliverySystem.PackagingSystem.Entity.Packaging;
 import javax.persistence.*;
 import java.util.Collection;
 
@@ -35,4 +36,8 @@ public class Employee {
     @JsonBackReference
     private Collection<ConfirmPackage> confirm;
 
+    @OneToMany(fetch = FetchType.LAZY, targetEntity = Packaging.class)
+    @JoinColumn(name = "PACKAGE_ID")
+    @JsonBackReference
+    private Collection<Packaging> send;
 }

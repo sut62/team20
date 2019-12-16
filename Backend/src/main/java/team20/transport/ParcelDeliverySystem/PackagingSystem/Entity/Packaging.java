@@ -21,7 +21,11 @@ public class Packaging {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="PACKAGING_SEQ")
     @Column(name="PACKAGING_ID",unique = true, nullable = true)
     private @NonNull Long id;
-
+    private @NonNull String reciever;
+    private @NonNull String place;
+    private @NonNull Long weight;
+    private @NonNull Long volume;
+    private @NonNull Date packageDate;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Employee.class)
     @JoinColumn(name = "EMPOLYEE_ID", insertable = true)
@@ -38,5 +42,11 @@ public class Packaging {
     @JsonManagedReference
     private Station atStation;
 
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = PackageType.class)
+    @JoinColumn(name = "PTYPE_ID", insertable = true)
+    private PackageType packageType;
 
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = SendingType.class)
+    @JoinColumn(name = "STYPE_ID", insertable = true)
+    private SendingType sendingType;
 }
