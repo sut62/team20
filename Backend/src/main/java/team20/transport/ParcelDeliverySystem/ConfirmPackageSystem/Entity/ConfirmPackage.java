@@ -31,7 +31,7 @@ public class ConfirmPackage {
     private Employee CreateBy;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Packaging.class)
-    @JoinColumn(name = "PACKAGE_ID", insertable = true)
+    @JoinColumn(name = "PACKAGEGING_ID", insertable = true)
     private Packaging packaging;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = SatisfactionLevel.class)
