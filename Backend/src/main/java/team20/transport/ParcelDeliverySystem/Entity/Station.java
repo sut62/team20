@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
 import team20.transport.ParcelDeliverySystem.ShippingStateSystem.Entity.ShippingState;
+import team20.transport.ParcelDeliverySystem.SentParcelSystem.Entity.SentParcel;
 
 import javax.persistence.*;
 import java.util.Collection;
@@ -23,4 +24,9 @@ public class Station {
     @JoinColumn(name = "SHIPPINGSTATE_ID")
     @JsonBackReference
     private Collection<ShippingState> haveShippingState;
+
+    @OneToMany(fetch = FetchType.LAZY, targetEntity = SentParcel.class)
+    @JoinColumn(name = "SENTPARCEL_ID")
+    @JsonBackReference
+    private Collection<SentParcel> sentparcel;
 }

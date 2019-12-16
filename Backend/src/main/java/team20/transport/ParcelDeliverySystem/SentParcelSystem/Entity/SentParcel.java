@@ -1,13 +1,12 @@
-﻿package team20.transport.ParcelDeliverySystem.SnetParcelSystem.Entity;
+﻿package team20.transport.ParcelDeliverySystem.SentParcelSystem.Entity;
 
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
-import team20.transport.ParcelDeliverySystem.Entity.Employee;
-import team20.transport.ParcelDeliverySystem.Entity.Station;
 import team20.transport.ParcelDeliverySystem.Entity.Status;
+import team20.transport.ParcelDeliverySystem.PackagingSystem.Entity.Packaging;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -16,27 +15,21 @@ import java.sql.Timestamp;
 @Getter
 @Setter
 @Table(name="SENTPARCEL")
-public class Sentparcel {
+public class SentParcel {
     @Id
     @SequenceGenerator(name="SENTPARCEL_SEQ",sequenceName="SENTPARCEL_SEQ",initialValue = 1,allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="SENTPARCEL_SEQ")
     @Column(name="SENTPARCEL_ID",unique = true, nullable = true)
     private @NonNull Long id;
 
-    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Employee.class)
-    @JoinColumn(name = "EMPOLYEE_ID", insertable = true)
+    @OneToMany(fetch = FetchType.EAGER, targetEntity = Packaging.class)
+    @JoinColumn(name = "PACKAGING_ID", insertable = true)
     @JsonManagedReference
-    private Employee createBy;
-
-    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Status.class)
-    @JoinColumn(name = "STATUS_ID", insertable = true)
-    @JsonManagedReference
-    private Status onStatus;
+    private Packaging packaging;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Station.class)
     @JoinColumn(name = "STATION_ID", insertable = true)
     @JsonManagedReference
     private Station atStation;
-//
 
 }
