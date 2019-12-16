@@ -27,7 +27,6 @@ public class ShippingState {
     @Column(name="SHIPPINGSTATE_TIMESTAMP", nullable = false)
     private @NonNull Timestamp timestamp;
 
-
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Employee.class)
     @JoinColumn(name = "EMPOLYEE_ID", insertable = true)
     @JsonManagedReference
@@ -47,6 +46,5 @@ public class ShippingState {
     @JoinColumn(name = "PACKAGING_ID", insertable = true)
     @JsonManagedReference
     private Packaging ofPackage;
-
 
 }
