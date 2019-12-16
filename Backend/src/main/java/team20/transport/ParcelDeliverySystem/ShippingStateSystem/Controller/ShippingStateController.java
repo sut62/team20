@@ -9,7 +9,7 @@ import team20.transport.ParcelDeliverySystem.PackagingSystem.Entity.Packaging;
 import team20.transport.ParcelDeliverySystem.Repository.EmployeeRepository;
 import team20.transport.ParcelDeliverySystem.Repository.StationRepository;
 import team20.transport.ParcelDeliverySystem.Repository.StatusRepository;
-import team20.transport.ParcelDeliverySystem.PackagingSystem.Repository.PackagingRepository;
+import team20.transport.ParcelDeliverySystem.PackagingStateSystem.Repository.PackagingRepository;
 import team20.transport.ParcelDeliverySystem.ShippingStateSystem.Entity.ShippingState;
 import team20.transport.ParcelDeliverySystem.ShippingStateSystem.Repository.ShippingStateRepository;
 
@@ -29,6 +29,8 @@ public class ShippingStateController {
     StatusRepository statusRepository;
     @Autowired
     StationRepository stationRepository;
+    @Autowired
+    PackagingRepository packagingRepository;
 
     @PostMapping("/addShippingState")
     public ShippingState addShippingState(@RequestBody Map<String,Long> allParams){
