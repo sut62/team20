@@ -41,11 +41,6 @@ public class Packaging {
     @JsonManagedReference
     private Employee createBy;
 
-    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Status.class)
-    @JoinColumn(name = "STATUS_ID", insertable = true)
-    @JsonManagedReference
-    private Status onStatus;
-
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Station.class)
     @JoinColumn(name = "STATION_ID", insertable = true)
     @JsonManagedReference
