@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
 import team20.transport.ParcelDeliverySystem.ShippingStateSystem.Entity.ShippingState;
+import team20.transport.ParcelDeliverySystem.PackagingSystem.Entity.Packaging;
+import team20.transport.ParcelDeliverySystem.CancelSent.Entity.CanCelSent;
 
 import javax.persistence.*;
 import java.util.Collection;
@@ -23,4 +25,14 @@ public class Status {
     @JoinColumn(name = "SHIPPINGSTATE_ID")
     @JsonBackReference
     private Collection<ShippingState> haveShippingState;
+
+    @OneToMany(fetch = FetchType.LAZY, targetEntity = Packaging.class)
+    @JoinColumn(name = "PACKAGING_ID")
+    @JsonBackReference
+    private Collection<Packaging> havePackaging;
+
+    @OneToMany(fetch = FetchType.LAZY, targetEntity = CanCelSent.class)
+    @JoinColumn(name = "CANCELSENT_ID")
+    @JsonBackReference
+    private Collection<Cancelsent> haveCansel;
 }
