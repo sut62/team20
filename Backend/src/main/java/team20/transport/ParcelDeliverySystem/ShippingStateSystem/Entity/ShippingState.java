@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
+import team20.transport.ParcelDeliverySystem.PackagingSystem.Entity.Packaging;
 import team20.transport.ParcelDeliverySystem.Entity.Employee;
 import team20.transport.ParcelDeliverySystem.Entity.Station;
 import team20.transport.ParcelDeliverySystem.Entity.Status;
@@ -42,7 +43,10 @@ public class ShippingState {
     @JsonManagedReference
     private Station atStation;
 
-
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Station.class)
+    @JoinColumn(name = "STATION_ID", insertable = true)
+    @JsonManagedReference
+    private Packaging ofPackage;
     // รอรับ Package จากไพรัช ต้นเขียน ครับบบบบ
 
 
