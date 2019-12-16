@@ -30,6 +30,7 @@ public class Packaging {
     private @NonNull Long weight;
     private @NonNull Long volume;
     private @NonNull Date packageDate;
+    private @NonNull Boolean status;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = MemberCustomer.class)
     @JoinColumn(name = "CUSTOMER_ID", insertable = true)
