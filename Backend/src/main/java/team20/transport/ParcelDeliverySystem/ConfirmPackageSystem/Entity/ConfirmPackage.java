@@ -1,18 +1,11 @@
-package team20.transport.ParcelDeliverySystem.ConfirmPackage.Entity;
+package team20.transport.ParcelDeliverySystem.ConfirmPackageSystem.Entity;
 
 import lombok.*;
-
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
-
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
+import javax.persistence.*;
+import java.util.Collection;
+import team20.transport.ParcelDeliverySystem.Entity.Employee;
+import team20.transport.ParcelDeliverySystem.MemberCustomerSystem.Entity.*;
+import team20.transport.ParcelDeliverySystem.AddPackageSystem.Entity.*;
 
 import java.util.Date;
 @Data
@@ -35,11 +28,11 @@ public class ConfirmPackage {
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Employee.class)
     @JoinColumn(name = "EMPLOYEE_ID", insertable = true)
-    private Employee employee;
+    private Employee CreateBy;
 
-    @ManyToOne(fetch = FetchType.EAGER, targetEntity = IDPackage.class)
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Packaging.class)
     @JoinColumn(name = "PACKAGE_ID", insertable = true)
-    private IDPackage idpackage;
+    private Packaging packaging;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = SatisfactionLevel.class)
     @JoinColumn(name = "SATISFACTIONLEVEL_ID", insertable = true)
