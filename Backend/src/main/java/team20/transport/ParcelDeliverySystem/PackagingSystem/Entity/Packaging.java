@@ -1,5 +1,9 @@
 ﻿package team20.transport.ParcelDeliverySystem.PackagingSystem.Entity;
-
+package team20.transport.ParcelDeliverySystem.ShippingStateSystem.Entity;
+package team20.transport.ParcelDeliverySystem.ConfirmPackageSystem.Entity;
+package team20.transport.ParcelDeliverySystem.CancelsentSystem.Entity;
+package team20.transport.ParcelDeliverySystem.MemberCustomerSystem.Entity;
+package team20.transport.ParcelDeliverySystem.SentParcelSystem.Entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
@@ -27,6 +31,11 @@ public class Packaging {
     private @NonNull Long volume;
     private @NonNull Date packageDate;
 
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = MemberCustomer.class)
+    @JoinColumn(name = "CUSTOMER_ID", insertable = true)
+    @JsonManagedReference
+    private MemberCustomer sentBy;
+
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Employee.class)
     @JoinColumn(name = "EMPOLYEE_ID", insertable = true)
     @JsonManagedReference
@@ -49,4 +58,24 @@ public class Packaging {
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = SendingType.class)
     @JoinColumn(name = "STYPE_ID", insertable = true)
     private SendingType sendingType;
+  
+    @OneToMany(fetch = FetchType.LAZY, targetEntity = ShippingState.class)
+    @JoinColumn(name = "SHIPPINGSTATE_ID")
+    @JsonBackReference
+    private Collection<ShippingState> haveShippingState;
+
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = SentParcel.class)
+    @JoinColumn(name = "SENTPARCEL_ID", insertable = true)
+    @JsonManagedReference
+    private SentParcel sentParcel;
+
+    @OneToOne(fetch = FetchType.EAGER, targetEntity = Cancelsent.class)
+    @JoinColumn(name = "CANCELSENT_ID", insertable = true)
+    @JsonManagedReference
+    private Cancelsent cancelsent;
+
+    @OneToOne(fetch = FetchType.EAGER, targetEntity = ConfirmPackage.class)
+    @JoinColumn(name = "CONFIRMPACKAGE_ID", insertable = true)
+    @JsonManagedReference
+    private ConfirmPackage confirmPackage;
 }
