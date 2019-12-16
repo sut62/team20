@@ -1,6 +1,5 @@
 package team20.transport.ParcelDeliverySystem.ShippingStateSystem.Entity;
 
-
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NonNull;
@@ -27,7 +26,6 @@ public class ShippingState {
     @Column(name="SHIPPINGSTATE_TIMESTAMP", nullable = false)
     private @NonNull Timestamp timestamp;
 
-
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Employee.class)
     @JoinColumn(name = "EMPOLYEE_ID", insertable = true)
     @JsonManagedReference
@@ -47,6 +45,5 @@ public class ShippingState {
     @JoinColumn(name = "PACKAGING_ID", insertable = true)
     @JsonManagedReference
     private Packaging ofPackage;
-
 
 }
