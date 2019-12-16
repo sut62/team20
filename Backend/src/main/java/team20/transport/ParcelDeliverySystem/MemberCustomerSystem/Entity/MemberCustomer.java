@@ -3,7 +3,7 @@ package team20.transport.ParcelDeliverySystem.MemberCustomerSystem.Entity;
 import lombok.*;
 import javax.persistence.*;
 import java.util.Collection;
-import team20.transport.ParcelDeliverySystem.Entity.*;
+import team20.transport.ParcelDeliverySystem.Entity.Employee;
 import team20.transport.ParcelDeliverySystem.MemberCustomerSystem.Entity.*;
 
 @Entity
