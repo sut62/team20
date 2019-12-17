@@ -20,5 +20,6 @@ public class SendingTypeController {
         List<SatisfactionLevel> satisfactionLevel = new ArrayList<>();
         repository.findAll().forEach(SatisfactionLevels::add);
         return satisfactionLevels;
+
     }
 }
