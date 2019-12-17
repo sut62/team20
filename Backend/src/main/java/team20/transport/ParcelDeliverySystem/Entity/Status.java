@@ -31,7 +31,7 @@ public class Status {
     @JsonBackReference
     private Collection<Packaging> havePackaging;
 
-    @OneToMany(fetch = FetchType.LAZY, targetEntity = CanCelSent.class)
+    @OneToMany(fetch = FetchType.LAZY, targetEntity = Cancelsent.class)
     @JoinColumn(name = "CANCELSENT_ID")
     @JsonBackReference
     private Collection<Cancelsent> haveCansel;

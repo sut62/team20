@@ -22,18 +22,20 @@ public class Cancelsent {
     @Column(name = "CANCELSENT_ID", unique = true, nullable = true)
     private @NonNull Long id;
 
-    @Column(name="CANCEL_PRICE")
-    private @NonNull Long price;
-
-    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Status.class)
+    @OneToOne(fetch = FetchType.EAGER, targetEntity = Status.class)
     @JoinColumn(name = "STATUS_ID", insertable = true)
     @JsonManagedReference
     private Status onStatus;
 
+    @OneToOne(fetch = FetchType.EAGER, targetEntity = Status.class)
+    @JoinColumn(name = "PACKAGING_ID", insertable = true)
+    @JsonManagedReference
+    private Packaging onPackageing;
+
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Howtopay.class)
     @JoinColumn(name = "HOWTOPAY_ID", insertable = true)
     @JsonManagedReference
-    private Howtopay onHowtoPay;
+    private Howtopay onHowtopay;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Senttoback.class)
     @JoinColumn(name = "SENTTOBACK_ID", insertable = true)
