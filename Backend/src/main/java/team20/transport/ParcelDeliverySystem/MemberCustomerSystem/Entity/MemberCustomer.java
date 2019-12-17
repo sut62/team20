@@ -5,6 +5,7 @@ import javax.persistence.*;
 import java.util.Collection;
 import team20.transport.ParcelDeliverySystem.Entity.Employee;
 import team20.transport.ParcelDeliverySystem.MemberCustomerSystem.Entity.*;
+import team20.transport.ParcelDeliverySystem.PackagingSystem.Entity.Packaging;
 
 @Entity
 @Data
@@ -33,6 +34,10 @@ public class MemberCustomer {
     @JoinColumn(name = "MEMBER_LEVEL_ID", insertable = true)
     private MemberLevel MemberLevel;
 
+    @OneToMany(fetch = FetchType.EAGER, targetEntity = Packaging.class)
+    @JoinColumn(name = "PACKAGING_ID", insertable = true)
+    @JsonManagedReference
+    private MemberCustomer hasSend;
  //
 
 }
