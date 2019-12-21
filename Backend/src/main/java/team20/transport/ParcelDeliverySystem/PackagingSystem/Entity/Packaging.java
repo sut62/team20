@@ -30,6 +30,7 @@ public class Packaging {
     private @NonNull Long weight;
     private @NonNull Long volume;
     private @NonNull Date packageDate;
+    private @NonNull Boolean status;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = MemberCustomer.class)
     @JoinColumn(name = "CUSTOMER_ID", insertable = true)
@@ -40,11 +41,6 @@ public class Packaging {
     @JoinColumn(name = "EMPOLYEE_ID", insertable = true)
     @JsonManagedReference
     private Employee createBy;
-
-    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Status.class)
-    @JoinColumn(name = "STATUS_ID", insertable = true)
-    @JsonManagedReference
-    private Status onStatus;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Station.class)
     @JoinColumn(name = "STATION_ID", insertable = true)

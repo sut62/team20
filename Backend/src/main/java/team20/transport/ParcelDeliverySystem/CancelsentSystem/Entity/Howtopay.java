@@ -11,19 +11,19 @@ import java.util.Collection;
 @Entity
 @Getter
 @Setter
-@Table(name="SENTTOBACK")
-public class Senttoback {
+@Table(name="HOWTOPAY")
+public class Howtopay {
     @Id
-    @SequenceGenerator(name="SENTTOBACK_SEQ",sequenceName="SENTTOBACK_SEQ")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="SENTTOBACK_SEQ")
-    @Column(name="SENTTOBACK_ID",unique = true, nullable = true)
+    @SequenceGenerator(name="HOWTOPAY_SEQ",sequenceName="HOWTOPAY_SEQ")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="HOWTOPAY_SEQ")
+    @Column(name="HOWTOPAY_ID",unique = true, nullable = true)
     private @NonNull Long id;
 
-    @Column(name="SENTTOBACK_NAME")
+    @Column(name="HOWTOPAY_NAME")
     private @NonNull String name;
 
     @OneToMany(fetch = FetchType.LAZY, targetEntity = Cancelsent.class)
     @JoinColumn(name = "CANCELSENT_ID")
     @JsonBackReference
-    private Collection<Cancelsent> haveCancelSentToBack;
+    private Collection<Cancelsent> haveCancelHowtopay;
 }
