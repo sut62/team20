@@ -13,7 +13,7 @@
                 </b-navbar-nav>
             </b-collapse>
     </b-navbar>
-    <div class="container" style="margin-top:80px;">
+    <div class="container" style="margin-top:80px;margin-bottom:80px;">
         <router-view></router-view>
     </div>
 
