@@ -38,8 +38,8 @@ public class MemberCustomer {
 
     @OneToMany(fetch = FetchType.EAGER, targetEntity = Packaging.class)
     @JoinColumn(name = "PACKAGING_ID", insertable = true)
-    @JsonManagedReference
-    private Packaging hasSend;
+    @JsonBackReference
+    private Collection<Packaging> hasSend;
  //
 
 }
