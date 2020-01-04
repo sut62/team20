@@ -13,7 +13,7 @@ import java.util.List;
 @CrossOrigin(origins = {"*"})
 public class PackageTypeController {
     @Autowired
-    packageTypeRepository repository;
+    PackageTypeRepository repository;
 
     @GetMapping("/packageType")
     public List<PackageType> getAllPackageType() {
