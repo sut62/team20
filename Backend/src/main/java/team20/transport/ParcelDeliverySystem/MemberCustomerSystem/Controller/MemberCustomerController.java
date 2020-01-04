@@ -35,9 +35,9 @@ public class MemberCustomerController {
                                     @PathVariable Long type_id,
                                     @PathVariable Long level_id){
 
-        Employee emp = employeeRepository.findById(employee_id);
-        MemberType mt = memberTypeRepository.findById(type_id);
-        MemberLevel ml = memberLevelRepository.findById(level_id);
+        Employee emp = employeeRepository.findById(employee_id).get();
+        MemberType mt = memberTypeRepository.findById(type_id).get();
+        MemberLevel ml = memberLevelRepository.findById(level_id).get();
 
         newMemberCustomer.setMemName(mname);
         newMemberCustomer.setTel(tel);
