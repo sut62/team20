@@ -7,6 +7,7 @@ import team20.transport.ParcelDeliverySystem.ShippingStateSystem.Entity.Shipping
 import team20.transport.ParcelDeliverySystem.MemberCustomerSystem.Entity.MemberCustomer;
 import team20.transport.ParcelDeliverySystem.ConfirmPackageSystem.Entity.ConfirmPackage;
 import team20.transport.ParcelDeliverySystem.PackagingSystem.Entity.Packaging;
+import team20.transport.ParcelDeliverySystem.CancelsentSystem.Entity.Cancelsent;
 import javax.persistence.*;
 import java.util.Collection;
 
@@ -40,5 +41,10 @@ public class Employee {
     @JoinColumn(name = "PACKAGE_ID")
     @JsonBackReference
     private Collection<Packaging> send;
+
+    @OneToMany(fetch = FetchType.LAZY, targetEntity = Cancelsent.class)
+    @JoinColumn(name = "CANCELSENT_ID")
+    @JsonBackReference
+    private Collection<Cancelsent> haveCansel;
 
 }
