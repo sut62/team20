@@ -1,9 +1,11 @@
 package team20.transport.ParcelDeliverySystem.ConfirmPackageSystem.Entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 import javax.persistence.*;
 import java.util.Collection;
 import team20.transport.ParcelDeliverySystem.ConfirmPackageSystem.Entity.*;
+import team20.transport.ParcelDeliverySystem.MemberCustomerSystem.Entity.MemberCustomer;
 
 @Data
 @Entity
@@ -18,7 +20,9 @@ public class SatisfactionLevel {
 
     private @NonNull String satisfactionlevel_name;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.LAZY, targetEntity = ConfirmPackage.class)
+    @JoinColumn(name = "CONFIRM_PACKGAGE_ID")
+    @JsonBackReference
     private Collection<ConfirmPackage> confirm;
 
 }
