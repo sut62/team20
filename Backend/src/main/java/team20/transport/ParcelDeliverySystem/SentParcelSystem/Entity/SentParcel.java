@@ -1,4 +1,5 @@
-﻿package team20.transport.ParcelDeliverySystem.SentParcelSystem.Entity;
+package team20.transport.ParcelDeliverySystem.SentParcelSystem.Entity;
+
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
