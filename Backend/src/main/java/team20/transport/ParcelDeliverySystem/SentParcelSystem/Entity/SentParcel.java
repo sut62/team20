@@ -1,12 +1,12 @@
 ﻿package team20.transport.ParcelDeliverySystem.SentParcelSystem.Entity;
 
-
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
 import team20.transport.ParcelDeliverySystem.Entity.Status;
 import team20.transport.ParcelDeliverySystem.PackagingSystem.Entity.Packaging;
+import team20.transport.ParcelDeliverySystem.Entity.Station;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -32,4 +32,8 @@ public class SentParcel {
     @JsonManagedReference
     private Station atStation;
 
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = SentTime.class)
+    @JoinColumn(name = "SENTTIME_ID", insertable = true)
+    @JsonManagedReference
+    private SentTime senttime;
 }
