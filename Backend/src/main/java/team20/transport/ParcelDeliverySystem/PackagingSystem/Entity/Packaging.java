@@ -1,19 +1,21 @@
 ﻿package team20.transport.ParcelDeliverySystem.PackagingSystem.Entity;
-package team20.transport.ParcelDeliverySystem.ShippingStateSystem.Entity;
-package team20.transport.ParcelDeliverySystem.ConfirmPackageSystem.Entity;
-package team20.transport.ParcelDeliverySystem.CancelsentSystem.Entity;
-package team20.transport.ParcelDeliverySystem.MemberCustomerSystem.Entity;
-package team20.transport.ParcelDeliverySystem.SentParcelSystem.Entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
 import team20.transport.ParcelDeliverySystem.Entity.Employee;
 import team20.transport.ParcelDeliverySystem.Entity.Station;
-import team20.transport.ParcelDeliverySystem.Entity.Status;
-
+import team20.transport.ParcelDeliverySystem.PackagingSystem.Entity.;
+import team20.transport.ParcelDeliverySystem.ShippingStateSystem.Entity.ShippingState;
+import team20.transport.ParcelDeliverySystem.ConfirmPackageSystem.Entity.ConfirmPackage;
+import team20.transport.ParcelDeliverySystem.CancelsentSystem.Entity.Cancelsent;
+import team20.transport.ParcelDeliverySystem.MemberCustomerSystem.Entity.MemberCustomer;
+import team20.transport.ParcelDeliverySystem.SentParcelSystem.Entity.SentParcel;
 import javax.persistence.*;
+import java.util.Collection;
+import java.util.Date;
 
 @Entity
 @Getter
@@ -30,7 +32,6 @@ public class Packaging {
     private @NonNull Long weight;
     private @NonNull Long volume;
     private @NonNull Date packageDate;
-    private @NonNull Boolean status;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = MemberCustomer.class)
     @JoinColumn(name = "CUSTOMER_ID", insertable = true)

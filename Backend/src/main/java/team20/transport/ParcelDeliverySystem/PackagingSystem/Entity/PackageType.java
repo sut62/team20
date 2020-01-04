@@ -1,3 +1,5 @@
+package team20.transport.ParcelDeliverySystem.PackagingSystem.Entity;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.NonNull;
@@ -19,5 +21,5 @@ public class PackageType {
     private @NonNull String type;
 
     @OneToMany(fetch = FetchType.EAGER)
-    private Collection<Packaging> package;
+    private Collection<Packaging> packaging;
 }
