@@ -13,7 +13,7 @@ import java.util.List;
 @CrossOrigin(origins = {"*"})
 public class SendingTypeController {
     @Autowired
-    sendingTypeRepository repository;
+    SendingTypeRepository repository;
 
     @GetMapping("/sendingType")
     public List<SendingType> getAllSendingType() {

@@ -7,7 +7,6 @@ import lombok.NonNull;
 import lombok.Setter;
 import team20.transport.ParcelDeliverySystem.Entity.Employee;
 import team20.transport.ParcelDeliverySystem.Entity.Station;
-import team20.transport.ParcelDeliverySystem.PackagingSystem.Entity.;
 import team20.transport.ParcelDeliverySystem.ShippingStateSystem.Entity.ShippingState;
 import team20.transport.ParcelDeliverySystem.ConfirmPackageSystem.Entity.ConfirmPackage;
 import team20.transport.ParcelDeliverySystem.CancelsentSystem.Entity.Cancelsent;
