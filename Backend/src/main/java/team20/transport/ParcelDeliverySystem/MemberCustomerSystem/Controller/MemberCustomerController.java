@@ -2,7 +2,7 @@ package team20.transport.ParcelDeliverySystem.MemberCustomerSystem.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import team20.transport.ParcelDeliverySystem.MemberCustomerSystem.Entity.MemberCustomer;
+import team20.transport.ParcelDeliverySystem.MemberCustomerSystem.Entity.*;
 import team20.transport.ParcelDeliverySystem.MemberCustomerSystem.Repository.*;
 import team20.transport.ParcelDeliverySystem.Repository.EmployeeRepository;
 import java.util.Collection;
