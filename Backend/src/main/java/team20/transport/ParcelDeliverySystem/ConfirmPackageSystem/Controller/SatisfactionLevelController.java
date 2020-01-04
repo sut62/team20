@@ -9,16 +9,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/ConfirmPackage")
+@RequestMapping("/team20")
 @CrossOrigin(origins = {"*"})
-public class SendingTypeController {
+public class SatisfactionLevelController {
     @Autowired
-    satisfactionLevelRepository repository;
+    SatisfactionLevelRepository repository;
 
     @GetMapping("/satisfactionLevel")
     public List<SatisfactionLevel> getAllSatisfactionLevel() {
         List<SatisfactionLevel> satisfactionLevel = new ArrayList<>();
-        repository.findAll().forEach(SatisfactionLevels::add);
-        return satisfactionLevels;
+        repository.findAll().forEach(satisfactionLevel::add);
+        return satisfactionLevel;
     }
 }
