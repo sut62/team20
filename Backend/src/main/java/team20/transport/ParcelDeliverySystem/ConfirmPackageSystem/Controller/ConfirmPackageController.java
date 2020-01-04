@@ -35,9 +35,8 @@ public class ConfirmPackageController {
         Employee createBy = employeeRepository.findById(allParams.get("employeeId")).get();
         SatisfactionLevel satisfactionLevel = satisfactionLevelRepository.findById(allParams.get("satisfactionLevelId")).get();
 
-        Timestamp CurrentTimeStamp = new Timestamp(new Date().getTime());
         ConfirmPackage newConfirmPackage = new ConfirmPackage();
-        newConfirmPackage.setTimestamp(CurrentTimeStamp);
+        newConfirmPackage.setConfirmDate(new Date());
         newConfirmPackage.setSatisfactionLevel(satisfactionLevel);
         newConfirmPackage.setCreateBy(createBy);
         newConfirmPackage.setPackaging(packaging);
