@@ -5,7 +5,7 @@ import lombok.NonNull;
 import lombok.Setter;
 import team20.transport.ParcelDeliverySystem.ShippingStateSystem.Entity.ShippingState;
 import team20.transport.ParcelDeliverySystem.PackagingSystem.Entity.Packaging;
-import team20.transport.ParcelDeliverySystem.CancelSent.Entity.CanCelSent;
+import team20.transport.ParcelDeliverySystem.CancelsentSystem.Entity.Cancelsent;
 
 import javax.persistence.*;
 import java.util.Collection;
