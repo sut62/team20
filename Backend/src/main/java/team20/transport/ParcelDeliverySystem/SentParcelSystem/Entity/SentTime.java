@@ -1,0 +1,25 @@
+﻿package team20.transport.ParcelDeliverySystem.SentParcelSystem.Entity;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.Getter;
+import lombok.NonNull;
+import lombok.Setter;
+import team20.transport.ParcelDeliverySystem.SentParcelSystem.Entity.SentParcel;
+
+import javax.persistence.*;
+import java.sql.Timestamp;
+
+@Entity
+@Getter
+@Setter
+@Table(name="SENTTIME")
+public class SentTime {
+    @Id
+    @SequenceGenerator(name="SENTTIME_SEQ",sequenceName="SENTTIME_SEQ",initialValue = 1,allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="SENTTIME_SEQ")
+    @Column(name="SENTTIME_SEQ",unique = true, nullable = true)
+    private @NonNull Long id;
+
+    @OneToMany(fetch = FetchType.EAGER)
+    private SentParcel sentParcel;
+}
