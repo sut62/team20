@@ -9,7 +9,6 @@ import team20.transport.ParcelDeliverySystem.Entity.Status;
 import team20.transport.ParcelDeliverySystem.Entity.Employee;
 import team20.transport.ParcelDeliverySystem.PackagingSystem.Entity.Packaging;
 
-
 import javax.persistence.*;
 
 @Entity
@@ -37,12 +36,12 @@ public class Cancelsent {
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = team20.transport.ParcelDeliverySystem.CancelsentSystem.Entity.Howtopay.class)
     @JoinColumn(name = "HOWTOPAY_ID", insertable = true)
     @JsonManagedReference
-    private team20.transport.ParcelDeliverySystem.CancelsentSystem.Entity.Howtopay onHowtopay;
+    private  Howtopay onHowtopay;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = team20.transport.ParcelDeliverySystem.CancelsentSystem.Entity.Senttoback.class)
     @JoinColumn(name = "SENTTOBACK_ID", insertable = true)
     @JsonManagedReference
-    private team20.transport.ParcelDeliverySystem.CancelsentSystem.Entity.Senttoback onSenttoback;
+    private Senttoback onSenttoback;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Employee.class)
     @JoinColumn(name = "EMPOLYEE_ID", insertable = true)
