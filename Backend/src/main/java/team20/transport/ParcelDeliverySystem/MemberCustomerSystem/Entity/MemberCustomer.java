@@ -6,6 +6,8 @@ import java.util.Collection;
 import team20.transport.ParcelDeliverySystem.Entity.Employee;
 import team20.transport.ParcelDeliverySystem.MemberCustomerSystem.Entity.*;
 import team20.transport.ParcelDeliverySystem.PackagingSystem.Entity.Packaging;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Data
