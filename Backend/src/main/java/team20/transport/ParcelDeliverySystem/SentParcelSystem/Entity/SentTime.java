@@ -1,13 +1,10 @@
 ﻿package team20.transport.ParcelDeliverySystem.SentParcelSystem.Entity;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
-import team20.transport.ParcelDeliverySystem.SentParcelSystem.Entity.SentParcel;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 
 @Entity
 @Getter
