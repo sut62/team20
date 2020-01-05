@@ -32,7 +32,7 @@ public class ConfirmPackage {
     @JsonBackReference
     private Employee CreateBy;
 
-    @OneToOne(orphanRemoval = true,mappedBy = "confirmPackage")
+    @OneToOne
     @JsonBackReference
     private Packaging packaging;
 
