@@ -25,13 +25,11 @@ public class Cancelsent {
     @Column(name = "CANCELSENT_ID", unique = true, nullable = true)
     private @NonNull Long id;
 
-    @OneToOne(fetch = FetchType.EAGER, targetEntity = Status.class)
-    @JoinColumn(name = "STATUS_ID", insertable = true)
+    @OneToOne(orphanRemoval = true, mappedBy = "haveCancel")
     @JsonBackReference
     private Status onStatus;
 
-    @OneToOne(fetch = FetchType.EAGER, targetEntity = Status.class)
-    @JoinColumn(name = "PACKAGING_ID", insertable = true)
+    @OneToOne(orphanRemoval = true, mappedBy = "haveCancel")
     @JsonBackReference
     private Packaging onPackageing;
 
