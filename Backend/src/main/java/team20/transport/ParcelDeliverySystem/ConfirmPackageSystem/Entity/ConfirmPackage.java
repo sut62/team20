@@ -1,6 +1,6 @@
 package team20.transport.ParcelDeliverySystem.ConfirmPackageSystem.Entity;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 import javax.persistence.*;
 import java.util.Collection;
