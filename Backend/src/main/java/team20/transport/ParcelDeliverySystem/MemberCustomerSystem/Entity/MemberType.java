@@ -1,5 +1,6 @@
 package team20.transport.ParcelDeliverySystem.MemberCustomerSystem.Entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 import javax.persistence.*;
 import java.util.Collection;
@@ -19,7 +20,9 @@ public class MemberType {
 
     private @NonNull String type;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.LAZY, targetEntity = MemberCustomer.class)
+    @JoinColumn(name = "MEMBER_CUSTOMER_ID")
+    @JsonBackReference
     private Collection<MemberCustomer> MemberCustomer;
 
 

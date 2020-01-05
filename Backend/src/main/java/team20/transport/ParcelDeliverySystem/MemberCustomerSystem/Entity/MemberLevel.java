@@ -1,8 +1,11 @@
 package team20.transport.ParcelDeliverySystem.MemberCustomerSystem.Entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 import javax.persistence.*;
 import java.util.Collection;
+
+import team20.transport.ParcelDeliverySystem.CancelsentSystem.Entity.Cancelsent;
 import team20.transport.ParcelDeliverySystem.MemberCustomerSystem.Entity.*;
 
 @Entity
@@ -19,7 +22,9 @@ public class MemberLevel {
 
     private @NonNull int permission;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.LAZY, targetEntity = MemberCustomer.class)
+    @JoinColumn(name = "MEMBER_CUSTOMER_ID")
+    @JsonBackReference
     private Collection<MemberCustomer> MemberCustomer;
 
 
