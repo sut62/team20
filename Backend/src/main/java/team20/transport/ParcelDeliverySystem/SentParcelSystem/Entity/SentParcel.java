@@ -1,6 +1,7 @@
 package team20.transport.ParcelDeliverySystem.SentParcelSystem.Entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
@@ -21,9 +22,8 @@ public class SentParcel {
     @Column(name="SENTPARCEL_ID",unique = true, nullable = true)
     private @NonNull Long id;
 
-    @OneToMany(fetch = FetchType.EAGER, targetEntity = Packaging.class)
-    @JoinColumn(name = "PACKAGING_ID", insertable = true)
-    @JsonBackReference
+    @OneToMany(orphanRemoval = true, mappedBy = "sentParcel")
+    @JsonManagedReference
     private Collection<Packaging> packaging;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Station.class)
