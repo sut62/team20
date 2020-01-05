@@ -35,8 +35,7 @@ public class Employee {
     @JsonManagedReference
     private Collection<ShippingState> haveShippingState;
 
-    @OneToMany(fetch = FetchType.LAZY, targetEntity = MemberCustomer.class)
-    @JoinColumn(name = "MEMBER_CUSTOMER_ID")
+    @OneToMany(@OneToMany(orphanRemoval = true, mappedBy = "CreateBy")
     @JsonBackReference
     private Collection<MemberCustomer> RegisterMember;
 
