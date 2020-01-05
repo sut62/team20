@@ -1,5 +1,6 @@
 package team20.transport.ParcelDeliverySystem.Entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
@@ -21,6 +22,14 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="EMPOLYEE_SEQ")
     @Column(name="EMPOLYEE_ID",unique = true, nullable = true)
     private @NonNull Long id;
+
+    @Column(name="EMPOLYEE_NAME",unique = true, nullable = true)
+    private @NonNull Long name;
+
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = EmployeePosition.class)
+    @JoinColumn(name = "EMPOLYEEPOSITION_ID")
+    @JsonManagedReference
+    private EmployeePosition employeePosition;
 
     @OneToMany(fetch = FetchType.LAZY, targetEntity = ShippingState.class)
     @JoinColumn(name = "SHIPPINGSTATE_ID")
