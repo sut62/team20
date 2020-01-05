@@ -28,6 +28,7 @@ public class ConfirmPackage {
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Employee.class)
     @JoinColumn(name = "EMPLOYEE_ID", insertable = true)
+    @JsonBackReference
     private Employee CreateBy;
 
     @OneToOne(fetch = FetchType.EAGER, targetEntity = Packaging.class)
@@ -36,6 +37,7 @@ public class ConfirmPackage {
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = SatisfactionLevel.class)
     @JoinColumn(name = "SATISFACTIONLEVEL_ID", insertable = true)
+    @JsonBackReference
     private SatisfactionLevel satisfactionLevel;
 
 }
