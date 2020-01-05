@@ -51,6 +51,6 @@ public class Employee {
     @OneToMany(fetch = FetchType.LAZY, targetEntity = Cancelsent.class)
     @JoinColumn(name = "CANCELSENT_ID")
     @JsonBackReference
-    private Collection<Cancelsent> haveCansel;
+    private Collection<Cancelsent> haveCancel;
 
 }
