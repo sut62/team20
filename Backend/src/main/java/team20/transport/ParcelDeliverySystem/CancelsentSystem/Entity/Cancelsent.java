@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import team20.transport.ParcelDeliverySystem.Entity.Status;
 import team20.transport.ParcelDeliverySystem.Entity.Employee;
 import team20.transport.ParcelDeliverySystem.PackagingSystem.Entity.Packaging;
