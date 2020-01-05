@@ -20,6 +20,7 @@ public class SendingType {
     private @NonNull Long id;
     private @NonNull String type;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(orphanRemoval = true, mappedBy = "sendingType")
+    @JsonManagedReference
     private Collection<Packaging> send;
 }
