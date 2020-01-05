@@ -22,8 +22,7 @@ public class Station {
     @Column(name="STATION_ID",unique = true, nullable = true)
     private @NonNull Long id;
 
-    @OneToMany(fetch = FetchType.LAZY, targetEntity = ShippingState.class)
-    @JoinColumn(name = "SHIPPINGSTATE_ID")
+    @OneToMany(orphanRemoval = true, mappedBy = "createBy")
     @JsonManagedReference
     private Collection<ShippingState> haveShippingState;
 
