@@ -29,7 +29,7 @@ public class Cancelsent {
     @JsonBackReference
     private Status onStatus;
 
-    @OneToOne(orphanRemoval = true, mappedBy = "haveCancel")
+    @OneToOne(orphanRemoval = true, mappedBy = "Cancelsent")
     @JsonBackReference
     private Packaging onPackageing;
 
