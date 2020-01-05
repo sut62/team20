@@ -34,17 +34,17 @@ public class Packaging {
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = MemberCustomer.class)
     @JoinColumn(name = "CUSTOMER_ID", insertable = true)
-    @JsonManagedReference
+    @JsonBackReference
     private MemberCustomer sentBy;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Employee.class)
     @JoinColumn(name = "EMPOLYEE_ID", insertable = true)
-    @JsonManagedReference
+    @JsonBackReference
     private Employee createBy;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Station.class)
     @JoinColumn(name = "STATION_ID", insertable = true)
-    @JsonManagedReference
+    @JsonBackReference
     private Station atStation;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = PackageType.class)
@@ -57,21 +57,21 @@ public class Packaging {
   
     @OneToMany(fetch = FetchType.LAZY, targetEntity = ShippingState.class)
     @JoinColumn(name = "SHIPPINGSTATE_ID")
-    @JsonBackReference
+    @JsonManagedReference
     private Collection<ShippingState> haveShippingState;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = SentParcel.class)
     @JoinColumn(name = "SENTPARCEL_ID", insertable = true)
-    @JsonManagedReference
+    @JsonBackReference
     private SentParcel sentParcel;
 
     @OneToOne(fetch = FetchType.EAGER, targetEntity = Cancelsent.class)
     @JoinColumn(name = "CANCELSENT_ID", insertable = true)
-    @JsonManagedReference
+    @JsonBackReference
     private Cancelsent cancelsent;
 
     @OneToOne(fetch = FetchType.EAGER, targetEntity = ConfirmPackage.class)
     @JoinColumn(name = "CONFIRMPACKAGE_ID", insertable = true)
-    @JsonManagedReference
+    @JsonBackReference
     private ConfirmPackage confirmPackage;
 }
