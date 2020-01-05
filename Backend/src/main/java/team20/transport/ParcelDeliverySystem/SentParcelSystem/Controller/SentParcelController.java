@@ -12,6 +12,7 @@ import team20.transport.ParcelDeliverySystem.SentParcelSystem.Repository.SentPar
 import team20.transport.ParcelDeliverySystem.SentParcelSystem.Repository.SentTimeRepository;
 import team20.transport.ParcelDeliverySystem.PackagingSystem.Repository.PackagingRepository;
 
+import java.util.Collection;
 import java.util.Map;
 
 @RestController
@@ -29,7 +30,7 @@ public class SentParcelController {
     @PostMapping("/addSentParcel")
     public SentParcel addSentParcel(@RequestBody Map<String,Long> allParams){
 
-        Packaging ofPackage = packagingRepository.findById(allParams.get("packageId")).get();
+        Collection<Packaging> ofPackage = packagingRepository.findByPackageId(Long.valueOf(allParams.get("packageId")));
         Station atStation = stationRepository.findById(allParams.get("stationId")).get();
         SentTime toparcel = sentTimeRepository.findById(allParams.get("senttimeId")).get();
 

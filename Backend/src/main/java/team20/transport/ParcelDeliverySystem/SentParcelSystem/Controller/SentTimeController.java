@@ -10,6 +10,7 @@ import team20.transport.ParcelDeliverySystem.SentParcelSystem.Entity.SentTime;
 import team20.transport.ParcelDeliverySystem.SentParcelSystem.Repository.SentParcelRepository;
 import team20.transport.ParcelDeliverySystem.SentParcelSystem.Repository.SentTimeRepository;
 
+import java.util.Collection;
 import java.util.Map;
 
 @RestController
@@ -24,7 +25,7 @@ public class SentTimeController {
     @PostMapping("/senttime")
     public SentTime senttime(@RequestBody Map<String,Long> allParams){
 
-        SentParcel createBy = sentParcelRepository.findById(allParams.get("sentparcelId")).get();
+        Collection<SentParcel> createBy = sentParcelRepository.findBySentparcelId(Long.valueOf(allParams.get("sentparcelId")));
 
         SentTime newSentTime = new SentTime();
         newSentTime.setSentParcel(createBy);
