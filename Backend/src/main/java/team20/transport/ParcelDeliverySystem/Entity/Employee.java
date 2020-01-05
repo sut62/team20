@@ -31,8 +31,7 @@ public class Employee {
     @JsonManagedReference
     private EmployeePosition employeePosition;
 
-    @OneToMany(fetch = FetchType.LAZY, targetEntity = ShippingState.class)
-    @JoinColumn(name = "SHIPPINGSTATE_ID")
+    @OneToMany(orphanRemoval = true, mappedBy = "createBy")
     @JsonManagedReference
     private Collection<ShippingState> haveShippingState;
 
