@@ -35,7 +35,7 @@ public class Employee {
     @JsonManagedReference
     private Collection<ShippingState> haveShippingState;
 
-    @OneToMany(@OneToMany(orphanRemoval = true, mappedBy = "CreateBy")
+    @OneToMany(orphanRemoval = true, mappedBy = "CreateBy")
     @JsonBackReference
     private Collection<MemberCustomer> RegisterMember;
 
