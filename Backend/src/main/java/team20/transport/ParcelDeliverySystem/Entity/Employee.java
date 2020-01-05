@@ -50,9 +50,8 @@ public class Employee {
     @JsonBackReference
     private Collection<Packaging> send;
 
-    @OneToMany(fetch = FetchType.LAZY, targetEntity = Cancelsent.class)
-    @JoinColumn(name = "CANCELSENT_ID")
-    @JsonBackReference
+    @OneToMany(orphanRemoval = true, mappedBy = "createBy")
+    @JsonManagedReference
     private Collection<Cancelsent> haveCancel;
 
 }
