@@ -32,8 +32,8 @@ public class ConfirmPackage {
     @JsonBackReference
     private Employee CreateBy;
 
-    @OneToOne(fetch = FetchType.EAGER, targetEntity = Packaging.class)
-    @JoinColumn(name = "PACKAGING_ID", insertable = true)
+    @OneToOne(orphanRemoval = true,mappedBy = "confirmPackage")
+    @JsonBackReference
     private Packaging packaging;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = SatisfactionLevel.class)

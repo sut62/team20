@@ -40,8 +40,7 @@ public class Employee {
     @JsonBackReference
     private Collection<MemberCustomer> RegisterMember;
 
-    @OneToMany(fetch = FetchType.LAZY, targetEntity = ConfirmPackage.class)
-    @JoinColumn(name = "CONFIRM_PACKGAGE_ID")
+    @OneToMany(orphanRemoval = true,mappedBy = "CreateBy")
     @JsonBackReference
     private Collection<ConfirmPackage> confirm;
 
