@@ -20,7 +20,7 @@ public class EmployeePosition {
     private @NonNull Long id;
 
     @Column(name = "EMPOLYEEPOSITION_NPOSITION", unique = true, nullable = true)
-    private @NonNull Long position;
+    private @NonNull String position;
 
     @OneToMany(fetch = FetchType.LAZY, targetEntity = Employee.class)
     @JoinColumn(name = "EMPOLYEE_ID")
