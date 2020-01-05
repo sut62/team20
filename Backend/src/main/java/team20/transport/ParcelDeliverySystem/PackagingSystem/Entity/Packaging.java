@@ -54,9 +54,8 @@ public class Packaging {
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = SendingType.class)
     @JoinColumn(name = "STYPE_ID", insertable = true)
     private SendingType sendingType;
-  
-    @OneToMany(fetch = FetchType.LAZY, targetEntity = ShippingState.class)
-    @JoinColumn(name = "SHIPPINGSTATE_ID")
+
+    @OneToMany(orphanRemoval = true, mappedBy = "ofPackage")
     @JsonManagedReference
     private Collection<ShippingState> haveShippingState;
 
@@ -65,13 +64,11 @@ public class Packaging {
     @JsonBackReference
     private SentParcel sentParcel;
 
-    @OneToOne(fetch = FetchType.EAGER, targetEntity = Cancelsent.class)
-    @JoinColumn(name = "CANCELSENT_ID", insertable = true)
+    @OneToOne(orphanRemoval = true, mappedBy = "onPackageing")
     @JsonBackReference
     private Cancelsent cancelsent;
 
-    @OneToOne(fetch = FetchType.EAGER, targetEntity = ConfirmPackage.class)
-    @JoinColumn(name = "CONFIRMPACKAGE_ID", insertable = true)
+    @OneToOne(orphanRemoval = true, mappedBy = "packaging")
     @JsonBackReference
     private ConfirmPackage confirmPackage;
 }
