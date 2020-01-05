@@ -24,7 +24,7 @@ public class MemberLevel {
 
     @OneToMany(fetch = FetchType.LAZY, targetEntity = MemberCustomer.class)
     @JoinColumn(name = "MEMBER_CUSTOMER_ID")
-    @JsonBackReference
+    @JsonManagedReference
     private Collection<MemberCustomer> MemberCustomer;
 
 
