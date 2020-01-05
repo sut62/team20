@@ -23,16 +23,16 @@ public class SentParcel {
 
     @OneToMany(fetch = FetchType.EAGER, targetEntity = Packaging.class)
     @JoinColumn(name = "PACKAGING_ID", insertable = true)
-    @JsonManagedReference
+    @JsonBackReference
     private Collection<Packaging> packaging;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Station.class)
     @JoinColumn(name = "STATION_ID", insertable = true)
-    @JsonManagedReference
+    @JsonBackReference
     private Station atStation;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = SentTime.class)
     @JoinColumn(name = "SENTTIME_ID", insertable = true)
-    @JsonManagedReference
+    @JsonBackReference
     private SentTime senttime;
 }
