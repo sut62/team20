@@ -26,10 +26,6 @@ public class Status {
     @JsonManagedReference
     private Collection<ShippingState> haveShippingState;
 
-    @OneToMany(fetch = FetchType.LAZY, targetEntity = Packaging.class)
-    @JoinColumn(name = "PACKAGING_ID")
-    @JsonBackReference
-    private Collection<Packaging> havePackaging;
 
     @OneToOne(orphanRemoval = true, mappedBy = "onStatus")
     @JsonBackReference
