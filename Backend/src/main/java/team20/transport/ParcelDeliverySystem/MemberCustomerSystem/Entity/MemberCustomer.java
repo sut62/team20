@@ -36,9 +36,8 @@ public class MemberCustomer {
     @JoinColumn(name = "MEMBER_LEVEL_ID", insertable = true)
     private MemberLevel MemberLevel;
 
-    @OneToMany(fetch = FetchType.EAGER, targetEntity = Packaging.class)
-    @JoinColumn(name = "PACKAGING_ID", insertable = true)
-    @JsonBackReference
+    @OneToMany(orphanRemoval = true, mappedBy = "sentBy")
+    @JsonManagedReference
     private Collection<Packaging> hasSend;
  //
 

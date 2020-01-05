@@ -23,8 +23,7 @@ public class MemberLevel {
 
     private @NonNull int permission;
 
-    @OneToMany(fetch = FetchType.LAZY, targetEntity = MemberCustomer.class)
-    @JoinColumn(name = "MEMBER_CUSTOMER_ID")
+    @OneToMany(orphanRemoval = true, mappedBy = "MemberLevel")
     @JsonManagedReference
     private Collection<MemberCustomer> MemberCustomer;
 

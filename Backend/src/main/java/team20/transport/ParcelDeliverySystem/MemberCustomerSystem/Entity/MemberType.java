@@ -21,8 +21,7 @@ public class MemberType {
 
     private @NonNull String type;
 
-    @OneToMany(fetch = FetchType.LAZY, targetEntity = MemberCustomer.class)
-    @JoinColumn(name = "MEMBER_CUSTOMER_ID")
+    @OneToMany(orphanRemoval = true, mappedBy = "MemberType")
     @JsonManagedReference
     private Collection<MemberCustomer> MemberCustomer;
 
