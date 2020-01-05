@@ -1,9 +1,9 @@
 package team20.transport.ParcelDeliverySystem.SentParcelSystem.Entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
-
 import javax.persistence.*;
 import java.util.Collection;
 
