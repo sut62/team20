@@ -22,8 +22,7 @@ public class EmployeePosition {
     @Column(name = "EMPOLYEEPOSITION_NPOSITION", unique = true, nullable = true)
     private @NonNull String position;
 
-    @OneToMany(fetch = FetchType.LAZY, targetEntity = Employee.class)
-    @JoinColumn(name = "EMPOLYEE_ID")
+    @OneToMany(orphanRemoval = true, mappedBy = "employeePosition")
     @JsonBackReference
-    private Collection<Employee> haveShippingState;
+    private Collection<Employee> haveEmployee;
 }
