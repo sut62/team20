@@ -1,5 +1,6 @@
 package team20.transport.ParcelDeliverySystem.ShippingStateSystem.Entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NonNull;
@@ -28,22 +29,22 @@ public class ShippingState {
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Employee.class)
     @JoinColumn(name = "EMPOLYEE_ID", insertable = true)
-    @JsonManagedReference
+    @JsonBackReference
     private Employee createBy;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Status.class)
     @JoinColumn(name = "STATUS_ID", insertable = true)
-    @JsonManagedReference
+    @JsonBackReference
     private Status onStatus;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Station.class)
     @JoinColumn(name = "STATION_ID", insertable = true)
-    @JsonManagedReference
+    @JsonBackReference
     private Station atStation;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Packaging.class)
     @JoinColumn(name = "PACKAGING_ID", insertable = true)
-    @JsonManagedReference
+    @JsonBackReference
     private Packaging ofPackage;
 
 }

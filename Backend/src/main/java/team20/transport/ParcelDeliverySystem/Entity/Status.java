@@ -1,5 +1,6 @@
 package team20.transport.ParcelDeliverySystem.Entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
@@ -23,7 +24,7 @@ public class Status {
 
     @OneToMany(fetch = FetchType.LAZY, targetEntity = ShippingState.class)
     @JoinColumn(name = "SHIPPINGSTATE_ID")
-    @JsonBackReference
+    @JsonManagedReference
     private Collection<ShippingState> haveShippingState;
 
     @OneToMany(fetch = FetchType.LAZY, targetEntity = Packaging.class)
