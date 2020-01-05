@@ -24,7 +24,7 @@ public class Employee {
     private @NonNull Long id;
 
     @Column(name="EMPOLYEE_NAME",unique = true, nullable = true)
-    private @NonNull Long name;
+    private @NonNull String name;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = EmployeePosition.class)
     @JoinColumn(name = "EMPOLYEEPOSITION_ID")
