@@ -22,7 +22,7 @@ public class SatisfactionLevel {
 
     @OneToMany(fetch = FetchType.LAZY, targetEntity = ConfirmPackage.class)
     @JoinColumn(name = "CONFIRM_PACKGAGE_ID")
-    @JsonBackReference
+    @JsonManagedReference
     private Collection<ConfirmPackage> confirm;
 
 }
