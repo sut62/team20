@@ -23,7 +23,7 @@ public class Employee {
     @Column(name="EMPOLYEE_ID",unique = true, nullable = true)
     private @NonNull Long id;
 
-    @Column(name="EMPOLYEE_NAME",unique = true, nullable = true)
+    @Column(name="EMPOLYEE_NAME", nullable = true)
     private @NonNull String name;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = EmployeePosition.class)
@@ -33,7 +33,7 @@ public class Employee {
 
     @OneToMany(fetch = FetchType.LAZY, targetEntity = ShippingState.class)
     @JoinColumn(name = "SHIPPINGSTATE_ID")
-    @JsonBackReference
+    @JsonManagedReference
     private Collection<ShippingState> haveShippingState;
 
     @OneToMany(fetch = FetchType.LAZY, targetEntity = MemberCustomer.class)
