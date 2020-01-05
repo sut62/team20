@@ -25,6 +25,6 @@ public class Howtopay {
 
     @OneToMany(fetch = FetchType.LAZY, targetEntity = Cancelsent.class)
     @JoinColumn(name = "CANCELSENT_ID")
-    @JsonBackReference
+    @JsonManagedReference
     private Collection<Cancelsent> haveCancelHowtopay;
 }

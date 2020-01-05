@@ -25,27 +25,27 @@ public class Cancelsent {
 
     @OneToOne(fetch = FetchType.EAGER, targetEntity = Status.class)
     @JoinColumn(name = "STATUS_ID", insertable = true)
-    @JsonManagedReference
+    @JsonBackReference
     private Status onStatus;
 
     @OneToOne(fetch = FetchType.EAGER, targetEntity = Status.class)
     @JoinColumn(name = "PACKAGING_ID", insertable = true)
-    @JsonManagedReference
+    @JsonBackReference
     private Packaging onPackageing;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = team20.transport.ParcelDeliverySystem.CancelsentSystem.Entity.Howtopay.class)
     @JoinColumn(name = "HOWTOPAY_ID", insertable = true)
-    @JsonManagedReference
+    @JsonBackReference
     private  Howtopay onHowtopay;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = team20.transport.ParcelDeliverySystem.CancelsentSystem.Entity.Senttoback.class)
     @JoinColumn(name = "SENTTOBACK_ID", insertable = true)
-    @JsonManagedReference
+    @JsonBackReference
     private Senttoback onSenttoback;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Employee.class)
     @JoinColumn(name = "EMPOLYEE_ID", insertable = true)
-    @JsonManagedReference
+    @JsonBackReference
     private Employee createBy;
 
 }
