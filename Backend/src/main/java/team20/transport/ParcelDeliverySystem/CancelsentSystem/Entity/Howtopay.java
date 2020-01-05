@@ -25,7 +25,8 @@ public class Howtopay {
     @Column(name="HOWTOPAY_NAME")
     private @NonNull String name;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(orphanRemoval = true, mappedBy = "onHowtopay")
+    @JsonManagedReference
     private Collection<Cancelsent> haveCancelHowtopay;
 
 }

@@ -24,7 +24,8 @@ public class Senttoback {
     @Column(name="SENTTOBACK_NAME")
     private @NonNull String name;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(orphanRemoval = true, mappedBy = "onSenttoback")
+    @JsonManagedReference
     private Collection<Cancelsent> haveCancelSenttoBack;
 
 }

@@ -29,6 +29,6 @@ public class Status {
 
     @OneToOne(orphanRemoval = true, mappedBy = "onStatus")
     @JsonBackReference
-    private Collection<Cancelsent> haveCancel;
+    private Cancelsent haveCancel;
 
 }
