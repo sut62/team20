@@ -26,8 +26,7 @@ public class Station {
     @JsonManagedReference
     private Collection<ShippingState> haveShippingState;
 
-    @OneToMany(fetch = FetchType.LAZY, targetEntity = SentParcel.class)
-    @JoinColumn(name = "SENTPARCEL_ID")
+    @OneToMany(orphanRemoval = true, mappedBy = "atStation")
     @JsonBackReference
     private Collection<SentParcel> sentparcel;
 
