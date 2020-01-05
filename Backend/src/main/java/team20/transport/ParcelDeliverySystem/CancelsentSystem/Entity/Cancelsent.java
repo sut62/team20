@@ -25,11 +25,11 @@ public class Cancelsent {
     @Column(name = "CANCELSENT_ID", unique = true, nullable = true)
     private @NonNull Long id;
 
-    @OneToOne(orphanRemoval = true, mappedBy = "haveCancel")
+    @OneToOne
     @JsonBackReference
     private Status onStatus;
 
-    @OneToOne(orphanRemoval = true, mappedBy = "cancelsent")
+    @OneToOne
     @JsonBackReference
     private Packaging onPackageing;
 
