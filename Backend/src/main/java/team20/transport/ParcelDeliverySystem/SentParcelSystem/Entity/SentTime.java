@@ -1,11 +1,11 @@
 package team20.transport.ParcelDeliverySystem.SentParcelSystem.Entity;
 
-
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Collection;
 
 @Entity
 @Getter
@@ -19,5 +19,5 @@ public class SentTime {
     private @NonNull Long id;
 
     @OneToMany(fetch = FetchType.EAGER)
-    private SentParcel sentParcel;
+    private Collection<SentParcel> sentParcel;
 }
