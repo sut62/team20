@@ -45,9 +45,8 @@ public class Employee {
     @JsonBackReference
     private Collection<ConfirmPackage> confirm;
 
-    @OneToMany(fetch = FetchType.LAZY, targetEntity = Packaging.class)
-    @JoinColumn(name = "PACKAGE_ID")
-    @JsonBackReference
+    @OneToMany(orphanRemoval = true, mappedBy = "createBy")
+    @JsonManagedReference
     private Collection<Packaging> send;
 
     @OneToMany(fetch = FetchType.LAZY, targetEntity = Cancelsent.class)
