@@ -12,9 +12,11 @@ spring:
       path: /db
       settings:
         web-allow-others: true
+        trace: false
 
   datasource:
     url: jdbc:h2:file:./src/main/resources/DB
     username: team20
     password:
-    driverClassName: org.h2.Driver
+    database-platform: org.hibernate.dialect.H2Dialect
+    driver-class-name: org.h2.Driver
