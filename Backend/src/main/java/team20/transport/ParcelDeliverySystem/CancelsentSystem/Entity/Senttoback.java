@@ -24,6 +24,6 @@ public class Senttoback {
 
     @OneToMany(fetch = FetchType.LAZY, targetEntity = Cancelsent.class)
     @JoinColumn(name = "CANCELSENT_ID")
-    @JsonBackReference
+    @JsonManagedReference
     private Collection<Cancelsent> haveCancelSenttoBack;
 }
