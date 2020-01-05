@@ -18,6 +18,7 @@ public class SentTime {
     @Column(name="SENTTIME_SEQ",unique = true, nullable = true)
     private @NonNull Long id;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(orphanRemoval = true, mappedBy = "senttime")
+    @JsonManagedReference
     private Collection<SentParcel> sentParcel;
 }
