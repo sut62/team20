@@ -30,7 +30,7 @@ public class ConfirmPackage {
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Employee.class)
     @JoinColumn(name = "EMPLOYEE_ID", insertable = true)
     @JsonBackReference
-    private Employee CreateBy;
+    private Employee createBy;
 
     @OneToOne
     @JsonBackReference
