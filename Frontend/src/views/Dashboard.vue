@@ -27,9 +27,9 @@
     </b-card-group>
 
     <b-card-group deck v-if="this.selectMenu == 3">
-        <b-card header="" header-tag="header" footer="จัดทำโดย ....." footer-tag="footer" title="Shipping State System">
-            <b-card-text>ระบบจัดการสถานะพัสดุ</b-card-text>
-            <b-button to="shippingstate" variant="primary">ไปที่หน้าโปรแกรม</b-button>
+        <b-card header="" header-tag="header" footer="จัดทำโดย นายไพรัช ต้นเขียน B6009649" footer-tag="footer" title="Packaging System">
+            <b-card-text>ระบบรับฝากพัสดุ</b-card-text>
+            <b-button to="packaging" variant="primary">ไปที่หน้าโปรแกรม</b-button>
         </b-card>
 
         <b-card header="" header-tag="header" footer="จัดทำโดย ............" footer-tag="footer" title="....... System">
