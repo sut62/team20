@@ -28,7 +28,7 @@ export default {
     },
     methods: {
         checkLogin() {
-            if (localStorage.getItem("employeeLogin") != "")
+            if (localStorage.getItem("employeeLogin") != null)
                 this.$router.push("dashboard")
             else
                 this.$router.push("login")
