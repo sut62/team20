@@ -25,7 +25,7 @@ public class MemberLevel {
 
     @OneToMany(orphanRemoval = true, mappedBy = "MemberLevel")
     @JsonManagedReference
-    private Collection<MemberCustomer> MemberCustomer;
+    private Collection<MemberCustomer> memberCustomer;
 
 
 }

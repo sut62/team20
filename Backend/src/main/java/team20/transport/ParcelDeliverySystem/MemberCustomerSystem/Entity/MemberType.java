@@ -23,7 +23,7 @@ public class MemberType {
 
     @OneToMany(orphanRemoval = true, mappedBy = "MemberType")
     @JsonManagedReference
-    private Collection<MemberCustomer> MemberCustomer;
+    private Collection<MemberCustomer> memberCustomer;
 
 
 }
