@@ -27,10 +27,19 @@ export default {
         }
     },
     methods:{
+        checkLogin() {
+            if (localStorage.getItem("employeeLogin") != null)
+                this.$router.push("dashboard")
+            else
+                this.$router.push("login")
+        },
         logout(){
             localStorage.clear()
             this.$router.push("login")
         },
+    },
+    mounted(){
+        this.checkLogin()
     }
 }
 </script>

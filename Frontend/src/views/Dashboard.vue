@@ -51,19 +51,12 @@ export default {
         }
     },
     methods: {
-        checkLogin() {
-            if (localStorage.getItem("employeeLogin") != null)
-                this.$router.push("dashboard")
-            else
-                this.$router.push("login")
-        },
         init() {
             this.selectMenu = this.employeeData.employeePosition.id
         }
     },
     mounted() {
-        this.init(),
-        this.checkLogin()
+        this.init()
     }
 }
 </script>
