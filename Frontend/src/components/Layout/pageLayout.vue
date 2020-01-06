@@ -8,7 +8,7 @@
 
             <b-collapse id="nav-text-collapse" is-nav>
                 <b-navbar-nav class="ml-auto">
-                    <b-nav-text style="color:#fefefe">ยินดีต้อนรับคุณ <b>{{this.Name}}</b> เข้าสู่ระบบในฐานะ {{this.Status}} </b-nav-text>
+                    <b-nav-text style="color:#fefefe">ยินดีต้อนรับคุณ <b>{{this.employeeData.name}}</b> เข้าสู่ระบบในฐานะ {{this.employeeData.employeePosition.position}} </b-nav-text>
                     <b-button @click="this.logout" size="sm" variant="danger" class="ml-4 my-2 my-sm-0" >ออกจากระบบ</b-button>
                 </b-navbar-nav>
             </b-collapse>
@@ -23,8 +23,7 @@
 export default {
     data(){
         return{
-            Name:"ทดสอบ ทดสอบ",
-            Status: "พนักงานจัดการพัสดุ"
+            employeeData: JSON.parse(localStorage.getItem("employeeLogin")),
         }
     },
     methods:{
