@@ -21,7 +21,7 @@ public class MemberLevel {
     @Column(name="MEMBER_LEVEL_ID",unique = true, nullable = true)
     private @NonNull Long id;
 
-    private @NonNull int permission;
+    private @NonNull String permission;
 
     @OneToMany(orphanRemoval = true, mappedBy = "MemberLevel")
     @JsonManagedReference
