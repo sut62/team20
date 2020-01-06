@@ -21,7 +21,7 @@ public class MemberType {
 
     private @NonNull String type;
 
-    @OneToMany(orphanRemoval = true, mappedBy = "MemberType")
+    @OneToMany(orphanRemoval = true, mappedBy = "memberType")
     @JsonManagedReference
     private Collection<MemberCustomer> memberCustomer;
 
