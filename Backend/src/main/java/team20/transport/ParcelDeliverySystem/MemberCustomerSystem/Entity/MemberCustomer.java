@@ -32,12 +32,12 @@ public class MemberCustomer {
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = MemberType.class)
     @JoinColumn(name = "MEMBER_TYPE_ID", insertable = true)
     @JsonBackReference
-    private MemberType MemberType;
+    private MemberType memberType;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = MemberLevel.class)
     @JoinColumn(name = "MEMBER_LEVEL_ID", insertable = true)
     @JsonBackReference
-    private MemberLevel MemberLevel;
+    private MemberLevel memberLevel;
 
     @OneToMany(orphanRemoval = true, mappedBy = "sentBy")
     @JsonManagedReference
