@@ -59,10 +59,9 @@ public class Packaging {
     @JsonManagedReference
     private Collection<ShippingState> haveShippingState;
 
-    @ManyToOne(fetch = FetchType.EAGER, targetEntity = SentParcel.class)
-    @JoinColumn(name = "SENTPARCEL_ID", insertable = true)
-    @JsonBackReference
-    private SentParcel sentParcel;
+    @OneToMany(orphanRemoval = true, mappedBy = "packaging")
+    @JsonManagedReference
+    private Collection<SentParcel> sentParcel;
 
     @OneToOne(orphanRemoval = true, mappedBy = "onPackageing")
     @JsonBackReference
