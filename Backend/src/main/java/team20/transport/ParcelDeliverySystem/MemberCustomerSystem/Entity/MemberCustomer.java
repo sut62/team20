@@ -26,6 +26,7 @@ public class MemberCustomer {
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Employee.class)
     @JoinColumn(name = "EMPLOYEE_ID", insertable = true)
+    @JsonBackReference
     private Employee CreateBy;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = MemberType.class)
