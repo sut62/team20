@@ -46,7 +46,7 @@ public class Employee {
     private Collection<MemberCustomer> RegisterMember;
 
     @OneToMany(orphanRemoval = true,mappedBy = "CreateBy")
-    @JsonBackReference
+    @JsonManagedReference
     private Collection<ConfirmPackage> confirm;
 
     @OneToMany(orphanRemoval = true, mappedBy = "createBy")
