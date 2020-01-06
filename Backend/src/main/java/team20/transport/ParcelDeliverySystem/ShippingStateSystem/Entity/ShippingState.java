@@ -11,6 +11,7 @@ import team20.transport.ParcelDeliverySystem.Entity.Station;
 import team20.transport.ParcelDeliverySystem.Entity.Status;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 
 @Entity
@@ -19,32 +20,37 @@ import java.sql.Timestamp;
 @Table(name="SHIPPINGSTATE")
 public class ShippingState {
     @Id
-    @SequenceGenerator(name="SHIPPINGSTATE_SEQ",sequenceName="SHIPPINGSTATE_SEQ",initialValue = 1,allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="SHIPPINGSTATE_SEQ")
-    @Column(name="SHIPPINGSTATE_ID",unique = true, nullable = true)
-    private @NonNull Long id;
+    @SequenceGenerator(name = "SHIPPINGSTATE_SEQ", sequenceName = "SHIPPINGSTATE_SEQ", initialValue = 1, allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SHIPPINGSTATE_SEQ")
+    @Column(name = "SHIPPINGSTATE_ID", unique = true, nullable = true)
+    private Long id;
 
     @Column(name="SHIPPINGSTATE_TIMESTAMP", nullable = false)
-    private @NonNull Timestamp timestamp;
+    @NotNull
+    private Timestamp timestamp;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Employee.class)
     @JoinColumn(name = "EMPOLYEE_ID", insertable = true)
     @JsonBackReference
+    @NotNull
     private Employee createBy;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Status.class)
     @JoinColumn(name = "STATUS_ID", insertable = true)
     @JsonBackReference
+    @NotNull
     private Status onStatus;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Station.class)
     @JoinColumn(name = "STATION_ID", insertable = true)
     @JsonBackReference
+    @NotNull
     private Station atStation;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Packaging.class)
     @JoinColumn(name = "PACKAGING_ID", insertable = true)
     @JsonBackReference
+    @NotNull
     private Packaging ofPackage;
 
 }
