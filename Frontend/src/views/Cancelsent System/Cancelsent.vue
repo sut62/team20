@@ -18,7 +18,7 @@
                     
                     <label for="selectList">เลือกชื่อพนักงาน</label>
                     <b-form-select
-                    v-model="this.Cancelsent.employeeId"
+                    v-model="this.Cancelstate.employeeId"
                     :options="this.stationData"
                     class="mb-3"
                     value-field="id"
@@ -80,7 +80,7 @@
                 <b-col>
                 <label for="selectList">เลือกสถานะ</label>
                     <b-form-select
-                    v-model="this.Cancelsent.statusId"
+                    v-model="this.Cancelstate.statusId"
                     :options="this.statusData"
                     class="mb-3"
                     value-field="id"
@@ -88,7 +88,6 @@
                     disabled-field="notEnabled"
                     id="selectList"
                     ></b-form-select>
-                    
                 </b-col>
                 <b-col cols="1"></b-col>
             </b-row>
@@ -111,7 +110,7 @@ export default {
         return {
             foundPackage: false,
             haveSearch: false,
-            Cancelsent:{
+            Cancelstate:{
                 packageId: null,
                 employeeId: null,
                 statusId: null,
@@ -131,6 +130,16 @@ export default {
                     id: 2,
                     name: "test2 test2"
                 }
+            ],
+            stationData:[
+                {
+                    id:1,
+                    name: "Station test1",
+                },
+                {
+                    id:2,
+                    name: "Station test2",
+                },
             ],
             statusData:[
                 {
