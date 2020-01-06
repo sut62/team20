@@ -20,7 +20,7 @@ public class SentParcel {
     @Column(name="SENTPARCEL_ID",unique = true, nullable = true)
     private @NonNull Long id;
 
-    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Package.class)
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Packaging.class)
     @JoinColumn(name = "PACKAGE_ID", insertable = true)
     @JsonBackReference
     private Packaging packaging;
