@@ -27,7 +27,7 @@ export default {
     },
     methods: {
         checkLogin() {
-            if (localStorage.getItem("employeeLogin") != null)
+            if (localStorage.getItem("employeeLogin") != "")
                 this.$router.push("dashboard")
         },
         submit() {
@@ -36,8 +36,13 @@ export default {
                     email: this.email
                 })
                 .then(response => {
-                    localStorage.setItem("employeeLogin", JSON.stringify(response.data))
-                    this.$router.push("dashboard")
+                    if (response.data != "") {
+                        localStorage.setItem("employeeLogin", JSON.stringify(response.data))
+                        this.$router.push("dashboard")
+                    } else {
+                        alert("Login failed")
+                        this.$router.push("login")
+                    }
                 })
         },
     },
