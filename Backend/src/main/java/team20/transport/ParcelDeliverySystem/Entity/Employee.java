@@ -34,7 +34,7 @@ public class Employee {
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = EmployeePosition.class)
     @JoinColumn(name = "EMPOLYEEPOSITION_ID")
-    @JsonManagedReference
+    @JsonBackReference
     private EmployeePosition employeePosition;
 
     @OneToMany(orphanRemoval = true, mappedBy = "createBy")
