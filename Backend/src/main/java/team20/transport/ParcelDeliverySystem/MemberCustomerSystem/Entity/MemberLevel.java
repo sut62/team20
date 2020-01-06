@@ -23,7 +23,7 @@ public class MemberLevel {
 
     private @NonNull String permission;
 
-    @OneToMany(orphanRemoval = true, mappedBy = "MemberLevel")
+    @OneToMany(orphanRemoval = true, mappedBy = "memberLevel")
     @JsonManagedReference
     private Collection<MemberCustomer> memberCustomer;
 
