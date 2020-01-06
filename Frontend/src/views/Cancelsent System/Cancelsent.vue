@@ -1,13 +1,13 @@
 <template>
-    <div>
-        <b-card no-body>
-            <b-card-header header-tag="nav">
+<div>
+    <b-card no-body>
+        <b-card-header header-tag="nav">
             <b-nav card-header tabs>
                 <b-nav-item active>ระบบยกเลิกพัสดุ</b-nav-item>
             </b-nav>
-            </b-card-header>
+        </b-card-header>
 
-            <b-card-body class="text-center">
+        <b-card-body class="text-center">
             <b-card-title>แบบฟอร์มยกเลิกพัสดุ</b-card-title>
 
             <hr>
@@ -15,31 +15,20 @@
             <b-row class="mt-4 mb-4">
                 <b-col cols="1"></b-col>
                 <b-col cols="5">
-                    
+
                     <label for="selectList">เลือกชื่อพนักงาน</label>
-                    <b-form-select
-                    v-model="this.Cancelstate.employeeId"
-                    :options="this.stationData"
-                    class="mb-3"
-                    value-field="id"
-                    text-field="name"
-                    disabled-field="notEnabled"
-                    id="selectList"
-                    ></b-form-select>
+                    <b-form-select v-model="this.Cancelsent.employeeId" :options="this.employeeData" class="mb-3" value-field="id" text-field="name" disabled-field="notEnabled" id="selectList"></b-form-select>
 
                     <label for="input-with-list">กรอก Package ID</label>
-                    <b-form-input 
-                        list="input-list" 
-                        v-model="this.stationData.packageId" 
-                        id="input-with-list"></b-form-input>
-                    <b-button class="mt-2"  @click="this.Search" >ค้นหา</b-button>
+                    <b-form-input list="input-list" v-model="this.stationData.packageId" id="input-with-list"></b-form-input>
+                    <b-button class="mt-2" @click="this.Search">ค้นหา</b-button>
                 </b-col>
                 <b-col cols="1"></b-col>
                 <b-col>
                     <b>สถานะการค้นหา Package</b>
                     <div class="text-left mt-2 text-break">
                         <div>
-                            สถานะ : 
+                            สถานะ :
                             <span v-if="this.haveSearch">
                                 <div v-if="this.foundPackage" class="badge badge-success text-wrap" style="width: 6rem;">
                                     พบ Package
@@ -60,14 +49,14 @@
                         <div v-if="this.foundPackage">
                             <hr>
                             <div class="ml-2">
-                               <p class="text-center mb-1"><b>ข้อมูล Package</b></p>
-                               ชื่อผู้ส่ง : {{this.packageData.srcName}} <br>
-                               ชื่อผู้รับ : {{this.packageData.dstName}} <br>
-                               ต้นสถานี : {{this.packageData.srcStation}} <br>
-                               ปลายทางสถานี : {{this.packageData.dstStation}} <br>
+                                <p class="text-center mb-1"><b>ข้อมูล Package</b></p>
+                                ชื่อผู้ส่ง : {{this.packageData.srcName}} <br>
+                                ชื่อผู้รับ : {{this.packageData.dstName}} <br>
+                                ต้นสถานี : {{this.packageData.srcStation}} <br>
+                                ปลายทางสถานี : {{this.packageData.dstStation}} <br>
                             </div>
                         </div>
-                        
+
                     </div>
                 </b-col>
                 <b-col cols="1"></b-col>
@@ -76,59 +65,31 @@
             <hr v-if="this.foundPackage">
 
             <b-row class="mt-4 mb-4" v-if="this.foundPackage">
-                <b-col cols="1"></b-col>
-                <b-col>
-                    <label for="selectList">เลือกวิธีการส่งกลับ</label>
-                    <b-form-select
-                    v-model="this.ShippingState.senttobackId"
-                    :options="this.senttobackData"
-                    class="mb-3"
-                    value-field="id"
-                    text-field="name"
-                    disabled-field="notEnabled"
-                    id="selectList"
-                    ></b-form-select>
-                </b-col>
-                <b-col cols="1"></b-col>
-                <b-col>
-                <label for="selectList">เลือกสถานะ</label>
-                    <b-form-select
-                    v-model="this.ShippingState.statusId"
-                    :options="this.statusData"
-                    class="mb-3"
-                    value-field="id"
-                    text-field="name"
-                    disabled-field="notEnabled"
-                    id="selectList"
-                    ></b-form-select>
-                </b-col>
-                <b-col cols="1"></b-col>
-                <b-col>
-                    <label for="selectList">เลือกวิธีชำระเงิน</label>
-                    <b-form-select
-                    v-model="this.ShippingState.howtopayId"
-                    :options="this.howtopayData"
-                    class="mb-3"
-                    value-field="id"
-                    text-field="name"
-                    disabled-field="notEnabled"
-                    id="selectList"
-                    ></b-form-select>
 
+                <b-col cols="1"></b-col>
+                <b-col>
+                    <label for="selectList">เลือกวิธีการรับพัสดุ</label>
+                    <b-form-select v-model="this.Cancelsent.senttobackId" :options="this.senttobackData" class="mb-3" value-field="id" text-field="name" disabled-field="notEnabled" id="selectList"></b-form-select>
                 </b-col>
+                <b-col cols="1"></b-col>
+                <b-col>
+                    <label for="selectList">เลือกวิธีการจ่ายเงิน</label>
+                    <b-form-select v-model="this.Cancelsent.howtopayId" :options="this.howtopayData" class="mb-3" value-field="id" text-field="name" disabled-field="notEnabled" id="selectList"></b-form-select>
+                </b-col>
+                <b-col cols="1"></b-col>
+                <b-col>
+                    <label for="selectList">เลือกสถานะ</label>
+                    <b-form-select v-model="this.Cancelsent.statusId" :options="this.statusData" class="mb-3" value-field="id" text-field="name" disabled-field="notEnabled" id="selectList"></b-form-select>
+                </b-col>
+                <b-col cols="1"></b-col>
             </b-row>
-
-            
-
             <div v-if="this.foundPackage">
                 <hr>
-
                 <b-button variant="primary" @click="this.Save">บันทึก</b-button>
-
             </div>
-            </b-card-body>
-        </b-card>
-    </div>
+        </b-card-body>
+    </b-card>
+</div>
 </template>
 
 <script>
@@ -137,12 +98,12 @@ export default {
         return {
             foundPackage: false,
             haveSearch: false,
-            Cancelstate:{
+            Cancelsent: {
                 packageId: null,
                 employeeId: null,
-                statusId: null,
                 senttobackId: null,
                 howtopayId: null,
+                statusId: null,
             },
             packageData: {
                 srcName: "test",
@@ -150,8 +111,7 @@ export default {
                 srcStation: "sT",
                 dstStation: "dT"
             },
-            employeeData:[
-                {
+            employeeData: [{
                     id: 1,
                     name: "test test"
                 },
@@ -160,44 +120,41 @@ export default {
                     name: "test2 test2"
                 }
             ],
-            senttobackData:[
-                {
-                    id:1,
+            senttobackData: [{
+                    id: 1,
                     name: "Station test1",
                 },
                 {
-                    id:2,
+                    id: 2,
                     name: "Station test2",
                 },
             ],
-            howtopayData:[
-                {
-                    id:1,
+            howtopayData: [{
+                    id: 1,
                     name: "Station test1",
                 },
                 {
-                    id:2,
+                    id: 2,
                     name: "Station test2",
                 },
             ],
-            statusData:[
-                {
-                    id:1,
+            statusData: [{
+                    id: 1,
                     name: "Status test1",
                 },
                 {
-                    id:2,
+                    id: 2,
                     name: "Status test2",
                 },
             ]
         }
     },
-    methods:{
-        Search(){
+    methods: {
+        Search() {
             this.foundPackage = true
             this.haveSearch = true
         },
-        Save(){
+        Save() {
             alert("บันทึกสถานะพัสดุสำเร็จ")
         }
     }
