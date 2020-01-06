@@ -6,6 +6,7 @@ import Dashboard from './views/Dashboard'
 import ShippingState from './views/ShippingState System/ShippingState'
 import Cancelsent from './views/Cancelsent System/Cancelsent'
 import SentParcel from './views/SentParcel System/SentParcel'
+import Packaging from './views/Packaging System/Packaging'
 Vue.use(Router)
 
 export default new Router({
@@ -35,6 +36,11 @@ export default new Router({
           path: '/sentparcel',
           name: 'sentparcel',
           component: SentParcel
+        },
+        {
+          path: '/packaging',
+          name: 'packaging',
+          component: Packaging
         },
       ]
     },
