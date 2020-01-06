@@ -49,10 +49,12 @@ public class Packaging {
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = PackageType.class)
     @JoinColumn(name = "PTYPE_ID", insertable = true)
+    @JsonBackReference
     private PackageType packageType;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = SendingType.class)
     @JoinColumn(name = "STYPE_ID", insertable = true)
+    @JsonBackReference
     private SendingType sendingType;
 
     @OneToMany(orphanRemoval = true, mappedBy = "ofPackage")
