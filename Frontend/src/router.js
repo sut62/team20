@@ -8,6 +8,7 @@ import Cancelsent from './views/Cancelsent System/Cancelsent'
 import SentParcel from './views/SentParcel System/SentParcel'
 import Packaging from './views/Packaging System/Packaging'
 import ConfirmPackge from './views/ConfirmPackge System/ConfirmPackge'
+import MemberCustomer from './views/MemberCustomer System/MemberCustomer'
 Vue.use(Router)
 
 export default new Router({
@@ -47,6 +48,11 @@ export default new Router({
           path: '/confirmpackge',
           name: 'confirmpackge',
           component: ConfirmPackge
+        },
+        {
+          path: '/membercustomer',
+          name: 'membercustomer',
+          component: MemberCustomer
         },
       ]
     },

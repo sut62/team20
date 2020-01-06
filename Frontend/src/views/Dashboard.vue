@@ -32,9 +32,9 @@
             <b-button to="packaging" variant="primary">ไปที่หน้าโปรแกรม</b-button>
         </b-card>
 
-        <b-card header="" header-tag="header" footer="จัดทำโดย ............" footer-tag="footer" title="....... System">
-            <b-card-text>ระบบ.........</b-card-text>
-            <b-button to="?????" variant="primary">ไปที่หน้าโปรแกรม</b-button>
+        <b-card header="" header-tag="header" footer="จัดทำโดย นายชีวิน ศิริพันธุ์ B6011642" footer-tag="footer" title="MemberCustomer System">
+            <b-card-text>ระบบสมัครสมาชิกให้ลูกค้า</b-card-text>
+            <b-button to="membercustomer" variant="primary">ไปที่หน้าโปรแกรม</b-button>
         </b-card>
 
     </b-card-group>
