@@ -10,6 +10,8 @@ import team20.transport.ParcelDeliverySystem.ConfirmPackageSystem.Entity.Confirm
 import team20.transport.ParcelDeliverySystem.PackagingSystem.Entity.Packaging;
 import team20.transport.ParcelDeliverySystem.CancelsentSystem.Entity.Cancelsent;
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
 import java.util.Collection;
 
 @Entity
@@ -21,10 +23,14 @@ public class Employee {
     @SequenceGenerator(name="EMPOLYEE_SEQ",sequenceName="EMPOLYEE_SEQ",initialValue = 1,allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="EMPOLYEE_SEQ")
     @Column(name="EMPOLYEE_ID",unique = true, nullable = true)
-    private @NonNull Long id;
+    private @NotNull Long id;
 
-    @Column(name="EMPOLYEE_NAME", nullable = true)
-    private @NonNull String name;
+    @Column(name="EMPOLYEE_NAME")
+    private @NotNull String name;
+
+    @Column(name="EMPOLYEE_EMAIL")
+    @Email
+    private @NotNull String email;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = EmployeePosition.class)
     @JoinColumn(name = "EMPOLYEEPOSITION_ID")
