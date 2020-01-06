@@ -54,4 +54,8 @@ public class PackagingController {
 
         return packagingRepository.save(newPackaging);
     }
+    @GetMapping("/findPackageById/{id}")
+    public Packaging findPackageById(@PathVariable Long id){
+        return packagingRepository.findById(id).get();
+    }
 }
