@@ -42,7 +42,7 @@ public class Employee {
     private Collection<ShippingState> haveShippingState;
 
     @OneToMany(orphanRemoval = true, mappedBy = "CreateBy")
-    @JsonBackReference
+    @JsonManagedReference
     private Collection<MemberCustomer> RegisterMember;
 
     @OneToMany(orphanRemoval = true,mappedBy = "CreateBy")
