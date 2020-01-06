@@ -9,6 +9,7 @@ import team20.transport.ParcelDeliverySystem.SentParcelSystem.Entity.SentParcel;
 import team20.transport.ParcelDeliverySystem.PackagingSystem.Entity.Packaging;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Collection;
 
 @Entity
@@ -21,6 +22,10 @@ public class Station {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="STATION_SEQ")
     @Column(name="STATION_ID",unique = true, nullable = true)
     private @NonNull Long id;
+
+    @Column(name="STATION_NAME")
+    @NotNull
+    private @NonNull String name;
 
     @OneToMany(orphanRemoval = true, mappedBy = "createBy")
     @JsonManagedReference
