@@ -4,6 +4,7 @@ import pageLayout from './components/Layout/pageLayout'
 import loginPage from './views/Login'
 import Dashboard from './views/Dashboard'
 import ShippingState from './views/ShippingState System/ShippingState'
+import Cancelsent from './views/Cancelsent System/Cancelsent'
 Vue.use(Router)
 
 export default new Router({
@@ -23,6 +24,11 @@ export default new Router({
           path: '/shippingstate',
           name: 'shippingstate',
           component: ShippingState
+        },
+        {
+          path: '/cancelsent',
+          name: 'cancelsent',
+          component: Cancelsent
         },
       ]
     },
