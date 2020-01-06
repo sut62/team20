@@ -30,7 +30,7 @@ public class SentParcelController {
     @PostMapping("/addSentParcel")
     public SentParcel addSentParcel(@RequestBody Map<String,Long> allParams){
 
-        Packaging ofPackage = packagingRepository.findById(Long.valueOf(allParams.get("packageId")));
+        Packaging ofPackage = packagingRepository.findById(Long.valueOf(allParams.get("packageId"))).get();
         Station atStation = stationRepository.findById(allParams.get("stationId")).get();
         SentTime toparcel = sentTimeRepository.findById(allParams.get("senttimeId")).get();
 
