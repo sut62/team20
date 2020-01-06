@@ -1,6 +1,7 @@
 package team20.transport.ParcelDeliverySystem.Entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
@@ -23,6 +24,6 @@ public class EmployeePosition {
     private @NonNull String position;
 
     @OneToMany(orphanRemoval = true, mappedBy = "employeePosition")
-    @JsonBackReference
+    @JsonManagedReference
     private Collection<Employee> haveEmployee;
 }
