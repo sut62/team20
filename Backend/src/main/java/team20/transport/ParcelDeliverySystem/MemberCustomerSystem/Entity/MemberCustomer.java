@@ -25,9 +25,9 @@ public class MemberCustomer {
     private long Tel;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Employee.class)
-    @JoinColumn(name = "EMPLOYEE_ID", insertable = true)
+    @JoinColumn(name = "EMPOLYEE_ID", insertable = true)
     @JsonBackReference
-    private Employee CreateBy;
+    private Employee createBy;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = MemberType.class)
     @JoinColumn(name = "MEMBER_TYPE_ID", insertable = true)
