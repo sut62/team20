@@ -28,7 +28,12 @@ public class SentParcel {
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Station.class)
     @JoinColumn(name = "STATION_ID", insertable = true)
     @JsonBackReference
-    private Station atStation;
+    private Station atOriginStation;
+
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = Station.class)
+    @JoinColumn(name = "STATION_ID", insertable = true)
+    @JsonBackReference
+    private Station atArriveStation;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = SentTime.class)
     @JoinColumn(name = "SENTTIME_ID", insertable = true)

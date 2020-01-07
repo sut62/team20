@@ -31,9 +31,13 @@ public class Station {
     @JsonManagedReference
     private Collection<ShippingState> haveShippingState;
 
-    @OneToMany(orphanRemoval = true, mappedBy = "atStation")
+    @OneToMany(orphanRemoval = true, mappedBy = "atOriginStation")
     @JsonBackReference
     private Collection<SentParcel> sentparcel;
+
+    @OneToMany(orphanRemoval = true, mappedBy = "atArriveStation")
+    @JsonBackReference
+    private Collection<SentParcel> receiveparcel;
 
     @OneToMany(orphanRemoval = true, mappedBy = "atStation")
     @JsonManagedReference
