@@ -6,19 +6,19 @@ import team20.transport.ParcelDeliverySystem.ConfirmPackageSystem.Entity.Satisfa
 import team20.transport.ParcelDeliverySystem.ConfirmPackageSystem.Repository.SatisfactionLevelRepository;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/team20")
 @CrossOrigin(origins = {"*"})
 public class SatisfactionLevelController {
     @Autowired
-    SatisfactionLevelRepository repository;
+    SatisfactionLevelRepository satisfactionLevelRepository;
 
     @GetMapping("/satisfactionLevel")
-    public List<SatisfactionLevel> getAllSatisfactionLevel() {
-        List<SatisfactionLevel> satisfactionLevel = new ArrayList<>();
-        repository.findAll().forEach(satisfactionLevel::add);
-        return satisfactionLevel;
+    public Collection<SatisfactionLevel> SatisfactionLevel() {
+        return satisfactionLevelRepository.findAll().stream().collect(Collectors.toList());
     }
 }
