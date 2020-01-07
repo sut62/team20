@@ -8,6 +8,7 @@ import team20.transport.ParcelDeliverySystem.MemberCustomerSystem.Entity.MemberL
 import team20.transport.ParcelDeliverySystem.MemberCustomerSystem.Entity.MemberType;
 import team20.transport.ParcelDeliverySystem.MemberCustomerSystem.Repository.*;
 import team20.transport.ParcelDeliverySystem.Repository.EmployeeRepository;
+import net.minidev.json.JSONObject;
 
 import java.util.Collection;
 import java.util.stream.Collectors;
@@ -32,12 +33,12 @@ public class MemberCustomerController {
     }
 
     @GetMapping("/FindMemberCustomerId/{id}")
-    public Collection<MemberCustomer> MemberCustomer(@PathVariable Long id) {
-        SentParcel x = memberCustomerRepository.findById(id).get();
+    public JSONObject MemberCustomer(@PathVariable Long id) {
+        MemberCustomer x = memberCustomerRepository.findById(id).get();
         JSONObject y = new JSONObject();
         y.put("id",x.getId());
         y.put("name",x.getMemName());
-        y.put("tel",x.Tel());
+        y.put("tel",x.getTel());
         return y;
     }
 
@@ -45,12 +46,12 @@ public class MemberCustomerController {
     public MemberCustomer Register(@RequestBody Map<String,String> allParams){
             MemberCustomer newMemberCustomer = new MemberCustomer();
             
-            Employee emp = employeeRepository.findById(long.valueof(allParams.get("employeeId"))).get();
-            MemberType mt = memberTypeRepository.findById(long.valueof(allParams.get("typeId"))).get();
-            MemberLevel ml = memberLevelRepository.findById(long.valueof(allParams.get("levelId"))).get();
+            Employee emp = employeeRepository.findById(Long.valueOf(allParams.get("employeeId"))).get();
+            MemberType mt = memberTypeRepository.findById(Long.valueOf(allParams.get("typeId"))).get();
+            MemberLevel ml = memberLevelRepository.findById(Long.valueOf(allParams.get("levelId"))).get();
             
-            newMemberCustomer.setMemName((allParams.get("mname")).get());
-            newMemberCustomer.setTel((allParams.get("tel")).get());
+            newMemberCustomer.setMemName((allParams.get("mname")));
+            newMemberCustomer.setTel((allParams.get("tel")));
             newMemberCustomer.setCreateBy(emp);
             newMemberCustomer.setMemberType(mt);
             newMemberCustomer.setMemberLevel(ml);
