@@ -31,6 +31,16 @@ public class MemberCustomerController {
         return memberCustomerRepository.findAll().stream().collect(Collectors.toList());
     }
 
+    @GetMapping("/FindMemberCustomerId/{id}")
+    public Collection<MemberCustomer> MemberCustomer(@PathVariable Long id) {
+        SentParcel x = memberCustomerRepository.findById(id).get();
+        JSONObject y = new JSONObject();
+        y.put("id",x.getId());
+        y.put("packaging",x.getMemName());
+        y.put("atOriginStation",x.Tel());
+        return y;
+    }
+
     @PostMapping("/addMemberCustomer")
     public MemberCustomer Register(@RequestBody Map<String,String> allParams){
             MemberCustomer newMemberCustomer = new MemberCustomer();
