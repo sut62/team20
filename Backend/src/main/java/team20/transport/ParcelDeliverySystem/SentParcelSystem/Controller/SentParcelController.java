@@ -31,12 +31,14 @@ public class SentParcelController {
     public SentParcel addSentParcel(@RequestBody Map<String,Long> allParams){
 
         Packaging ofPackage = packagingRepository.findById(Long.valueOf(allParams.get("packageId"))).get();
-        Station atStation = stationRepository.findById(allParams.get("stationId")).get();
+        Station atOriginStation = stationRepository.findById(allParams.get("stationId")).get();
+        Station atArriveStation = stationRepository.findById(allParams.get("stationId")).get();
         SentTime toparcel = sentTimeRepository.findById(allParams.get("senttimeId")).get();
 
         SentParcel newSentParcel = new SentParcel();
         newSentParcel.setPackaging(ofPackage);
-        newSentParcel.setAtStation(atStation);
+        newSentParcel.setAtOriginStation(atOriginStation);
+        newSentParcel.setAtArriveStation(atArriveStation);
         newSentParcel.setSenttime(toparcel);
 
         return sentParcelRepository.save(newSentParcel);
