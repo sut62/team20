@@ -1,6 +1,8 @@
 package team20.transport.ParcelDeliverySystem.SentParcelSystem.Controller;
 
 
+import net.minidev.json.JSONArray;
+import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import team20.transport.ParcelDeliverySystem.Entity.Station;
@@ -22,6 +24,19 @@ public class SentTimeController {
     @Autowired
     SentTimeRepository sentTimeRepository;
 
+    @GetMapping("/getAllRangeTimes")
+    public JSONArray getAllRangeTimes(){
+        JSONArray x = new JSONArray();
+        for(SentTime ss : sentTimeRepository.findAll()){
+            JSONObject a = new JSONObject();
+            a.put("id",ss.getId());
+            a.put("rangeTime",ss.getFTime() + "-" + ss.getLTime());
+            x.add(a);
+        }
+
+        return x;
+
+    }
     @PostMapping("/senttime")
     public SentTime senttime(@RequestBody Map<String,Long> allParams){
 
