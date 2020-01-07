@@ -37,14 +37,18 @@ public class PackagingController {
     SendingTypeRepository sendingTypeRepository;
 
     @PostMapping("/addPackaging")
-    public Packaging addPackaging(@RequestBody Map<String,Long> allParams){
-        MemberCustomer sentBy = memberCustomerRepository.findById(allParams.get("customerId")).get();
-        Employee createBy = employeeRepository.findById(allParams.get("employeeId")).get();
-        Station atStation = stationRepository.findById(allParams.get("stationId")).get();
-        PackageType ptype = packageTypeRepository.findById(allParams.get("pTypeId")).get();
-        SendingType stype = sendingTypeRepository.findById(allParams.get("sTypeId")).get();
-
+    public Packaging addPackaging(@RequestBody Map<String,String> allParams){
+        MemberCustomer sentBy = memberCustomerRepository.findById(Long.valueOf(allParams.get("customerId"))).get();
+        Employee createBy = employeeRepository.findById(Long.valueOf(allParams.get("employeeId"))).get();
+        Station atStation = stationRepository.findById(Long.valueOf(allParams.get("stationId"))).get();
+        PackageType ptype = packageTypeRepository.findById(Long.valueOf(allParams.get("pTypeId"))).get();
+        SendingType stype = sendingTypeRepository.findById(Long.valueOf(allParams.get("sTypeId"))).get();
+        String receiver = allParams.get("receiever");
+        String place = allParams.get("place");
+        Long volume = Long.valueOf(allParams.get("volume"));
+        Long weight = Long.valueOf(allParams.get("weight"));
         Date pdate = new Date();
+
         Packaging newPackaging = new Packaging();
         newPackaging.setSentBy(sentBy);
         newPackaging.setAtStation(atStation);
