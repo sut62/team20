@@ -9,6 +9,8 @@ import team20.transport.ParcelDeliverySystem.Entity.Employee;
 import team20.transport.ParcelDeliverySystem.MemberCustomerSystem.Entity.*;
 import team20.transport.ParcelDeliverySystem.PackagingSystem.Entity.Packaging;
 
+import javax.validation.constraints.Pattern;
+
 @Entity
 @Data
 @NoArgsConstructor
@@ -21,8 +23,12 @@ public class MemberCustomer {
     @Column(name="MEMBER_CUSTOMER_ID",unique = true, nullable = true)
     private @NonNull Long id;
 
+    @Column(name="MEMBER_NAME",unique = false, nullable = false)
     private String MemName;
-    private long Tel;
+
+    @Pattern(regexp = "\\d{10}")
+    @Column(name="MEMBER_TEL",unique = false, nullable = false)
+    private String Tel;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Employee.class)
     @JoinColumn(name = "EMPOLYEE_ID", insertable = true)
