@@ -1,5 +1,7 @@
 package team20.transport.ParcelDeliverySystem.Controller;
 
+import net.minidev.json.JSONArray;
+import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import team20.transport.ParcelDeliverySystem.Entity.Employee;
@@ -21,8 +23,15 @@ public class EmployeeController {
     }
 
     @PostMapping("/chkLogin")
-    public Employee chkLogin(@RequestBody Map<String,String> allParams){
-        return employeeRepository.findByIdAndEmail(Long.valueOf(allParams.get("employeeId")),allParams.get("email"));
+    public JSONObject chkLogin(@RequestBody Map<String,String> allParams){
+        Employee x = employeeRepository.findByIdAndEmail(Long.valueOf(allParams.get("employeeId")),allParams.get("email"));
+        JSONObject z = new JSONObject();
+        z.put("id",x.getId());
+        z.put("name",x.getName());
+        z.put("email",x.getEmail());
+        z.put("employeePosition",x.getEmployeePosition());
+
+        return z;
     }
 
 }
