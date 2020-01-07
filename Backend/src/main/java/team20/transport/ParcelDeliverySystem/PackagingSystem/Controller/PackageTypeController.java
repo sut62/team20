@@ -15,7 +15,7 @@ public class PackageTypeController {
     @Autowired
     PackageTypeRepository repository;
 
-    @GetMapping("/packageType")
+    @GetMapping("/getPackageType")
     public List<PackageType> getAllPackageType() {
         List<PackageType> packageTypes = new ArrayList<>();
         repository.findAll().forEach(packageTypes::add);
