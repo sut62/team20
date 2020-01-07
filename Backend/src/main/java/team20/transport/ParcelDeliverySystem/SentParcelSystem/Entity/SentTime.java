@@ -1,11 +1,13 @@
 package team20.transport.ParcelDeliverySystem.SentParcelSystem.Entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.Date;
 
 @Entity
 @Getter
@@ -17,6 +19,8 @@ public class SentTime {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="SENTTIME_SEQ")
     @Column(name="SENTTIME_ID",unique = true, nullable = true)
     private @NonNull Long id;
+    private @NonNull Date fTime;
+    private @NonNull Date lTime;
 
     @OneToMany(orphanRemoval = true, mappedBy = "senttime")
     @JsonManagedReference
