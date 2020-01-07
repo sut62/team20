@@ -32,12 +32,12 @@ public class MemberCustomerController {
     }
 
     @PostMapping("/addMemberCustomer")
-    public MemberCustomer Register(@RequestBody Map<String,Long> allParams){
+    public MemberCustomer Register(@RequestBody Map<String,String> allParams){
             MemberCustomer newMemberCustomer = new MemberCustomer();
             
-            Employee emp = employeeRepository.findById(allParams.get("employeeId")).get();
-            MemberType mt = memberTypeRepository.findById(allParams.get("typeId")).get();
-            MemberLevel ml = memberLevelRepository.findById(allParams.get("levelId")).get();
+            Employee emp = employeeRepository.findById(long.valueof(allParams.get("employeeId"))).get();
+            MemberType mt = memberTypeRepository.findById(long.valueof(allParams.get("typeId"))).get();
+            MemberLevel ml = memberLevelRepository.findById(long.valueof(allParams.get("levelId"))).get();
             
             newMemberCustomer.setMemName((allParams.get("mname")).get());
             newMemberCustomer.setTel((allParams.get("tel")).get());
