@@ -11,7 +11,7 @@
             <b-card-title>แบบฟอร์มยกเลิกพัสดุ</b-card-title>
 
             <hr>
-
+            
             <b-row class="mt-4 mb-4">
                 <b-col cols="1"></b-col>
                 <b-col cols="5">
@@ -30,10 +30,10 @@
                             สถานะ :
                             <span v-if="this.haveSearch">
                                 <div v-if="this.foundPackage" class="badge badge-success text-wrap" style="width: 6rem;">
-                                    พบ Package
+                                    สามารถยกเลิก Package
                                 </div>
                                 <div v-else class="badge badge-danger text-wrap" style="width: 6rem;">
-                                    ไม่พบ Package
+                                    ไม่สามารถ Package
                                 </div>
                             </span>
 
@@ -76,11 +76,6 @@
                     <b-form-select v-model="this.Cancelsent.howtopayId" :options="this.howtopayData" class="mb-3" value-field="id" text-field="name" disabled-field="notEnabled" id="selectList"></b-form-select>
                 </b-col>
                 <b-col cols="1"></b-col>
-                <b-col>
-                    <label for="selectList">เลือกสถานะ</label>
-                    <b-form-select v-model="this.Cancelsent.statusId" :options="this.statusData" class="mb-3" value-field="id" text-field="name" disabled-field="notEnabled" id="selectList"></b-form-select>
-                </b-col>
-                <b-col cols="1"></b-col>
             </b-row>
             <div v-if="this.foundPackage">
                 <hr>
@@ -92,6 +87,7 @@
 </template>
 
 <script>
+import api from "../../apiConnector"
 export default {
     data() {
         return {
@@ -105,57 +101,91 @@ export default {
                 statusId: null,
             },
             packageData: {
-                srcName: "test",
-                dstName: "test2",
-                srcStation: "sT",
-                dstStation: "dT"
-            },
-            employeeData: [{
-                    id: 1,
-                    name: "test test"
+                receiever: "None",
+                place: "Arrive",
+                createBy: {
+                    name: "Annonymous"
                 },
-                {
-                    id: 2,
-                    name: "test2 test2"
+                station: {
+                    "name": "Origin"
                 }
-            ],
-            senttobackData: [{
-                    id: 1,
-                    name: "Station test1",
-                },
-                {
-                    id: 2,
-                    name: "Station test2",
-                },
-            ],
-            howtopayData: [{
-                    id: 1,
-                    name: "Station test1",
-                },
-                {
-                    id: 2,
-                    name: "Station test2",
-                },
-            ],
-            statusData: [{
-                    id: 1,
-                    name: "Status test1",
-                },
-                {
-                    id: 2,
-                    name: "Status test2",
-                },
-            ]
+            },
+            employeeData: "",
+            senttobackData: "",
+            howtopayData: "",
+            statusData: "",
+            lastShippingState: ""
         }
     },
     methods: {
         Search() {
-            this.foundPackage = true
+            this.findPackageById()
             this.haveSearch = true
         },
         Save() {
-            alert("บันทึกสถานะพัสดุสำเร็จ")
-        }
+            api.post("/addCancelsent", {
+                    packageId: this.Cancelsent.packageId,
+                    employeeId: this.Cancelsent.employeeId,
+                    senttobackId: this.Cancelsent.senttobackId,
+                    howtopayId: this.Cancelsent.howtopayId,
+                    statusId: this.ShippingState.statusId                   //รอแก้
+                })
+                .then(
+                    response => {
+                        if (response.data)
+                            alert("ทำการบันทึกสถานะพัสดุสำเร็จ")
+                    },
+                    error => {
+                        if (error)
+                            alert("ทำการบันทึกสถานะพัสดุไม่สำเร็จ")
+                    }
+                )
+
+        },
+        getAllEmployees() {
+            api.get("/getEmployees")
+                .then(response => {
+                    this.employeeData = response.data
+                })
+        },
+        findPackageById() {                                                         
+            api.get("/findPackageById/" + this.Cancelsent.packageId)                
+                .then(                                                              
+                    response => {                                                   
+                        this.packageData = response.data
+                        this.lastShippingState = this.packageData.haveShippingState[this.packageData.haveShippingState.length]
+                                                                                        //แก้ไข                       
+                        this.foundPackage = true                                    
+                    },                                                              
+                    error => {                                                      
+                        if (error)                                                  
+                            alert("ไม่พบ package จากการค้นหากรุณาค้นหาอีกครั้ง !")        
+                    }                                                              
+                )                                                                  
+        },                                                                 
+        setStatus() {                                                                      //รอแก้                             
+            api.get("/getStatus")                                                  
+                .then(response => {                                                
+                    this.statusData = response.data                                
+                })                                                                 
+        },                                                                          
+        getAllSenttoback() {
+            api.get("/getSenttoback")
+                .then(response => {
+                    this.senttobackData = response.data
+                })
+        },
+        getAllHowtopay() {
+            api.get("/getHowtopay")
+                .then(response => {
+                    this.howtopayData = response.data
+                })
+        },
+    },
+    mounted() {
+        this.getAllEmployees(),
+            this.getAllSenttoback(),
+            this.getAllHowtopay()
     }
 }
 </script>
