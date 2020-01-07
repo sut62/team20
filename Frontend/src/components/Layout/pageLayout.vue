@@ -23,13 +23,19 @@
 export default {
     data() {
         return {
-            employeeData: JSON.parse(localStorage.getItem("employeeLogin")),
+            employeeData: {
+                "name": "Annonymous",
+                employeePosition: {
+                    "id": 0,
+                    "position": "None"
+                },
+            },
         }
     },
     methods: {
         checkLogin() {
             if (localStorage.getItem("employeeLogin") != null)
-                this.$router.push("dashboard")
+                this.employeeData = JSON.parse(localStorage.getItem("employeeLogin"))
             else
                 this.$router.push("login")
         },
