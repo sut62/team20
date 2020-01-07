@@ -18,9 +18,8 @@
 
                     <label for="selectList">เลือกชื่อพนักงาน</label>
                     <b-form-select v-model="this.Cancelsent.employeeId" :options="this.employeeData" class="mb-3" value-field="id" text-field="name" disabled-field="notEnabled" id="selectList"></b-form-select>
-
                     <label for="input-with-list">กรอก Package ID</label>
-                    <b-form-input list="input-list" v-model="this.stationData.packageId" id="input-with-list"></b-form-input>
+                    <b-form-input list="input-list" v-model="this.employeeData.packageId" id="input-with-list"></b-form-input>
                     <b-button class="mt-2" @click="this.Search">ค้นหา</b-button>
                 </b-col>
                 <b-col cols="1"></b-col>
