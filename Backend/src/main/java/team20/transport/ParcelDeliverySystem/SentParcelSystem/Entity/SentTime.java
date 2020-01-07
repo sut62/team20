@@ -15,7 +15,7 @@ public class SentTime {
     @Id
     @SequenceGenerator(name="SENTTIME_SEQ",sequenceName="SENTTIME_SEQ",initialValue = 1,allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="SENTTIME_SEQ")
-    @Column(name="SENTTIME_SEQ",unique = true, nullable = true)
+    @Column(name="SENTTIME_ID",unique = true, nullable = true)
     private @NonNull Long id;
 
     @OneToMany(orphanRemoval = true, mappedBy = "senttime")
