@@ -31,8 +31,10 @@ public class MemberCustomerController {
         return memberCustomerRepository.findAll().stream().collect(Collectors.toList());
     }
 
-    @PostMapping("addMemberCustomer")
+    @PostMapping("/addMemberCustomer")
     public MemberCustomer Register(@RequestBody Map<String,Long> allParams){
+            MemberCustomer newMemberCustomer = new MemberCustomer();
+            
             Employee emp = employeeRepository.findById(allParams.get("employeeId")).get();
             MemberType mt = memberTypeRepository.findById(allParams.get("typeId")).get();
             MemberLevel ml = memberLevelRepository.findById(allParams.get("levelId")).get();
