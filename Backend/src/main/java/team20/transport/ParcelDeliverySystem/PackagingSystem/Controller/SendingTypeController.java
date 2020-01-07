@@ -15,7 +15,7 @@ public class SendingTypeController {
     @Autowired
     SendingTypeRepository repository;
 
-    @GetMapping("/sendingType")
+    @GetMapping("/getSendingType")
     public List<SendingType> getAllSendingType() {
         List<SendingType> sendingTypes = new ArrayList<>();
         repository.findAll().forEach(sendingTypes::add);
