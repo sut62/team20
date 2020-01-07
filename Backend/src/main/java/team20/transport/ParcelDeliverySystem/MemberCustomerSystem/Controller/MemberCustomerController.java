@@ -11,6 +11,7 @@ import team20.transport.ParcelDeliverySystem.Repository.EmployeeRepository;
 
 import java.util.Collection;
 import java.util.stream.Collectors;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/team20")
@@ -30,23 +31,17 @@ public class MemberCustomerController {
         return memberCustomerRepository.findAll().stream().collect(Collectors.toList());
     }
 
-    @PostMapping("/Register/{Mname}/{Tel}/{employee_id}/{type_id}/{level_id}")
-    public MemberCustomer Register(MemberCustomer newMemberCustomer,
-                                    @PathVariable String mname,
-                                    @PathVariable Long tel,
-                                    @PathVariable Long employee_id,
-                                    @PathVariable Long type_id,
-                                    @PathVariable Long level_id){
-
-        Employee emp = employeeRepository.findById(employee_id).get();
-        MemberType mt = memberTypeRepository.findById(type_id).get();
-        MemberLevel ml = memberLevelRepository.findById(level_id).get();
-
-        newMemberCustomer.setMemName(mname);
-        newMemberCustomer.setTel(tel);
-        newMemberCustomer.setCreateBy(emp);
-        newMemberCustomer.setMemberType(mt);
-        newMemberCustomer.setMemberLevel(ml);
+    @PostMapping("addMemberCustomer")
+    public MemberCustomer Register(@RequestBody Map<String,Long> allParams){
+            Employee emp = employeeRepository.findById(allParams.get("employeeId")).get();
+            MemberType mt = memberTypeRepository.findById(allParams.get("typeId")).get();
+            MemberLevel ml = memberLevelRepository.findById(allParams.get("levelId")).get();
+            
+            newMemberCustomer.setMemName((allParams.get("mname")).get());
+            newMemberCustomer.setTel((allParams.get("tel")).get());
+            newMemberCustomer.setCreateBy(emp);
+            newMemberCustomer.setMemberType(mt);
+            newMemberCustomer.setMemberLevel(ml);
         return memberCustomerRepository.save(newMemberCustomer);
     }
 }
