@@ -28,7 +28,7 @@ public class ConfirmPackage {
     private @NonNull Date confirmDate;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Employee.class)
-    @JoinColumn(name = "EMPLOYEE_ID", insertable = true)
+    @JoinColumn(name = "EMPOLYEE_ID", insertable = true)
     @JsonBackReference
     private Employee createBy;
 
