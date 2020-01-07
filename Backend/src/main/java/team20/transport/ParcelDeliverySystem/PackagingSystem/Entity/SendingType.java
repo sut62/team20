@@ -20,6 +20,7 @@ public class SendingType {
     @Column(name="ST_ID",unique = true, nullable = true)
     private @NonNull Long id;
     private @NonNull String type;
+    private @NonNull int unit;
 
     @OneToMany(orphanRemoval = true, mappedBy = "sendingType")
     @JsonManagedReference
