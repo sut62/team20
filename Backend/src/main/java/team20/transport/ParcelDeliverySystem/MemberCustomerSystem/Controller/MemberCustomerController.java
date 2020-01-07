@@ -36,8 +36,8 @@ public class MemberCustomerController {
         SentParcel x = memberCustomerRepository.findById(id).get();
         JSONObject y = new JSONObject();
         y.put("id",x.getId());
-        y.put("packaging",x.getMemName());
-        y.put("atOriginStation",x.Tel());
+        y.put("name",x.getMemName());
+        y.put("tel",x.Tel());
         return y;
     }
 
