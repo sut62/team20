@@ -26,12 +26,12 @@ public class SentParcel {
     private Packaging packaging;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Station.class)
-    @JoinColumn(name = "STATION_ID", insertable = true)
+    @JoinColumn(name = "STATION_ORIGIN_ID", insertable = true)
     @JsonBackReference
     private Station atOriginStation;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Station.class)
-    @JoinColumn(name = "STATION_ID", insertable = true)
+    @JoinColumn(name = "STATION_ARRIVE_ID", insertable = true)
     @JsonBackReference
     private Station atArriveStation;
 
