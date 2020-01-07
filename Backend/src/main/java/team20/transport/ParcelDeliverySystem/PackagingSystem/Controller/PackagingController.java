@@ -1,5 +1,6 @@
 package team20.transport.ParcelDeliverySystem.PackagingSystem.Controller;
 
+import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import team20.transport.ParcelDeliverySystem.Entity.Employee;
@@ -55,7 +56,20 @@ public class PackagingController {
         return packagingRepository.save(newPackaging);
     }
     @GetMapping("/findPackageById/{id}")
-    public Packaging findPackageById(@PathVariable Long id){
-        return packagingRepository.findById(id).get();
+    public JSONObject findPackageById(@PathVariable Long id){
+        Packaging pac = packagingRepository.findById(id).get();
+        JSONObject json = new JSONObject();
+        json.put("id",pac.getId());
+        json.put("packaging_date",pac.getPackageDate());
+        json.put("place",pac.getPlace());
+        json.put("receiever",pac.getReciever());
+        json.put("volume",pac.getVolume());
+        json.put("weight",pac.getWeight());
+        json.put("station",pac.getAtStation());
+        json.put("createBy",pac.getCreateBy());
+        json.put("packageType",pac.getPackageType());
+        json.put("sendingType",pac.getSendingType());
+        json.put("sentBy",pac.getSentBy());
+        return json;
     }
 }
