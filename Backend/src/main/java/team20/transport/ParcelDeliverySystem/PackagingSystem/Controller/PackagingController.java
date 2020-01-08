@@ -16,7 +16,9 @@ import team20.transport.ParcelDeliverySystem.Repository.EmployeeRepository;
 import team20.transport.ParcelDeliverySystem.Repository.StationRepository;
 import team20.transport.ParcelDeliverySystem.PackagingSystem.Repository.PackagingRepository;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -59,6 +61,7 @@ public class PackagingController {
 
         return packagingRepository.save(newPackaging);
     }
+
     @GetMapping("/findPackageById/{id}")
     public JSONObject findPackageById(@PathVariable Long id){
         Packaging pac = packagingRepository.findById(id).get();
@@ -75,5 +78,12 @@ public class PackagingController {
         json.put("sendingType",pac.getSendingType());
         json.put("sentBy",pac.getSentBy());
         return json;
+    }
+
+    @GetMapping("/getAllPackagee")
+    public List<Packaging> getAllPackage() {
+        List<Packaging> packaging = new ArrayList<>();
+        packagingRepository.findAll().forEach(packaging::add);
+        return packaging;
     }
 }
