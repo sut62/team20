@@ -1,5 +1,6 @@
 package team20.transport.ParcelDeliverySystem.ShippingStateSystem.Controller;
 
+import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import team20.transport.ParcelDeliverySystem.Entity.Employee;
@@ -31,6 +32,20 @@ public class ShippingStateController {
     StationRepository stationRepository;
     @Autowired
     PackagingRepository packagingRepository;
+
+    @GetMapping("/getShippingStateById/{id}")
+    public JSONObject getShippingStateById(@PathVariable Long id){
+        ShippingState shippingstate = shippingStateRepository.findById(id).get();
+        JSONObject ret = new JSONObject();
+        ret.put("id",shippingstate.getId());
+        ret.put("ofPackage",shippingstate.getOfPackage());
+        ret.put("onStatus",shippingstate.getOnStatus());
+        ret.put("atStation",shippingstate.getAtStation());
+        ret.put("createBy",shippingstate.getCreateBy());
+        ret.put("timeStamp",shippingstate.getTimestamp());
+
+        return ret;
+    }
 
     @PostMapping("/addShippingState")
     public ShippingState addShippingState(@RequestBody Map<String,Long> allParams){
