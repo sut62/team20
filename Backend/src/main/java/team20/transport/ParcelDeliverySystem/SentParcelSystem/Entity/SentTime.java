@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
 import javax.persistence.*;
+
+import java.sql.Time;
 import java.util.Collection;
 import java.util.Date;
 
@@ -19,8 +21,8 @@ public class SentTime {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="SENTTIME_SEQ")
     @Column(name="SENTTIME_ID",unique = true, nullable = true)
     private @NonNull Long id;
-    private @NonNull Date fTime;
-    private @NonNull Date lTime;
+    private @NonNull Time fTime;
+    private @NonNull Time lTime;
 
     @OneToMany(orphanRemoval = true, mappedBy = "senttime")
     @JsonManagedReference
