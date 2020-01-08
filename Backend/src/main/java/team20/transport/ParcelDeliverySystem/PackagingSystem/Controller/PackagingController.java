@@ -1,5 +1,6 @@
 package team20.transport.ParcelDeliverySystem.PackagingSystem.Controller;
 
+import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -86,9 +87,24 @@ public class PackagingController {
     }
 
     @GetMapping("/getAllPackage")
-    public List<Packaging> getAllPackage() {
-        List<Packaging> packaging = new ArrayList<>();
-        packagingRepository.findAll().forEach(packaging::add);
-        return packaging;
+    public JSONArray getAllPackage() {
+        JSONArray aa = new JSONArray();
+        for(Packaging pac : packagingRepository.findAll()){
+            JSONObject json = new JSONObject();
+            json.put("id",pac.getId());
+            json.put("packaging_date",pac.getPackageDate());
+            json.put("place",pac.getPlace());
+            json.put("receiever",pac.getReciever());
+            json.put("volume",pac.getVolume());
+            json.put("weight",pac.getWeight());
+            json.put("station",pac.getAtStation());
+            json.put("createBy",pac.getCreateBy());
+            json.put("packageType",pac.getPackageType());
+            json.put("sendingType",pac.getSendingType());
+            json.put("sentBy",pac.getSentBy());
+            json.put("haveShippingState", pac.getHaveShippingState());
+            aa.add(json);
+        }
+        return aa;
     }
 }
