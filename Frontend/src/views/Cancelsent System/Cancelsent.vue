@@ -17,27 +17,30 @@
                 <b-col cols="5">
 
                     <label for="selectList">เลือกชื่อพนักงาน</label>
-                    <b-form-select v-model="this.Cancelsent.employeeId" :options="this.employeeData" class="mb-3" value-field="id" text-field="name" disabled-field="notEnabled" id="selectList"></b-form-select>
+                    <b-form-select v-model="Cancelsent.employeeId" :options="this.employeeData" class="mb-3" value-field="id" text-field="name" disabled-field="notEnabled" id="selectList"></b-form-select>
                     <label for="input-with-list">กรอก Package ID</label>
-                    <b-form-input list="input-list" v-model="this.employeeData.packageId" id="input-with-list"></b-form-input>
-                    <b-button class="mt-2" @click="this.Search">ค้นหา</b-button>
+                    <b-form-input list="input-list" v-model="Cancelsent.packageId" id="input-with-list"></b-form-input>
+                    <b-button class="mt-2" @click="this.SearchPackage">ตรวจสอบ Package</b-button>
+<br>
+                    <b-button v-if="this.foundPackage" class="mt-2" @click="this.CheckStatus">ตรวจสอบสถานะ</b-button>
+                    
                 </b-col>
                 <b-col cols="1"></b-col>
                 <b-col>
                     <b>สถานะการค้นหา Package</b>
                     <div class="text-left mt-2 text-break">
                         <div>
-                            สถานะ :
-                            <span v-if="this.haveSearch">
+                            สถานะ Package :
+                            <span v-if="this.haveSearch1">
                                 <div v-if="this.foundPackage" class="badge badge-success text-wrap" style="width: 6rem;">
-                                    สามารถยกเลิก Package
+                                    พบ Package
                                 </div>
                                 <div v-else class="badge badge-danger text-wrap" style="width: 6rem;">
-                                    ไม่สามารถ Package
+                                    ไม่พบ Package
                                 </div>
                             </span>
 
-                            <span v-if="!this.haveSearch">
+                            <span v-if="!this.haveSearch1">
                                 <div class="badge badge-warning text-wrap" style="width: 8rem;">
                                     รอการค้นหา package
                                 </div>
@@ -49,31 +52,47 @@
                             <hr>
                             <div class="ml-2">
                                 <p class="text-center mb-1"><b>ข้อมูล Package</b></p>
-                                ชื่อผู้ส่ง : {{this.packageData.srcName}} <br>
-                                ชื่อผู้รับ : {{this.packageData.dstName}} <br>
-                                ต้นสถานี : {{this.packageData.srcStation}} <br>
-                                ปลายทางสถานี : {{this.packageData.dstStation}} <br>
+                                ชื่อผู้ส่ง : {{this.packageData.createBy.name}} <br>
+                                ชื่อผู้รับ : {{this.packageData.receiever}} <br>
+                                ต้นสถานี : {{this.packageData.station.name}} <br>
+                                ปลายทางสถานี : {{this.packageData.place}} <br>
                             </div>
                         </div>
+                        
+                        <div>
+                            สถานะ การทำรายการ:
+                            <span v-if="this.haveSearch2">
+                                <div v-if="this.statusPackage" class="badge badge-success text-wrap" style="width: 6rem;">
+                                    สามารถยกเลิกได้
+                                </div>
+                                <div v-else class="badge badge-danger text-wrap" style="width: 6rem;">
+                                    ไม่สามารถยกเลิกได้
+                                </div>
+                            </span>
 
+                            <span v-if="!this.haveSearch2">
+                                <div class="badge badge-warning text-wrap" style="width: 8rem;">
+                                    รอการค้นหา package
+                                </div>
+                            </span>
+
+                        </div>
                     </div>
                 </b-col>
                 <b-col cols="1"></b-col>
             </b-row>
 
-            <hr v-if="this.foundPackage">
-
-            <b-row class="mt-4 mb-4" v-if="this.foundPackage">
-
+            <hr v-if="this.statusPackage">
+            <b-row class="mt-4 mb-4" v-if="this.statusPackage">
                 <b-col cols="1"></b-col>
                 <b-col>
                     <label for="selectList">เลือกวิธีการรับพัสดุ</label>
-                    <b-form-select v-model="this.Cancelsent.senttobackId" :options="this.senttobackData" class="mb-3" value-field="id" text-field="name" disabled-field="notEnabled" id="selectList"></b-form-select>
+                    <b-form-select v-model="Cancelsent.senttobackId" :options="this.senttobackData" class="mb-3" value-field="id" text-field="name" disabled-field="notEnabled" id="selectList"></b-form-select>
                 </b-col>
                 <b-col cols="1"></b-col>
                 <b-col>
                     <label for="selectList">เลือกวิธีการจ่ายเงิน</label>
-                    <b-form-select v-model="this.Cancelsent.howtopayId" :options="this.howtopayData" class="mb-3" value-field="id" text-field="name" disabled-field="notEnabled" id="selectList"></b-form-select>
+                    <b-form-select v-model="Cancelsent.howtopayId" :options="this.howtopayData" class="mb-3" value-field="id" text-field="name" disabled-field="notEnabled" id="selectList"></b-form-select>
                 </b-col>
                 <b-col cols="1"></b-col>
             </b-row>
@@ -92,7 +111,9 @@ export default {
     data() {
         return {
             foundPackage: false,
-            haveSearch: false,
+            statusPackage: false,
+            haveSearch1: false,
+            haveSearch2: false,
             Cancelsent: {
                 packageId: null,
                 employeeId: null,
@@ -118,17 +139,23 @@ export default {
         }
     },
     methods: {
-        Search() {
+        SearchPackage() {
             this.findPackageById()
-            this.haveSearch = true
+            this.haveSearch1 = true
         },
+        CheckStatus() {
+            this.checkPackageById()
+            this.haveSearch2 = true
+        },
+
+
         Save() {
             api.post("/addCancelsent", {
                     packageId: this.Cancelsent.packageId,
                     employeeId: this.Cancelsent.employeeId,
                     senttobackId: this.Cancelsent.senttobackId,
                     howtopayId: this.Cancelsent.howtopayId,
-                    statusId: this.ShippingState.statusId                   //รอแก้
+                    statusId: this.Cancelsent.statusId                   //รอแก้
                 })
                 .then(
                     response => {
@@ -152,10 +179,23 @@ export default {
             api.get("/findPackageById/" + this.Cancelsent.packageId)                
                 .then(                                                              
                     response => {                                                   
+                        this.packageData = response.data                    
+                        this.foundPackage = true                                    
+                    },                                                              
+                    error => {                                                      
+                        if (error)                                                  
+                            alert("ไม่พบ package จากการค้นหากรุณาค้นหาอีกครั้ง !")        
+                    }                                                              
+                )                                                                  
+        },  
+        checkPackageById() {                                                         
+            api.get("/findPackageById/" + this.Cancelsent.packageId)                
+                .then(                                                              
+                    response => {                                                   
                         this.packageData = response.data
                         this.lastShippingState = this.packageData.haveShippingState[this.packageData.haveShippingState.length]
                                                                                         //แก้ไข                       
-                        this.foundPackage = true                                    
+                        this.statusPackage = true                                    
                     },                                                              
                     error => {                                                      
                         if (error)                                                  
@@ -186,6 +226,7 @@ export default {
         this.getAllEmployees(),
             this.getAllSenttoback(),
             this.getAllHowtopay()
+            
     }
 }
 </script>
