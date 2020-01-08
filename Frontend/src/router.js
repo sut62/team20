@@ -7,7 +7,7 @@ import ShippingState from './views/ShippingState System/ShippingState'
 import Cancelsent from './views/Cancelsent System/Cancelsent'
 import SentParcel from './views/SentParcel System/SentParcel'
 import Packaging from './views/Packaging System/Packaging'
-import ConfirmPackge from './views/ConfirmPackge System/ConfirmPackge'
+import ConfirmPackage from './views/ConfirmPackage System/ConfirmPackage'
 import MemberCustomer from './views/MemberCustomer System/MemberCustomer'
 Vue.use(Router)
 
@@ -45,9 +45,9 @@ export default new Router({
           component: Packaging
         },
         {
-          path: '/confirmpackge',
-          name: 'confirmpackge',
-          component: ConfirmPackge
+          path: '/confirmpackage',
+          name: 'confirmpackage',
+          component: ConfirmPackage
         },
         {
           path: '/membercustomer',
