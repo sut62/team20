@@ -1,114 +1,55 @@
 <template>
-    <div>
-        <b-card no-body>
-            <b-card-header header-tag="nav">
+<div>
+    <b-card no-body>
+        <b-card-header header-tag="nav">
             <b-nav card-header tabs>
                 <b-nav-item active>ระบบจัดการสถานะพัสดุ</b-nav-item>
             </b-nav>
-            </b-card-header>
+        </b-card-header>
 
-            <b-card-body class="text-center">
+        <b-card-body class="text-center">
             <b-card-title>แบบฟอร์มเพิ่มสถานะพัสดุ</b-card-title>
 
             <hr>
 
             <b-row class="mt-4 mb-4">
-                <b-col cols="1"></b-col>
-                <b-col cols="5">
-                    
-                    <label for="selectList">เลือกชื่อพนักงาน</label>
-                    <b-form-select
-                    v-model="this.ShippingState.employeeId"
-                    :options="this.stationData"
-                    class="mb-3"
-                    value-field="id"
-                    text-field="name"
-                    disabled-field="notEnabled"
-                    id="selectList"
-                    ></b-form-select>
+                <b-col cols="2"></b-col>
+                <b-col cols="8">
+                    <label for="input-with-list">กรอก Customer ID</label>
 
-                    <label for="input-with-list">กรอก Package ID</label>
-                    <b-form-input 
-                        list="input-list" 
-                        v-model="this.stationData.packageId" 
-                        id="input-with-list"></b-form-input>
-                    <b-button class="mt-2"  @click="this.Search" >ค้นหา</b-button>
+                    <b-row>
+                        <b-col cols="8">
+                            <b-form-input list="input-list" v-model="this.findCustomerId" id="input-with-list"></b-form-input>
+                        </b-col>
+                        <b-col cols="4">
+                            <b-button class="mt-0" style="width:100%" v-model="this.findCustomer">ค้นหา</b-button>
+                        </b-col>
+                    </b-row>
+                    <label for="selectList">เลือกสถานีที่รับฝาก</label>
+                    <b-form-select v-model="this.packageData.stationId" :options="this.stationData" class="mb-3" value-field="id" text-field="name" disabled-field="notEnabled" id="selectList"></b-form-select>
+
+                    <label for="input-with-list">กรอกชื่อผู้รับ</label>
+                    <b-form-input list="input-list" v-model="this.packageData.receieverName" id="input-with-list"></b-form-input>
+
+                    <label for="input-with-list">กรอกที่อยู่ผู้รับ</label>
+                    <b-form-input list="input-list" v-model="this.packageData.place" id="input-with-list"></b-form-input>
+
+                    <label for="selectList">เลือกประเภทพัสดุ</label>
+                    <b-form-select v-model="this.packageData.packageTypeId" :options="this.packageTypeData" class="mb-3" value-field="id" text-field="name" disabled-field="notEnabled" id="selectList"></b-form-select>
+
+                    <label for="input-with-list">กรอกน้ำหนักพัสดุ</label>
+                    <b-form-input list="input-list" v-model="this.packageData.weight" id="input-with-list"></b-form-input>
+
+                    <label for="input-with-list">กรอกปริมาตรพัสดุ</label>
+                    <b-form-input list="input-list" v-model="this.packageData.volume" id="input-with-list"></b-form-input>
+
+                    <label for="selectList">เลือกประเภทพัสดุ</label>
+                    <b-form-select v-model="this.packageData.sendingTypeId" :options="this.sendingTypeData" class="mb-3" value-field="id" text-field="name" disabled-field="notEnabled" id="selectList"></b-form-select>
+
                 </b-col>
-                <b-col cols="1"></b-col>
-                <b-col>
-                    <b>สถานะการค้นหา Package</b>
-                    <div class="text-left mt-2 text-break">
-                        <div>
-                            สถานะ : 
-                            <span v-if="this.haveSearch">
-                                <div v-if="this.foundPackage" class="badge badge-success text-wrap" style="width: 6rem;">
-                                    พบ Package
-                                </div>
-                                <div v-else class="badge badge-danger text-wrap" style="width: 6rem;">
-                                    ไม่พบ Package
-                                </div>
-                            </span>
 
-                            <span v-if="!this.haveSearch">
-                                <div class="badge badge-warning text-wrap" style="width: 8rem;">
-                                    รอการค้นหา package
-                                </div>
-                            </span>
-
-                        </div>
-
-                        <div v-if="this.foundPackage">
-                            <hr>
-                            <div class="ml-2">
-                               <p class="text-center mb-1"><b>ข้อมูล Package</b></p>
-                               ชื่อผู้ส่ง : {{this.packageData.srcName}} <br>
-                               ชื่อผู้รับ : {{this.packageData.dstName}} <br>
-                               ต้นสถานี : {{this.packageData.srcStation}} <br>
-                               ปลายทางสถานี : {{this.packageData.dstStation}} <br>
-                            </div>
-                        </div>
-                        
-                    </div>
-                </b-col>
-                <b-col cols="1"></b-col>
+                <b-col cols="2"></b-col>
             </b-row>
-
-            <hr v-if="this.foundPackage">
-
-            <b-row class="mt-4 mb-4" v-if="this.foundPackage">
-                
-                
-                <b-col cols="1"></b-col>
-                <b-col>
-                    <label for="selectList">เลือกชื่อสถานี</label>
-                    <b-form-select
-                    v-model="this.ShippingState.stationId"
-                    :options="this.stationData"
-                    class="mb-3"
-                    value-field="id"
-                    text-field="name"
-                    disabled-field="notEnabled"
-                    id="selectList"
-                    ></b-form-select>
-
-                </b-col>
-                <b-col cols="1"></b-col>
-                <b-col>
-                <label for="selectList">เลือกสถานะ</label>
-                    <b-form-select
-                    v-model="this.ShippingState.statusId"
-                    :options="this.statusData"
-                    class="mb-3"
-                    value-field="id"
-                    text-field="name"
-                    disabled-field="notEnabled"
-                    id="selectList"
-                    ></b-form-select>
-                </b-col>
-                <b-col cols="1"></b-col>
-            </b-row>
-
-            
 
             <div v-if="this.foundPackage">
                 <hr>
@@ -116,68 +57,91 @@
                 <b-button variant="primary" @click="this.Save">บันทึก</b-button>
 
             </div>
-            </b-card-body>
-        </b-card>
-    </div>
+        </b-card-body>
+    </b-card>
+</div>
 </template>
+
 <script>
+import api from "../../apiConnector"
 export default {
     data() {
         return {
-            foundPackage: false,
-            haveSearch: false,
-            ShippingState:{
-                packageId: null,
-                employeeId: null,
-                stationId: null,
-                statusId: null,
-            },
+            findCustomerId: "",
+            employeeData: JSON.parse(localStorage.getItem("employeeLogin")),
+            stationData: "",
+            sendingTypeData: "",
+            packageTypeData: "",
             packageData: {
-                srcName: "test",
-                dstName: "test2",
-                srcStation: "sT",
-                dstStation: "dT"
-            },
-            employeeData:[
-                {
-                    id: 1,
-                    name: "test test"
-                },
-                {
-                    id: 2,
-                    name: "test2 test2"
-                }
-            ],
-            stationData:[
-                {
-                    id:1,
-                    name: "Station test1",
-                },
-                {
-                    id:2,
-                    name: "Station test2",
-                },
-            ],
-            statusData:[
-                {
-                    id:1,
-                    name: "Status test1",
-                },
-                {
-                    id:2,
-                    name: "Status test2",
-                },
-            ]
+                receieverName: "",
+                place: "",
+                customerId: "",
+                stationId: "",
+                packageTypeId: "",
+                sendingTypeId: "",
+                volume: "",
+                weight: "",
+            }
         }
     },
-    methods:{
-        Search(){
-            this.foundPackage = true
-            this.haveSearch = true
+    methods: {
+        Save() {
+            api.post("/addPackaging", {
+                    customerId: this.packageData.customerId,
+                    employeeId: this.employeeData.id,
+                    stationId: this.packageData.stationId,
+                    pTypeId: this.packageData.packageTypeId,
+                    sTypeId: this.packageData.sendingTypeId,
+                    receiever: this.packageData.receieverName,
+                    place: this.packageData.place,
+                    volume: this.packageData.volume,
+                    weight: this.packageData.weight
+                })
+                .then(response => {
+                        if (response.data)
+                            alert("ลงทะเบียนพัสดุสำเร็จ\nId package = " + response.data.id + "\nราคา = " + (parseFloat(this.packageData.volume) * parseFloat(this.packageData.weight)))
+                    },
+                    error => {
+                        if (error)
+                            alert("ลงทะเบียนพัสดุไม่สำเร็จ")
+                    })
         },
-        Save(){
-            alert("บันทึกสถานะพัสดุสำเร็จ")
+        findCustomer() {
+            api.get("/FindMemberCustomerId/" + this.findCustomerId)
+                .then(
+                    response => {
+                        alert("พบ id ของลูกค้า ชื่อ : " + response.data.MemName),
+                            this.packageData.customerId = response.data.id
+                    },
+                    error => {
+                        if (error)
+                            alert("ไม่พบ id ของลูกค้า")
+                    }
+                )
+        },
+        getAllStation() {
+            api.get("/getStations")
+                .then(response => {
+                    this.stationData = response.data
+                })
+        },
+        getAllSendingType() {
+            api.get("/getSendingType")
+                .then(response => {
+                    this.sendingTypeData = response.data
+                })
+        },
+        getAllPackageType() {
+            api.get("/getPackageType")
+                .then(response => {
+                    this.packageTypeData = response.data
+                })
         }
+    },
+    mounted() {
+        this.getAllStation(),
+            this.getAllSendingType(),
+            this.getAllSendingType()
     }
 }
 </script>
