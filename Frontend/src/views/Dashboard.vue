@@ -19,9 +19,9 @@
             <b-button to="sentparcel" variant="primary">ไปที่หน้าโปรแกรม</b-button>
         </b-card>
 
-       <b-card header="" header-tag="header" footer="จัดทำโดย นายกิตติธร แสงจีน B6012496" footer-tag="footer" title="Confirm Packge System">
+       <b-card header="" header-tag="header" footer="จัดทำโดย นายกิตติธร แสงจีน B6012496" footer-tag="footer" title="Confirm Package System">
             <b-card-text>ระบบยืนยันการรับพัสดุ</b-card-text>
-            <b-button to="confirmpackge" variant="primary">ไปที่หน้าโปรแกรม</b-button>
+            <b-button to="confirmpackage" variant="primary">ไปที่หน้าโปรแกรม</b-button>
         </b-card>
 
     </b-card-group>
