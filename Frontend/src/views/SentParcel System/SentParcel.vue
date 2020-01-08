@@ -105,11 +105,11 @@ export default {
             .then(
                     response => {
                         if (response.data)
-                            alert("success")
+                            alert("บันทึกข้อมูลเร็จ")
                     },
                     error => {
                         if (error)
-                            alert("Miss")
+                            alert("บันทึกข้อมูลไม่สำเร็จ")
                     }
                 )
 
