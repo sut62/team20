@@ -3,12 +3,12 @@
     <b-card no-body>
         <b-card-header header-tag="nav">
             <b-nav card-header tabs>
-                <b-nav-item active>ระบบจัดการสถานะพัสดุ</b-nav-item>
+                <b-nav-item active>ระบบรับฝากพัสดุ</b-nav-item>
             </b-nav>
         </b-card-header>
 
         <b-card-body class="text-center">
-            <b-card-title>แบบฟอร์มเพิ่มสถานะพัสดุ</b-card-title>
+            <b-card-title>รับฝากพัสดุ</b-card-title>
 
             <hr>
 
