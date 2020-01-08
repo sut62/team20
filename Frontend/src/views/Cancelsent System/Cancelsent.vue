@@ -159,7 +159,7 @@ export default {
                 .then(
                     response => {
                         if (response.data)
-                            alert("ทำการบันทึกสำเร็จ")
+                            alert("ส่งคำร้องขอยกเลิกสำเร็จ\nId package = " + response.data.id + "\nราคา = " + ((parseFloat(this.packageData.volume) * parseFloat(this.packageData.weight)) / 2))
                     },
                     error => {
                         if (error)
