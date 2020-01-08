@@ -42,20 +42,20 @@
                 <b-col cols="1"></b-col>
                 <b-col>
                     <label for="input-with-list">กรอก Package ID</label>
-                    <b-form-input list="input-list" v-model="this.SentParcel.packageId" id="input-with-list"></b-form-input>
+                    <b-form-input list="input-list" @change="this.getPackageById" v-model="SentParcel.packageId" id="input-with-list"></b-form-input>
                 </b-col>
                 <b-col cols="1"></b-col>
 
                 <b-col cols="1"></b-col>
                 <b-col>
                     <label for="selectList">เลือกสถานีจัดส่งต่อไป</label>
-                    <b-form-select v-model="this.SentParcel.stationId" :options="this.stationData" class="mb-3" value-field="id" text-field="name" disabled-field="notEnabled" id="selectList"></b-form-select>
+                    <b-form-select v-model="SentParcel.receiveId" :options="this.stationData" class="mb-3" value-field="id" text-field="name" disabled-field="notEnabled" id="selectList"></b-form-select>
 
                 </b-col>
                 <b-col cols="1"></b-col>
                 <b-col>
                     <label for="selectList">เวลาส่งพัสดุ</label>
-                    <b-form-select v-model="this.SentParcel.senttimeId" :options="this.sentTime" class="mb-3" value-field="id" text-field="rangeTime" disabled-field="notEnabled" id="selectList"></b-form-select>
+                    <b-form-select v-model="SentParcel.senttimeId" :options="this.sentTime" class="mb-3" value-field="id" text-field="rangeTime" disabled-field="notEnabled" id="selectList"></b-form-select>
                 </b-col>
                 <b-col cols="1"></b-col>
             </b-row>
@@ -126,6 +126,12 @@ export default {
                     }
                     
                 })
+        },
+        getPackageById(){
+            api.get("/findPackageById/"+this.SentParcel.packageId)
+            .then( response => {
+                this.SentParcel.stationId = response.data.station.id
+            })
         },
         getAllStation() {
             api.get("/getStations")
