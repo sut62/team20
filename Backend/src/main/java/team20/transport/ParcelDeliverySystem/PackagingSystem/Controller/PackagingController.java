@@ -81,6 +81,7 @@ public class PackagingController {
         json.put("packageType",pac.getPackageType());
         json.put("sendingType",pac.getSendingType());
         json.put("sentBy",pac.getSentBy());
+        json.put("haveShippingState", pac.getHaveShippingState());
         return json;
     }
 
