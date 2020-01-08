@@ -16,55 +16,18 @@
                 <b-col cols="1"></b-col>
                 <b-col cols="5">
                     
-                    <label for="selectList">เลือกชื่อพนักงาน</label>
-                    <b-form-select
-                    v-model="this.ShippingState.employeeId"
-                    :options="this.stationData"
-                    class="mb-3"
-                    value-field="id"
-                    text-field="name"
-                    disabled-field="notEnabled"
-                    id="selectList"
-                    ></b-form-select>
-
-                    <label for="input-with-list">กรอก Package ID</label>
-                    <b-form-input 
-                        list="input-list" 
-                        v-model="this.stationData.packageId" 
-                        id="input-with-list"></b-form-input>
-                    <b-button class="mt-2"  @click="this.Search" >ค้นหา</b-button>
+                    <b-button class="mt-2"  variant="warning" @click="this.Search" >ค้นหา</b-button>
                 </b-col>
+
                 <b-col cols="1"></b-col>
                 <b-col>
-                    <b>สถานะการค้นหา Package</b>
+                    <b>ข้อมูล Package</b>
                     <div class="text-left mt-2 text-break">
-                        <div>
-                            สถานะ : 
-                            <span v-if="this.haveSearch">
-                                <div v-if="this.foundPackage" class="badge badge-success text-wrap" style="width: 6rem;">
-                                    พบ Package
-                                </div>
-                                <div v-else class="badge badge-danger text-wrap" style="width: 6rem;">
-                                    ไม่พบ Package
-                                </div>
-                            </span>
-
-                            <span v-if="!this.haveSearch">
-                                <div class="badge badge-warning text-wrap" style="width: 8rem;">
-                                    รอการค้นหา package
-                                </div>
-                            </span>
-
-                        </div>
 
                         <div v-if="this.foundPackage">
                             <hr>
                             <div class="ml-2">
-                               <p class="text-center mb-1"><b>ข้อมูล Package</b></p>
-                               ชื่อผู้ส่ง : {{this.packageData.srcName}} <br>
-                               ชื่อผู้รับ : {{this.packageData.dstName}} <br>
-                               ต้นสถานี : {{this.packageData.srcStation}} <br>
-                               ปลายทางสถานี : {{this.packageData.dstStation}} <br>
+                                <b-table sticky-header :items="items" head-variant="light"></b-table>
                             </div>
                         </div>
                         
@@ -77,12 +40,18 @@
 
             <b-row class="mt-4 mb-4" v-if="this.foundPackage">
                 
+                <b-col cols="1"></b-col>
+                <b-col>
+                <label for="input-with-list">กรอก Package ID</label>
+                <b-form-input list="input-list" v-model="this.SentParcel.packageId" id="input-with-list"></b-form-input>
+                </b-col>
+                <b-col cols="1"></b-col>
                 
                 <b-col cols="1"></b-col>
                 <b-col>
-                    <label for="selectList">เลือกชื่อสถานี</label>
+                    <label for="selectList">เลือกสถานีปลายทาง</label>
                     <b-form-select
-                    v-model="this.ShippingState.stationId"
+                    v-model="this.SentParcel.stationId"
                     :options="this.stationData"
                     class="mb-3"
                     value-field="id"
@@ -94,13 +63,13 @@
                 </b-col>
                 <b-col cols="1"></b-col>
                 <b-col>
-                <label for="selectList">เลือกสถานะ</label>
+                <label for="selectList">เวลาส่งพัสดุ</label>
                     <b-form-select
-                    v-model="this.ShippingState.statusId"
-                    :options="this.statusData"
+                    v-model="this.SentParcel.senttimeId"
+                    :options="this.sentTime"
                     class="mb-3"
                     value-field="id"
-                    text-field="name"
+                    text-field="rangeTime"
                     disabled-field="notEnabled"
                     id="selectList"
                     ></b-form-select>
@@ -113,71 +82,68 @@
             <div v-if="this.foundPackage">
                 <hr>
 
-                <b-button variant="primary" @click="this.Save">บันทึก</b-button>
+                <b-button variant="warning" @click="this.Save">บันทึก</b-button>
 
             </div>
             </b-card-body>
         </b-card>
     </div>
 </template>
+
 <script>
+import api from "../../apiConnector"
 export default {
     data() {
         return {
             foundPackage: false,
-            haveSearch: false,
-            ShippingState:{
+            stationData: "",
+            sentTime: "",
+            SentParcel:{
                 packageId: null,
-                employeeId: null,
                 stationId: null,
-                statusId: null,
+                senttimeId: null,
+                receiveId: null
             },
-            packageData: {
-                srcName: "test",
-                dstName: "test2",
-                srcStation: "sT",
-                dstStation: "dT"
-            },
-            employeeData:[
-                {
-                    id: 1,
-                    name: "test test"
-                },
-                {
-                    id: 2,
-                    name: "test2 test2"
-                }
-            ],
-            stationData:[
-                {
-                    id:1,
-                    name: "Station test1",
-                },
-                {
-                    id:2,
-                    name: "Station test2",
-                },
-            ],
-            statusData:[
-                {
-                    id:1,
-                    name: "Status test1",
-                },
-                {
-                    id:2,
-                    name: "Status test2",
-                },
-            ]
+             items: [
+             { 'Packkage ID': "100", 'Station': this.stationData, 'Receive': 'มมส.' },
+         ]
         }
     },
     methods:{
         Search(){
             this.foundPackage = true
-            this.haveSearch = true
         },
         Save(){
-            alert("บันทึกสถานะพัสดุสำเร็จ")
+            api.post("/addSentParcel", {
+                packageId: this.SentParcel.packageId,
+                stationId: this.SentParcel.stationId,
+                senttimeId: this.SentParcel.senttimeId,
+                receiveId: this.SentParcel.receiveId
+            })
+
+        },
+        getpackage() {
+            api.get("/getAllPackagee")
+                .then(response => {
+                    this.SentParcel.packageId = response.data
+                })
+        },
+        getAllStation() {
+            api.get("/getStations")
+                .then(response => {
+                    this.stationData = response.data
+                })
+        },
+        getAllSenttime() {
+            api.get("/getAllRangeTimes")
+                .then(response => {
+                    this.sentTime = response.data
+                })
         }
+    },
+    mounted() {
+        this.getAllStation(),
+        this.getAllSenttime()
     }
 }
 </script>
