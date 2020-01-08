@@ -85,7 +85,7 @@ public class PackagingController {
         return json;
     }
 
-    @GetMapping("/getAllPackagee")
+    @GetMapping("/getAllPackage")
     public List<Packaging> getAllPackage() {
         List<Packaging> packaging = new ArrayList<>();
         packagingRepository.findAll().forEach(packaging::add);
