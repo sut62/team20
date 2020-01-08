@@ -11,7 +11,7 @@
             <b-card-title>แบบฟอร์มยกเลิกพัสดุ</b-card-title>
 
             <hr>
-            
+
             <b-row class="mt-4 mb-4">
                 <b-col cols="1"></b-col>
                 <b-col cols="5">
@@ -21,9 +21,9 @@
                     <label for="input-with-list">กรอก Package ID</label>
                     <b-form-input list="input-list" v-model="Cancelsent.packageId" id="input-with-list"></b-form-input>
                     <b-button class="mt-2" @click="this.SearchPackage">ตรวจสอบ Package</b-button>
-<br>
+                    <br>
                     <b-button v-if="this.foundPackage" class="mt-2" @click="this.CheckStatus">ตรวจสอบสถานะ</b-button>
-                    
+
                 </b-col>
                 <b-col cols="1"></b-col>
                 <b-col>
@@ -58,7 +58,7 @@
                                 ปลายทางสถานี : {{this.packageData.place}} <br>
                             </div>
                         </div>
-                        
+
                         <div>
                             สถานะ การทำรายการ:
                             <span v-if="this.haveSearch2">
@@ -148,14 +148,34 @@ export default {
             this.haveSearch2 = true
         },
 
-
         Save() {
             api.post("/addCancelsent", {
                     packageId: this.Cancelsent.packageId,
                     employeeId: this.Cancelsent.employeeId,
                     senttobackId: this.Cancelsent.senttobackId,
                     howtopayId: this.Cancelsent.howtopayId,
-                    statusId: this.Cancelsent.statusId                   //รอแก้
+                    statusId: this.Cancelsent.statusId
+                })
+                .then(
+                    response => {
+                        if (response.data)
+                            alert("ทำการpdg]สำเร็จ")
+
+                        this.addShippingState()
+                    },
+                    error => {
+                        if (error)
+                            alert("ทำการบันทึกสถานะพัสดุไม่สำเร็จ")
+                    }
+                )
+
+        },
+        addShippingState() {
+            api.post("/addShippingState", {
+                    packageId: this.Cancelsent.packageId,
+                    employeeId: this.Cancelsent.employeeId,
+                    stationId: this.lastShippingState.atStation.id,
+                    statusId: this.Cancelsent.statusId
                 })
                 .then(
                     response => {
@@ -167,7 +187,6 @@ export default {
                             alert("ทำการบันทึกสถานะพัสดุไม่สำเร็จ")
                     }
                 )
-
         },
         getAllEmployees() {
             api.get("/getEmployees")
@@ -175,58 +194,64 @@ export default {
                     this.employeeData = response.data
                 })
         },
-        findPackageById() {                                                         
-            api.get("/findPackageById/" + this.Cancelsent.packageId)                
-                .then(                                                              
-                    response => {                                                   
-                        this.packageData = response.data                    
-                        this.foundPackage = true                                    
-                    },                                                              
-                    error => {                                                      
-                        if (error)                                                  
-                            alert("ไม่พบ package จากการค้นหากรุณาค้นหาอีกครั้ง !")        
-                    }                                                              
-                )                                                                  
-        },  
-        checkPackageById() {                                                         
-            api.get("/findPackageById/" + this.Cancelsent.packageId)                
-                .then(                                                              
-                    response => {                                                   
+        findPackageById() {
+            api.get("/findPackageById/" + this.Cancelsent.packageId)
+                .then(
+                    response => {
                         this.packageData = response.data
-                        this.lastShippingState = this.packageData.haveShippingState[this.packageData.haveShippingState.length]
-                                                                                        //แก้ไข                       
-                        this.statusPackage = true                                    
-                    },                                                              
-                    error => {                                                      
-                        if (error)                                                  
-                            alert("ไม่พบ package จากการค้นหากรุณาค้นหาอีกครั้ง !")        
-                    }                                                              
-                )                                                                  
-        },                                                                 
-        setStatus() {                                                                      //รอแก้                             
-            api.get("/getStatus")                                                  
-                .then(response => {                                                
-                    this.statusData = response.data                                
-                })                                                                 
-        },                                                                          
+                        this.lastShippingState = this.packageData.haveShippingState[this.packageData.haveShippingState.length - 1]
+                        this.foundPackage = true
+                    },
+                    error => {
+                        if (error)
+                            alert("ไม่พบ package จากการค้นหากรุณาค้นหาอีกครั้ง !")
+                    }
+                )
+        },
+        checkPackageById() {
+            api.get("/getShippingStateById/" + this.lastShippingState.id)
+                .then(
+                    response => {
+                        if (response.data.onStatus.name == "ยกเลิก")
+                            this.statusPackage = false
+                        else
+                            this.statusPackage = true
+
+                    },
+                    error => {
+                        if (error)
+                            alert("ไม่พบ status จากการค้นหากรุณาค้นหาอีกครั้ง !")
+                    }
+                )
+        },
         getAllSenttoback() {
-            api.get("/getSenttoback")
+            api.get("/Senttoback")
                 .then(response => {
                     this.senttobackData = response.data
                 })
         },
         getAllHowtopay() {
-            api.get("/getHowtopay")
+            api.get("/Howtopay")
                 .then(response => {
                     this.howtopayData = response.data
                 })
         },
+        getStatus() {
+            api.get("/getStatus")
+                .then(response => {
+                    for (var x in response.data) {
+                        if (x.name == "ยกเลิก")
+                            this.Cancelsent.statusId = x.id
+                    }
+                })
+        }
     },
     mounted() {
         this.getAllEmployees(),
             this.getAllSenttoback(),
-            this.getAllHowtopay()
-            
+            this.getAllHowtopay(),
+            this.getStatus()
+
     }
 }
 </script>
