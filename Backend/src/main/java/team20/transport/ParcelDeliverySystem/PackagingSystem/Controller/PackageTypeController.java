@@ -5,8 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import team20.transport.ParcelDeliverySystem.PackagingSystem.Entity.PackageType;
 import team20.transport.ParcelDeliverySystem.PackagingSystem.Repository.PackageTypeRepository;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
 
 @RestController
 @RequestMapping("/Packaging")
@@ -16,9 +15,7 @@ public class PackageTypeController {
     PackageTypeRepository repository;
 
     @GetMapping("/getPackageType")
-    public List<PackageType> getAllPackageType() {
-        List<PackageType> packageTypes = new ArrayList<>();
-        repository.findAll().forEach(packageTypes::add);
-        return packageTypes;
+    public Collection<PackageType> getAllPackageType(){
+        return repository.findAll();
     }
 }
