@@ -225,13 +225,13 @@ export default {
                 )
         },
         getAllSenttoback() {
-            api.get("/Senttoback")
+            api.get("/getSenttoback")
                 .then(response => {
                     this.senttobackData = response.data
                 })
         },
         getAllHowtopay() {
-            api.get("/Howtopay")
+            api.get("/getHowtopay")
                 .then(response => {
                     this.howtopayData = response.data
                 })
