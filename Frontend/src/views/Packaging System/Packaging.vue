@@ -19,33 +19,34 @@
 
                     <b-row>
                         <b-col cols="8">
-                            <b-form-input list="input-list" v-model="this.findCustomerId" id="input-with-list"></b-form-input>
+                            <b-form-input list="input-list" v-model="findCustomerId" id="input-with-list"></b-form-input>
                         </b-col>
                         <b-col cols="4">
-                            <b-button class="mt-0" style="width:100%" v-model="this.findCustomer">ค้นหา</b-button>
+                            <b-button class="mt-0" style="width:100%" @click="this.findCustomer">ค้นหา</b-button>
                         </b-col>
                     </b-row>
                     <label for="selectList">เลือกสถานีที่รับฝาก</label>
-                    <b-form-select v-model="this.packageData.stationId" :options="this.stationData" class="mb-3" value-field="id" text-field="name" disabled-field="notEnabled" id="selectList"></b-form-select>
+                    <b-form-select v-model="packageData.stationId" :options="this.stationData" class="mb-3" value-field="id" text-field="name" disabled-field="notEnabled" id="selectList"></b-form-select>
 
                     <label for="input-with-list">กรอกชื่อผู้รับ</label>
-                    <b-form-input list="input-list" v-model="this.packageData.receieverName" id="input-with-list"></b-form-input>
+                    <b-form-input list="input-list" v-model="packageData.receieverName" id="input-with-list"></b-form-input>
 
                     <label for="input-with-list">กรอกที่อยู่ผู้รับ</label>
-                    <b-form-input list="input-list" v-model="this.packageData.place" id="input-with-list"></b-form-input>
+                    <b-form-input list="input-list" v-model="packageData.place" id="input-with-list"></b-form-input>
 
                     <label for="selectList">เลือกประเภทพัสดุ</label>
-                    <b-form-select v-model="this.packageData.packageTypeId" :options="this.packageTypeData" class="mb-3" value-field="id" text-field="name" disabled-field="notEnabled" id="selectList"></b-form-select>
+                    <b-form-select v-model="packageData.packageTypeId" :options="this.packageTypeData" class="mb-3" value-field="id" text-field="type" disabled-field="notEnabled" id="selectList"></b-form-select>
 
                     <label for="input-with-list">กรอกน้ำหนักพัสดุ</label>
-                    <b-form-input list="input-list" v-model="this.packageData.weight" id="input-with-list"></b-form-input>
+                    <b-form-input list="input-list" v-model="packageData.weight" id="input-with-list"></b-form-input>
 
                     <label for="input-with-list">กรอกปริมาตรพัสดุ</label>
-                    <b-form-input list="input-list" v-model="this.packageData.volume" id="input-with-list"></b-form-input>
+                    <b-form-input list="input-list" v-model="packageData.volume" id="input-with-list"></b-form-input>
 
-                    <label for="selectList">เลือกประเภทพัสดุ</label>
-                    <b-form-select v-model="this.packageData.sendingTypeId" :options="this.sendingTypeData" class="mb-3" value-field="id" text-field="name" disabled-field="notEnabled" id="selectList"></b-form-select>
-
+                    <label for="selectList">เลือกประเภทการส่ง</label>
+                    <b-form-select v-model="packageData.sendingTypeId" :options="this.sendingTypeData" class="mb-3" value-field="id" text-field="type" disabled-field="notEnabled" id="selectList"></b-form-select>
+                    
+                    <b-button variant="primary" @click="this.Save">บันทึก</b-button>
                 </b-col>
 
                 <b-col cols="2"></b-col>
@@ -54,7 +55,7 @@
             <div v-if="this.foundPackage">
                 <hr>
 
-                <b-button variant="primary" @click="this.Save">บันทึก</b-button>
+                
 
             </div>
         </b-card-body>
@@ -110,7 +111,7 @@ export default {
             api.get("/FindMemberCustomerId/" + this.findCustomerId)
                 .then(
                     response => {
-                        alert("พบ id ของลูกค้า ชื่อ : " + response.data.MemName),
+                        alert("พบ id ของลูกค้า ชื่อ : " + response.data.name),
                             this.packageData.customerId = response.data.id
                     },
                     error => {
@@ -141,7 +142,7 @@ export default {
     mounted() {
         this.getAllStation(),
             this.getAllSendingType(),
-            this.getAllSendingType()
+            this.getAllPackageType()
     }
 }
 </script>
