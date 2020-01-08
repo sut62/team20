@@ -17,19 +17,19 @@
                 <b-col cols="5">
 
                     <label for="input-with-list">กรอกชื่อ</label>
-                    <b-form-input list="input-list" v-model="this.MemberCustomer.mname" id="input-with-list"></b-form-input>
+                    <b-form-input list="input-list" v-model="MemberCustomer.mname" id="input-with-list"></b-form-input>
 
                     <label for="input-with-list">กรอกเบอร์โทรศัพท์</label>
-                    <b-form-input list="input-list" v-model="this.MemberCustomer.tel" id="input-with-list"></b-form-input>
+                    <b-form-input list="input-list" v-model="MemberCustomer.tel" id="input-with-list"></b-form-input>
 
                     <label for="selectList">เลือกระดับสมาชิก</label>
-                    <b-form-select v-model="this.MemberCustomer.memberLevelId" :options="this.stationData" class="mb-3" value-field="id" text-field="name" disabled-field="notEnabled" id="selectList"></b-form-select>
+                    <b-form-select v-model="MemberCustomer.memberLevelId" :options="this.memberLevel" class="mb-3" value-field="id" text-field="permission" disabled-field="notEnabled" id="selectList"></b-form-select>
 
                     <label for="selectList">เลือกประเภทสมาชิก</label>
-                    <b-form-select v-model="this.MemberCustomer.memberTypeId" :options="this.stationData" class="mb-3" value-field="id" text-field="name" disabled-field="notEnabled" id="selectList"></b-form-select>
+                    <b-form-select v-model="MemberCustomer.memberTypeId" :options="this.memberType" class="mb-3" value-field="id" text-field="type" disabled-field="notEnabled" id="selectList"></b-form-select>
 
                     <label for="selectList">เลือกชื่อพนักงาน</label>
-                    <b-form-select v-model="this.MemberCustomer.employeeId" :options="this.stationData" class="mb-3" value-field="id" text-field="name" disabled-field="notEnabled" id="selectList"></b-form-select>
+                    <b-form-select v-model="MemberCustomer.employeeId" :options="this.employeeData" class="mb-3" value-field="id" text-field="name" disabled-field="notEnabled" id="selectList"></b-form-select>
 
                 </b-col>
                 <b-col cols="1"></b-col>
@@ -39,43 +39,17 @@
                         <div class="badge badge-danger text-wrap">
                             โปรดระมัดระวังข้อมูล!!! การบันทึกซ่ำซ้อนอาจทำให้เสียค่าใช้จ่ายในการสมัครเพิ่มเติมเพิ่มเติม
                         </div>
+                        
                         <div>
-                            สถานะ :
-                            <span v-if="this.haveSave">
-                                <div v-if="this.SaveComplete" class="badge badge-success text-wrap" style="width: 6rem;">
-                                    บันทึกข้อมูลสำเร็จ
+                                <div class="badge badge-light text-wrap" style="width: 15rem;">
+                                    feature ถัดไป +_+ ระบบแสดงข้อมูลสมาชิก Coming Soon!!
                                 </div>
-                                <div v-else class="badge badge-danger text-wrap" style="width: 6rem;">
-                                    บันทึกข้อมูลล้มเหลว
-                                </div>
-                            </span>
-
-                            <span v-if="!this.haveSave">
-                                <div class="badge badge-warning text-wrap" style="width: 8rem;">
-                                    ยังไม่ได้รับการบันทึก
-                                </div>
-                            </span>
-
-                        </div>
-
-                        <div v-if="this.SaveComplete">
-                            <hr>
-                            <div class="ml-2">
-                                <p class="text-center mb-1"><b>ข้อมูลสมาชิก</b></p>
-                                ชื่อสมาชิก : {{this.MemberCustomer.mname}} <br>
-                                เบอร์โทรศัพท์ : {{this.MemberCustomer.tel}} <br>
-                                ระดับสมาชิก : {{this.MemberCustomer.memberLevelId}} <br>
-                                ประเภทสมาชิก : {{this.MemberCustomer.memberTypeId}} <br>
-                                ผู้สมัคร : {{this.MemberCustomer.employeeId}} <br>
-                            </div>
                         </div>
 
                     </div>
                 </b-col>
                 <b-col cols="1"></b-col>
             </b-row>
-
-            <hr v-if="this.foundPackage">
 
             <div>
                 <hr>
@@ -88,65 +62,70 @@
 </template>
 
 <script>
+import api from "../../apiConnector"
 export default {
     data() {
         return {
-            SaveComplete: false,
-            haveSave: false,
-            ShippingState: {
-                packageId: null,
-                employeeId: null,
-                stationId: null,
-                statusId: null,
-            },
-            packageData: {
-                srcName: "test",
-                dstName: "test2",
-                srcStation: "sT",
-                dstStation: "dT"
-            },
+            memberLevel: [],
+            memberType: [],
+            employeeData: [],
             MemberCustomer: {
                 mname: null,
                 tel: null,
                 memberLevelId: null,
                 memberTypeId: null,
                 employeeId: null
-            },
-            employeeData: [{
-                    id: 1,
-                    name: "test test"
-                },
-                {
-                    id: 2,
-                    name: "test2 test2"
-                }
-            ],
-            stationData: [{
-                    id: 1,
-                    name: "Station test1",
-                },
-                {
-                    id: 2,
-                    name: "Station test2",
-                },
-            ],
-            statusData: [{
-                    id: 1,
-                    name: "Status test1",
-                },
-                {
-                    id: 2,
-                    name: "Status test2",
-                },
-            ]
+            }
+
         }
     },
     methods: {
         Save() {
-            this.SaveComplete = true
-            this.haveSave = true
-            alert("บันทึกสถานะพัสดุสำเร็จ")
+            api.post("/addMemberCustomer", {
+                    mname: this.MemberCustomer.mname,
+                    tel: this.MemberCustomer.tel,
+                    levelId: this.MemberCustomer.memberLevelId,
+                    typeId: this.MemberCustomer.memberTypeId,
+                    employeeId: this.MemberCustomer.employeeId
+                })
+                .then(
+                    response => {
+                        if (response.data){
+                            
+                        alert("ทำการบันทึกสถานะพัสดุสำเร็จ")}
+                    },
+                    error => {
+                        if (error){
+                            alert("ทำการบันทึกสถานะพัสดุไม่สำเร็จ")
+                            
+                        }
+                    }
+                )
+        },
+        getMemberLevel() {
+            api.get("/MemberLevel")
+                .then(response => {
+                    this.memberLevel = response.data
+                })
+        },
+        getMemberType() {
+            api.get("/MemberType")
+                .then(response => {
+                    this.memberType = response.data
+                })
+        },
+        getEmployee() {
+            api.get("/getEmployees")
+                .then(response => {
+                    this.employeeData = response.data
+                })
         }
+
+    },
+    mounted() {
+        this.getMemberLevel();
+        this.getMemberType();
+        this.getEmployee();
     }
 }
 </script>
