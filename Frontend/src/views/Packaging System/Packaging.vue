@@ -22,7 +22,7 @@
                             <b-form-input list="input-list" v-model="findCustomerId" id="input-with-list"></b-form-input>
                         </b-col>
                         <b-col cols="4">
-                            <b-button class="mt-0" style="width:100%" @click="this.findCustomer">ค้นหา</b-button>
+                            <b-button style="width:100%" @click="this.findCustomer">ค้นหา</b-button>
                         </b-col>
                     </b-row>
                     <label for="selectList">เลือกสถานีที่รับฝาก</label>
@@ -46,7 +46,7 @@
                     <label for="selectList">เลือกประเภทการส่ง</label>
                     <b-form-select v-model="packageData.sendingTypeId" :options="this.sendingTypeData" class="mb-3" value-field="id" text-field="type" disabled-field="notEnabled" id="selectList"></b-form-select>
                     
-                    <b-button variant="primary" @click="this.Save">บันทึก</b-button>
+                    <b-button variant="primary" style="width:80%" @click="this.Save">บันทึก</b-button>
                 </b-col>
 
                 <b-col cols="2"></b-col>
