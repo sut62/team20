@@ -15,7 +15,7 @@ import java.util.Date;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/ConfirmPackage")
+@RequestMapping("/team20")
 @CrossOrigin(origins = {"*"})
 public class ConfirmPackageController {
     @Autowired
