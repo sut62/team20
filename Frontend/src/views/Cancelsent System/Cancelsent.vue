@@ -96,7 +96,7 @@
                 </b-col>
                 <b-col cols="1"></b-col>
             </b-row>
-            <div v-if="this.foundPackage">
+            <div v-if="this.statusPackage">
                 <hr>
                 <b-button variant="primary" @click="this.Save">บันทึก</b-button>
             </div>
@@ -159,9 +159,7 @@ export default {
                 .then(
                     response => {
                         if (response.data)
-                            alert("ทำการpdg]สำเร็จ")
-
-                        this.addShippingState()
+                            alert("ทำการบันทึกสำเร็จ")
                     },
                     error => {
                         if (error)
@@ -169,24 +167,6 @@ export default {
                     }
                 )
 
-        },
-        addShippingState() {
-            api.post("/addShippingState", {
-                    packageId: this.Cancelsent.packageId,
-                    employeeId: this.Cancelsent.employeeId,
-                    stationId: this.lastShippingState.atStation.id,
-                    statusId: this.Cancelsent.statusId
-                })
-                .then(
-                    response => {
-                        if (response.data)
-                            alert("ทำการบันทึกสถานะพัสดุสำเร็จ")
-                    },
-                    error => {
-                        if (error)
-                            alert("ทำการบันทึกสถานะพัสดุไม่สำเร็จ")
-                    }
-                )
         },
         getAllEmployees() {
             api.get("/getEmployees")
@@ -240,8 +220,8 @@ export default {
             api.get("/getStatus")
                 .then(response => {
                     for (var x in response.data) {
-                        if (x.name == "ยกเลิก")
-                            this.Cancelsent.statusId = x.id
+                        if (response.data[x].name == "ยกเลิก")
+                            this.Cancelsent.statusId = response.data[x].id
                     }
                 })
         }
