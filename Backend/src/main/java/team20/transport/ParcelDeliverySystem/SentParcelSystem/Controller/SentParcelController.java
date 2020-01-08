@@ -46,9 +46,9 @@ public class SentParcelController {
     public SentParcel addSentParcel(@RequestBody Map<String,Long> allParams){
 
         Packaging ofPackage = packagingRepository.findById(Long.valueOf(allParams.get("packageId"))).get();
-        Station atOriginStation = stationRepository.findById(allParams.get("originStationId")).get();
-        Station atArriveStation = stationRepository.findById(allParams.get("arriveStationId")).get();
-        SentTime toParcel = sentTimeRepository.findById(allParams.get("sentTimeId")).get();
+        Station atOriginStation = stationRepository.findById(allParams.get("stationId")).get();
+        Station atArriveStation = stationRepository.findById(allParams.get("receiveId")).get();
+        SentTime toParcel = sentTimeRepository.findById(allParams.get("senttimeId")).get();
 
         SentParcel newSentParcel = new SentParcel();
         newSentParcel.setPackaging(ofPackage);
