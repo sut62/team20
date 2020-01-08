@@ -15,7 +15,7 @@ public class SenttobackController {
     @Autowired
     SenttobackRepository senttobackRepository;
 
-    @GetMapping("/Senttoback")
+    @GetMapping("/getSenttoback")
     public Collection<Senttoback> Senttoback() {
         return senttobackRepository.findAll().stream().collect(Collectors.toList());
     }

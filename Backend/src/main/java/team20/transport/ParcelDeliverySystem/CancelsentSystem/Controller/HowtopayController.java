@@ -15,7 +15,7 @@ public class HowtopayController {
     @Autowired
     HowtopayRepository howtopayRepository;
 
-    @GetMapping("/Howtopay")
+    @GetMapping("/getHowtopay")
     public Collection<Howtopay> Howtopay() {
         return howtopayRepository.findAll().stream().collect(Collectors.toList());
     }
