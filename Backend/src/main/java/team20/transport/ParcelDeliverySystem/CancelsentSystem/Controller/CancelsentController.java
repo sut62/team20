@@ -23,7 +23,7 @@ import team20.transport.ParcelDeliverySystem.Repository.StatusRepository;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/Cancelsent")
+@RequestMapping("/team20")
 @CrossOrigin(origins = {"*"})
 public class CancelsentController {
     @Autowired
