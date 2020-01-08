@@ -8,7 +8,7 @@ import team20.transport.ParcelDeliverySystem.PackagingSystem.Repository.SendingT
 import java.util.Collection;
 
 @RestController
-@RequestMapping("/Packaging")
+@RequestMapping("/team20")
 @CrossOrigin(origins = {"*"})
 public class SendingTypeController {
     @Autowired
