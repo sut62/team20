@@ -58,6 +58,10 @@ public class PackagingController {
         newPackaging.setPackageType(ptype);
         newPackaging.setSendingType(stype);
         newPackaging.setPackageDate(pdate);
+        newPackaging.setPlace(place);
+        newPackaging.setReciever(receiver);
+        newPackaging.setVolume(volume);
+        newPackaging.setWeight(weight);
 
         return packagingRepository.save(newPackaging);
     }
