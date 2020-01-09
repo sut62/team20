@@ -92,7 +92,7 @@ export default {
                     response => {
                         if (response.data){
                             
-                        alert("สมัครสมาชิกสำเร็จ")}
+                        alert("สมัครสมาชิกสำเร็จ สมาชิกใหม่IDคือ "+response.data.id)}
                     },
                     error => {
                         if (error){
