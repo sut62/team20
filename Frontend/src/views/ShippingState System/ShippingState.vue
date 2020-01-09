@@ -155,6 +155,8 @@ export default {
                     response => {
                         this.packageData = response.data
                         this.foundPackage = true
+                        this.getAllStatus()
+                        this.getAllStation()
                     },
                     error => {
                         if (error)
@@ -178,9 +180,7 @@ export default {
 
     },
     mounted() {
-        this.getAllEmployees(),
-            this.getAllStatus(),
-            this.getAllStation()
+        this.getAllEmployees()
     }
 }
 </script>
