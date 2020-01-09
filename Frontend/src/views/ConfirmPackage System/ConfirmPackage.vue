@@ -41,21 +41,13 @@ import api from "../../apiConnector"
 export default {
     data() {
         return {
-            foundPackage: false,
-            haveSearch: false,
             ConfirmPackage: {
                 packageId: null,
                 employeeId: null,
                 satisfactionlevelId: null,
             },
-            packageData: {
-                receiever: "None",
-                place: "Arrive",
-                createBy: {
-                    name: "Annonymous"
-                }
-            },
             employeeData: "",
+            packageData: "",
             satisfactionlevelData: ""
         }
     },
@@ -149,21 +141,13 @@ import api from "../../apiConnector"
 export default {
     data() {
         return {
-            foundPackage: false,
-            haveSearch: false,
             ConfirmPackage: {
                 packageId: null,
                 employeeId: null,
                 satisfactionlevelId: null,
             },
-            packageData: {
-                receiever: "None",
-                place: "Arrive",
-                createBy: {
-                    name: "Annonymous"
-                }
-            },
             employeeData: "",
+            packageData: "",
             satisfactionlevelData: ""
         }
     },
