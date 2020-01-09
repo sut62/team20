@@ -92,11 +92,11 @@ export default {
                     response => {
                         if (response.data){
                             
-                        alert("ทำการบันทึกสถานะพัสดุสำเร็จ")}
+                        alert("สมัครสมาชิกสำเร็จ")}
                     },
                     error => {
                         if (error){
-                            alert("ทำการบันทึกสถานะพัสดุไม่สำเร็จ")
+                            alert("สมัครสมาชิกไม่สำเร็จ")
                             
                         }
                     }
