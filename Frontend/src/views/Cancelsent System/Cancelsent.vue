@@ -192,11 +192,11 @@ export default {
             api.get("/getShippingStateById/" + this.lastShippingState.id)
                 .then(
                     response => {
-                        if (response.data.onStatus.name == "ยกเลิก")
+                        if (response.data.onStatus.name == "ยกเลิก" || response.data.onStatus.name == "เสร็จสิ้น")
                             this.statusPackage = false
                         else
                             this.statusPackage = true
-
+//
                     },
                     error => {
                         if (error)
