@@ -196,7 +196,7 @@ export default {
                             this.statusPackage = false
                         else
                             this.statusPackage = true
-
+//
                     },
                     error => {
                         if (error)
