@@ -80,17 +80,12 @@
                 <b-col cols="1"></b-col>
             </b-row>
 
-            <b-alert class="mt-3 mb-4" :show="saveStatus.popup.dismissCountDown" dismissible fade :variant="saveStatus.popup.variant">
-                {{this.saveStatus.popup.message}}
-            </b-alert>
-
             <div v-if="this.foundPackage">
                 <hr>
 
                 <b-button variant="primary" @click="this.Save">บันทึก</b-button>
 
             </div>
-
         </b-card-body>
     </b-card>
 </div>
@@ -121,16 +116,7 @@ export default {
             },
             employeeData: "",
             stationData: "",
-            statusData: "",
-            saveStatus: {
-                popup: {
-                    dismissSecs: 3,
-                    dismissCountDown: 0,
-                    showDismissibleAlert: false,
-                    variant: "danger",
-                    message: ""
-                }
-            }
+            statusData: ""
         }
     },
     methods: {
@@ -147,22 +133,14 @@ export default {
                 })
                 .then(
                     response => {
-                        if (response.data) {
-                            this.saveStatus.popup.dismissCountDown = this.saveStatus.popup.dismissSecs
-                            this.saveStatus.popup.variant = "success"
-                            this.saveStatus.popup.message = "ทำการบันทึกสถานะพัสดุสำเร็จ"
-                        }
+                        if (response.data)
+                            alert("ทำการบันทึกสถานะพัสดุสำเร็จ")
                     },
                     error => {
-                        if (error) {
-                            this.saveStatus.popup.dismissCountDown = this.saveStatus.popup.dismissSecs
-                            this.saveStatus.popup.variant = "danger"
-                            this.saveStatus.popup.message = "ทำการบันทึกสถานะพัสดุไม่สำเร็จ"
-
-                        }
+                        if (error)
+                            alert("ทำการบันทึกสถานะพัสดุไม่สำเร็จ")
                     }
                 )
-
         },
         getAllEmployees() {
             api.get("/getEmployees")
@@ -184,7 +162,6 @@ export default {
                             alert("ไม่พบ package จากการค้นหากรุณาค้นหาอีกครั้ง !")
                     }
                 )
-
         },
         getAllStation() {
             api.get("/getStations")
@@ -198,7 +175,6 @@ export default {
                     this.statusData = response.data
                 })
         },
-
     },
     mounted() {
         this.getAllEmployees()
