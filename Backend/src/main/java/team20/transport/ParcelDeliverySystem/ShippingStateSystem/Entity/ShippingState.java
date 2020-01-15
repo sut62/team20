@@ -12,12 +12,17 @@ import team20.transport.ParcelDeliverySystem.Entity.Status;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.sql.Timestamp;
+import javax.validation.constraints.FutureOrPresent;
+import javax.validation.constraints.Pattern;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
 @Setter
-@Table(name="SHIPPINGSTATE")
+@Table(
+    name="SHIPPINGSTATE",
+    uniqueConstraints = @UniqueConstraint(columnNames = {"SHIPPINGSTATE_CODE"})
+    )
 public class ShippingState {
     @Id
     @SequenceGenerator(name = "SHIPPINGSTATE_SEQ", sequenceName = "SHIPPINGSTATE_SEQ", initialValue = 1, allocationSize = 1)
@@ -25,9 +30,14 @@ public class ShippingState {
     @Column(name = "SHIPPINGSTATE_ID", unique = true, nullable = true)
     private Long id;
 
+    @Column(name="SHIPPINGSTATE_CODE", nullable = false)
+    @Pattern(regexp = "SHPT20\\d{5}")
+    @NotNull
+    private String code;
+
     @Column(name="SHIPPINGSTATE_TIMESTAMP", nullable = false)
     @NotNull
-    private Timestamp timestamp;
+    private LocalDateTime timestamp;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Employee.class)
     @JoinColumn(name = "EMPOLYEE_ID", insertable = true)
