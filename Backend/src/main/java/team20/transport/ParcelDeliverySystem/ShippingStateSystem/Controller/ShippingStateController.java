@@ -13,9 +13,7 @@ import team20.transport.ParcelDeliverySystem.Repository.StatusRepository;
 import team20.transport.ParcelDeliverySystem.PackagingSystem.Repository.PackagingRepository;
 import team20.transport.ParcelDeliverySystem.ShippingStateSystem.Entity.ShippingState;
 import team20.transport.ParcelDeliverySystem.ShippingStateSystem.Repository.ShippingStateRepository;
-
-import java.sql.Timestamp;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.Map;
 
 @RestController
@@ -55,9 +53,13 @@ public class ShippingStateController {
         Status onStatus = statusRepository.findById(allParams.get("statusId")).get();
         Station atStation = stationRepository.findById(allParams.get("stationId")).get();
 
-        Timestamp CurrentTimeStamp = new Timestamp(new Date().getTime());
         ShippingState newShippingState = new ShippingState();
-        newShippingState.setTimestamp(CurrentTimeStamp);
+
+        // Generate code by package id
+        String code = "SHP" + packaging.getId();
+
+        newShippingState.setTimestamp(LocalDateTime.now());
+        newShippingState.setCode(code);
         newShippingState.setOnStatus(onStatus);
         newShippingState.setAtStation(atStation);
         newShippingState.setCreateBy(createBy);
