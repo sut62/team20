@@ -10,7 +10,7 @@ import team20.transport.ParcelDeliverySystem.MemberCustomerSystem.Entity.*;
 import team20.transport.ParcelDeliverySystem.PackagingSystem.Entity.Packaging;
 
 import javax.validation.constraints.Pattern;
-
+import javax.validation.constraints.NotNull;
 @Entity
 @Data
 @NoArgsConstructor
@@ -24,6 +24,7 @@ public class MemberCustomer {
     private @NonNull Long id;
 
     @Column(name="MEMBER_NAME",unique = false, nullable = false)
+    @NotNull
     private String MemName;
 
     @Pattern(regexp = "\\d{10}")
@@ -33,20 +34,24 @@ public class MemberCustomer {
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Employee.class)
     @JoinColumn(name = "EMPOLYEE_ID", insertable = true)
     @JsonBackReference
+    @NotNull
     private Employee createBy;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = MemberType.class)
     @JoinColumn(name = "MEMBER_TYPE_ID", insertable = true)
     @JsonBackReference
+    @NotNull
     private MemberType memberType;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = MemberLevel.class)
     @JoinColumn(name = "MEMBER_LEVEL_ID", insertable = true)
     @JsonBackReference
+    @NotNull
     private MemberLevel memberLevel;
 
     @OneToMany(orphanRemoval = true, mappedBy = "sentBy")
     @JsonManagedReference
+    @NotNull
     private Collection<Packaging> hasSend;
  //
 
