@@ -51,7 +51,6 @@ public class MemberCustomer {
 
     @OneToMany(orphanRemoval = true, mappedBy = "sentBy")
     @JsonManagedReference
-    @NotNull
     private Collection<Packaging> hasSend;
  //
 
