@@ -14,6 +14,7 @@ import team20.transport.ParcelDeliverySystem.PackagingSystem.Repository.Packagin
 import team20.transport.ParcelDeliverySystem.ShippingStateSystem.Entity.ShippingState;
 import team20.transport.ParcelDeliverySystem.ShippingStateSystem.Repository.ShippingStateRepository;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.Map;
 
 @RestController
@@ -58,7 +59,7 @@ public class ShippingStateController {
         // Generate code by package id
         String code = "SHP" + ofPackage.getId();
 
-        newShippingState.setTimestamp(LocalDateTime.now());
+        newShippingState.setTimestamp(new Date());
         newShippingState.setCode(code);
         newShippingState.setOnStatus(onStatus);
         newShippingState.setAtStation(atStation);
