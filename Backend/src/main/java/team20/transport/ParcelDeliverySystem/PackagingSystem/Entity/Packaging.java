@@ -15,6 +15,8 @@ import team20.transport.ParcelDeliverySystem.SentParcelSystem.Entity.SentParcel;
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Date;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 @Entity
 @Getter
@@ -26,6 +28,10 @@ public class Packaging {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="PACKAGING_SEQ")
     @Column(name="PACKAGING_ID",unique = true, nullable = true)
     private @NonNull Long id;
+    @Column(name="PACKAGE_CODE", nullable = false)
+    @Pattern(regexp = "T20\\d{5}")
+    @NotNull
+    private String code;
     private @NonNull String reciever;
     private @NonNull String place;
     private @NonNull Long weight;
@@ -35,16 +41,19 @@ public class Packaging {
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = MemberCustomer.class)
     @JoinColumn(name = "CUSTOMER_ID", insertable = true)
     @JsonBackReference
+    @NotNull
     private MemberCustomer sentBy;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Employee.class)
     @JoinColumn(name = "EMPOLYEE_ID", insertable = true)
     @JsonBackReference
+    @NotNull
     private Employee createBy;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Station.class)
     @JoinColumn(name = "STATION_ID", insertable = true)
     @JsonBackReference
+    @NotNull
     private Station atStation;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = PackageType.class)
