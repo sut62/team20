@@ -37,6 +37,7 @@ public class ShippingState {
 
     @Column(name="SHIPPINGSTATE_TIMESTAMP", nullable = false)
     @NotNull
+    @FutureOrPresent
     private LocalDateTime timestamp;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Employee.class)
