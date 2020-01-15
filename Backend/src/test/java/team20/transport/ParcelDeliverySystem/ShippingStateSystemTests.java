@@ -7,10 +7,10 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import team20.transport.ParcelDeliverySystem.Entity.Employee;
 import team20.transport.ParcelDeliverySystem.Entity.Station;
 import team20.transport.ParcelDeliverySystem.Entity.Status;
-import team20.transport.ParcelDeliverySystem.MemberCustomerSystem.Entity.*;
-import team20.transport.ParcelDeliverySystem.MemberCustomerSystem.Repository.*;
-import team20.transport.ParcelDeliverySystem.PackagingSystem.Entity.*;
-import team20.transport.ParcelDeliverySystem.PackagingSystem.Repository.*;
+import team20.transport.ParcelDeliverySystem.MemberCustomerSystem.Entity.MemberCustomer;
+import team20.transport.ParcelDeliverySystem.MemberCustomerSystem.Repository.MemberCustomerRepository;
+import team20.transport.ParcelDeliverySystem.PackagingSystem.Entity.Packaging;
+import team20.transport.ParcelDeliverySystem.PackagingSystem.Repository.PackagingRepository;
 import team20.transport.ParcelDeliverySystem.Repository.EmployeeRepository;
 import team20.transport.ParcelDeliverySystem.Repository.StationRepository;
 import team20.transport.ParcelDeliverySystem.Repository.StatusRepository;
@@ -22,7 +22,6 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -73,7 +72,7 @@ public class ShippingStateSystemTests {
         memberCustomer.setCreateBy(employee);
         memberCustomer = memberCustomerRepository.saveAndFlush(memberCustomer);
 
-            
+
 
         Packaging packaging = new Packaging();
         packaging.setCode("T2001234");
@@ -86,9 +85,10 @@ public class ShippingStateSystemTests {
         ShippingState shippingState = new ShippingState();
 
         String code = "SHP" + packaging.getCode();
-        
+
         shippingState.setCode(code);
         shippingState.setTimestamp(LocalDateTime.now());
+        shippingState.setIsActive(true);
         shippingState.setOnStatus(status);
         shippingState.setAtStation(station);
         shippingState.setCreateBy(employee);
@@ -100,6 +100,7 @@ public class ShippingStateSystemTests {
 
         assertEquals(shippingState.getTimestamp(),found.getTimestamp());
         assertEquals(code,found.getCode());
+        assertEquals(true,found.getIsActive());
         assertEquals(status,found.getOnStatus());
         assertEquals(station,found.getAtStation());
         assertEquals(employee,found.getCreateBy());
@@ -107,7 +108,7 @@ public class ShippingStateSystemTests {
 
     }
 
-    
+
 
 
     @Test
@@ -132,7 +133,7 @@ public class ShippingStateSystemTests {
         memberCustomer.setCreateBy(employee);
         memberCustomer = memberCustomerRepository.saveAndFlush(memberCustomer);
 
-            
+
 
         Packaging packaging = new Packaging();
         packaging.setCode("T2001234");
@@ -145,9 +146,10 @@ public class ShippingStateSystemTests {
         ShippingState shippingState = new ShippingState();
 
         String code = "SHP" + packaging.getCode();
-        
+
         shippingState.setCode(code);
         shippingState.setTimestamp(LocalDateTime.now());
+        shippingState.setIsActive(true);
         shippingState.setCode(null);
         shippingState.setOnStatus(status);
         shippingState.setAtStation(station);
@@ -184,7 +186,7 @@ public class ShippingStateSystemTests {
         memberCustomer.setCreateBy(employee);
         memberCustomer = memberCustomerRepository.saveAndFlush(memberCustomer);
 
-            
+
 
         Packaging packaging = new Packaging();
         packaging.setCode("T2001234");
@@ -197,9 +199,10 @@ public class ShippingStateSystemTests {
         ShippingState shippingState = new ShippingState();
 
         String code = "SHP" + packaging.getCode();
-        
+
         shippingState.setCode(code);
         shippingState.setTimestamp(LocalDateTime.now());
+        shippingState.setIsActive(true);
         shippingState.setOnStatus(null);
         shippingState.setAtStation(station);
         shippingState.setCreateBy(employee);
@@ -216,6 +219,7 @@ public class ShippingStateSystemTests {
         assertEquals("onStatus", v.getPropertyPath().toString());
 
     }
+
 
     @Test
     void b6003234_stationMustNotBeNull(){
@@ -240,7 +244,7 @@ public class ShippingStateSystemTests {
         memberCustomer.setCreateBy(employee);
         memberCustomer = memberCustomerRepository.saveAndFlush(memberCustomer);
 
-            
+
 
         Packaging packaging = new Packaging();
         packaging.setCode("T2001234");
@@ -253,9 +257,10 @@ public class ShippingStateSystemTests {
         ShippingState shippingState = new ShippingState();
 
         String code = "SHP" + packaging.getCode();
-        
+
         shippingState.setCode(code);
         shippingState.setTimestamp(LocalDateTime.now());
+        shippingState.setIsActive(true);
         shippingState.setOnStatus(status);
         shippingState.setAtStation(null);
         shippingState.setCreateBy(employee);
@@ -273,5 +278,61 @@ public class ShippingStateSystemTests {
 
     }
 
+    @Test
+    void b6003234_isActiveMustBeTrue(){
+
+        Employee employee = new Employee();
+        employee.setName("B6003234");
+        employee.setEmail("B6003234@g.sut.ac.th");
+        employee = employeeRepository.saveAndFlush(employee);
+
+        Status status = new Status();
+        status.setName("test status");
+        status = statusRepository.saveAndFlush(status);
+
+
+        Station station = new Station();
+        station.setName("test station");
+        station = stationRepository.saveAndFlush(station);
+
+        MemberCustomer memberCustomer = new MemberCustomer();
+        memberCustomer.setMemName("mem Test");
+        memberCustomer.setTel("0987654321");
+        memberCustomer.setCreateBy(employee);
+        memberCustomer = memberCustomerRepository.saveAndFlush(memberCustomer);
+
+
+
+        Packaging packaging = new Packaging();
+        packaging.setCode("T2001234");
+        packaging.setSentBy(memberCustomer);
+        packaging.setAtStation(station);
+        packaging.setCreateBy(employee);
+        packaging = packagingRepository.saveAndFlush(packaging);
+
+
+        ShippingState shippingState = new ShippingState();
+
+        String code = "SHP" + packaging.getCode();
+
+        shippingState.setCode(code);
+        shippingState.setTimestamp(LocalDateTime.now());
+        shippingState.setIsActive(false);
+        shippingState.setOnStatus(status);
+        shippingState.setAtStation(station);
+        shippingState.setCreateBy(employee);
+        shippingState.setOfPackage(packaging);
+
+        Set<ConstraintViolation<ShippingState>> result = validator.validate(shippingState);
+
+        //ต้องมี 1 error เท่านั้น
+        assertEquals(1, result.size());
+
+        // error message ตรงชนิด และถูก field
+        ConstraintViolation<ShippingState> v = result.iterator().next();
+        assertEquals("must be true", v.getMessage());
+        assertEquals("isActive", v.getPropertyPath().toString());
+
+    }
 
 }
