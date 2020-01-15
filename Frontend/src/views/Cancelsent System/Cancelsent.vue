@@ -19,7 +19,7 @@
                     <label for="selectList">เลือกชื่อพนักงาน</label>
                     <b-form-select v-model="Cancelsent.employeeId" :options="this.employeeData" class="mb-3" value-field="id" text-field="name" disabled-field="notEnabled" id="selectList"></b-form-select>
                     <label for="input-with-list">กรอก Package ID</label>
-                    <b-form-input list="input-list" v-model="Cancelsent.packageId" id="input-with-list"></b-form-input>
+                    <b-form-select v-model="Cancelsent.packageId" :options="this.packageData" class="mb-3" value-field="id" text-field="id" disabled-field="notEnabled" id="selectList"></b-form-select>
                     <b-button class="mt-2" @click="this.SearchPackage">ตรวจสอบ Package</b-button>
                     <br>
                     <b-button v-if="this.foundPackage" class="mt-2" @click="this.CheckStatus">ตรวจสอบสถานะ</b-button>
@@ -216,6 +216,12 @@ export default {
                     this.howtopayData = response.data
                 })
         },
+        getAllPackage() {
+                    api.get("/getAllPackage")
+                        .then(response => {
+                            this.packageData = response.data
+                        })
+         },
         getStatus() {
             api.get("/getStatus")
                 .then(response => {
@@ -229,6 +235,7 @@ export default {
     mounted() {
         this.getAllEmployees(),
             this.getAllSenttoback(),
+            this.getAllPackage(),
             this.getAllHowtopay(),
             this.getStatus()
 
