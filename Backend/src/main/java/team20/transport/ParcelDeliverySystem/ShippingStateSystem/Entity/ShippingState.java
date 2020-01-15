@@ -1,20 +1,18 @@
 package team20.transport.ParcelDeliverySystem.ShippingStateSystem.Entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.Setter;
-import team20.transport.ParcelDeliverySystem.PackagingSystem.Entity.Packaging;
 import team20.transport.ParcelDeliverySystem.Entity.Employee;
 import team20.transport.ParcelDeliverySystem.Entity.Station;
 import team20.transport.ParcelDeliverySystem.Entity.Status;
+import team20.transport.ParcelDeliverySystem.PackagingSystem.Entity.Packaging;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.FutureOrPresent;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Getter
@@ -38,7 +36,7 @@ public class ShippingState {
     @Column(name="SHIPPINGSTATE_TIMESTAMP", nullable = false)
     @NotNull
     @FutureOrPresent
-    private LocalDateTime timestamp;
+    private Date timestamp;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Employee.class)
     @JoinColumn(name = "EMPOLYEE_ID", insertable = true)
