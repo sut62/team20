@@ -9,9 +9,10 @@ import team20.transport.ParcelDeliverySystem.Entity.Status;
 import team20.transport.ParcelDeliverySystem.PackagingSystem.Entity.Packaging;
 
 import javax.persistence.*;
-import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.AssertTrue;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -33,10 +34,15 @@ public class ShippingState {
     @NotNull
     private String code;
 
+    @Column(name="SHIPPINGSTATE_ISACTIVE", nullable = false)
+    @AssertTrue
+    @NotNull
+    private Boolean isActive;
+
+
     @Column(name="SHIPPINGSTATE_TIMESTAMP", nullable = false)
     @NotNull
-    @FutureOrPresent
-    private Date timestamp;
+    private LocalDateTime timestamp;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Employee.class)
     @JoinColumn(name = "EMPOLYEE_ID", insertable = true)
