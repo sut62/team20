@@ -57,10 +57,11 @@ public class ShippingStateController {
         ShippingState newShippingState = new ShippingState();
 
         // Generate code by package id
-        String code = "SHP" + ofPackage.getId();
+        String code = "SHP" + ofPackage.getCode();
 
         newShippingState.setTimestamp(LocalDateTime.now());
         newShippingState.setCode(code);
+        newShippingState.setIsActive(true);
         newShippingState.setOnStatus(onStatus);
         newShippingState.setAtStation(atStation);
         newShippingState.setCreateBy(createBy);
