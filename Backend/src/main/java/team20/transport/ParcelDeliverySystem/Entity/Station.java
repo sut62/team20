@@ -27,7 +27,7 @@ public class Station {
     @NotNull
     private @NonNull String name;
 
-    @OneToMany(mappedBy = "atStation")
+    @OneToMany(orphanRemoval = false, mappedBy = "atStation")
     @JsonManagedReference
     private Collection<ShippingState> haveShippingState;
 
