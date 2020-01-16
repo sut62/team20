@@ -27,7 +27,7 @@ public class Status {
     @NotNull
     private @NonNull String name;
 
-    @OneToMany(orphanRemoval = true, mappedBy = "onStatus")
+    @OneToMany(mappedBy = "onStatus")
     @JsonManagedReference
     private Collection<ShippingState> haveShippingState;
 
