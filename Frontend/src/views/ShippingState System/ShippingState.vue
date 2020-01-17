@@ -19,8 +19,12 @@
                     <label for="selectList">เลือกชื่อพนักงาน</label>
                     <b-form-select v-model="ShippingState.employeeId" :options="this.employeeData" class="mb-3" value-field="id" text-field="name" disabled-field="notEnabled" id="selectList"></b-form-select>
 
-                    <label for="input-with-list">กรอก Package ID</label>
-                    <b-form-input list="input-list" v-model="ShippingState.packageId" id="input-with-list"></b-form-input>
+                    <b-form-input list="my-list-id"  v-model="packageCode" placeholder="กรอก package id"></b-form-input>
+
+                    <datalist id="my-list-id">
+                        <option v-for="pack in allPackage" v-bind:key="pack">{{ pack.code }}</option>
+                    </datalist>
+
                     <b-button class="mt-2" @click="this.Search">ค้นหา</b-button>
                 </b-col>
                 <b-col cols="1"></b-col>
@@ -114,9 +118,11 @@ export default {
                     "name": "Origin"
                 }
             },
+            allPackage: "",
             employeeData: "",
             stationData: "",
-            statusData: ""
+            statusData: "",
+            packageCode: ""
         }
     },
     methods: {
@@ -149,10 +155,11 @@ export default {
                 })
         },
         findPackageById() {
-            api.get("/findPackageById/" + this.ShippingState.packageId)
+            api.get("/findPackageByCode/" + this.packageCode)
                 .then(
                     response => {
                         this.packageData = response.data
+                        this.ShippingState.packageId = this.packageData.id
                         this.foundPackage = true
                         this.getAllStatus()
                         this.getAllStation()
@@ -175,9 +182,16 @@ export default {
                     this.statusData = response.data
                 })
         },
+        getAllPackage(){
+            api.get("/getAllPackage")
+                .then(response => {
+                    this.allPackage = response.data
+                })
+        }
     },
     mounted() {
         this.getAllEmployees()
+        this.getAllPackage()
     }
 }
 </script>
