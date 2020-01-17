@@ -19,9 +19,9 @@ import java.util.Date;
 @Getter
 @Setter
 @Table(
-    name="SHIPPINGSTATE",
-    uniqueConstraints = @UniqueConstraint(columnNames = {"SHIPPINGSTATE_CODE"})
-    )
+        name="SHIPPINGSTATE",
+        uniqueConstraints = @UniqueConstraint(columnNames = {"SHIPPINGSTATE_CODE"})
+)
 public class ShippingState {
     @Id
     @SequenceGenerator(name = "SHIPPINGSTATE_SEQ", sequenceName = "SHIPPINGSTATE_SEQ", initialValue = 1, allocationSize = 1)
@@ -30,7 +30,7 @@ public class ShippingState {
     private Long id;
 
     @Column(name="SHIPPINGSTATE_CODE", nullable = false)
-    @Pattern(regexp = "SHPT20\\d{5}")
+    @Pattern(regexp = "SHPT20\\d{5}_\\d{2}")
     @NotNull
     private String code;
 
