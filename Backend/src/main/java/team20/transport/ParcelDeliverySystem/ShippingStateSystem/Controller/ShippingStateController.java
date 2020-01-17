@@ -38,6 +38,7 @@ public class ShippingStateController {
         JSONObject ret = new JSONObject();
         ret.put("id",shippingstate.getId());
         ret.put("ofPackage",shippingstate.getOfPackage());
+        ret.put("code",shippingstate.getCode());
         ret.put("onStatus",shippingstate.getOnStatus());
         ret.put("atStation",shippingstate.getAtStation());
         ret.put("createBy",shippingstate.getCreateBy());
@@ -54,10 +55,16 @@ public class ShippingStateController {
         Status onStatus = statusRepository.findById(allParams.get("statusId")).get();
         Station atStation = stationRepository.findById(allParams.get("stationId")).get();
 
+        int countShippingState = 0;
+        if(ofPackage.getHaveShippingState() != null) {
+            for (ShippingState x : ofPackage.getHaveShippingState())
+                countShippingState++;
+        }
+
         ShippingState newShippingState = new ShippingState();
 
         // Generate code by package id
-        String code = "SHP" + ofPackage.getCode();
+        String code = String.format("SHP%s_%02d" , ofPackage.getCode(),countShippingState+1);
 
         newShippingState.setTimestamp(LocalDateTime.now());
         newShippingState.setCode(code);

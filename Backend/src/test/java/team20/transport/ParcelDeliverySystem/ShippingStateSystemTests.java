@@ -82,9 +82,16 @@ public class ShippingStateSystemTests {
         packaging = packagingRepository.saveAndFlush(packaging);
 
 
+        int countShippingState = 0;
+        if(packaging.getHaveShippingState() != null) {
+            for (ShippingState x : packaging.getHaveShippingState())
+                countShippingState++;
+        }
+
         ShippingState shippingState = new ShippingState();
 
-        String code = "SHP" + packaging.getCode();
+        // Generate code by package id
+        String code = String.format("SHP%s_%02d" , packaging.getCode(),countShippingState+1);
 
         shippingState.setCode(code);
         shippingState.setTimestamp(LocalDateTime.now());
@@ -143,9 +150,16 @@ public class ShippingStateSystemTests {
         packaging = packagingRepository.saveAndFlush(packaging);
 
 
+        int countShippingState = 0;
+        if(packaging.getHaveShippingState() != null) {
+            for (ShippingState x : packaging.getHaveShippingState())
+                countShippingState++;
+        }
+
         ShippingState shippingState = new ShippingState();
 
-        String code = "SHP" + packaging.getCode();
+        // Generate code by package id
+        String code = String.format("SHP%s_%02d" , packaging.getCode(),countShippingState+1);
 
         shippingState.setCode(code);
         shippingState.setTimestamp(LocalDateTime.now());
@@ -196,9 +210,16 @@ public class ShippingStateSystemTests {
         packaging = packagingRepository.saveAndFlush(packaging);
 
 
+        int countShippingState = 0;
+        if(packaging.getHaveShippingState() != null) {
+            for (ShippingState x : packaging.getHaveShippingState())
+                countShippingState++;
+        }
+
         ShippingState shippingState = new ShippingState();
 
-        String code = "SHP" + packaging.getCode();
+        // Generate code by package id
+        String code = String.format("SHP%s_%02d" , packaging.getCode(),countShippingState+1);
 
         shippingState.setCode(code);
         shippingState.setTimestamp(LocalDateTime.now());
@@ -254,9 +275,16 @@ public class ShippingStateSystemTests {
         packaging = packagingRepository.saveAndFlush(packaging);
 
 
+        int countShippingState = 0;
+        if(packaging.getHaveShippingState() != null) {
+            for (ShippingState x : packaging.getHaveShippingState())
+                countShippingState++;
+        }
+
         ShippingState shippingState = new ShippingState();
 
-        String code = "SHP" + packaging.getCode();
+        // Generate code by package id
+        String code = String.format("SHP%s_%02d" , packaging.getCode(),countShippingState+1);
 
         shippingState.setCode(code);
         shippingState.setTimestamp(LocalDateTime.now());
@@ -311,9 +339,16 @@ public class ShippingStateSystemTests {
         packaging = packagingRepository.saveAndFlush(packaging);
 
 
+        int countShippingState = 0;
+        if(packaging.getHaveShippingState() != null) {
+            for (ShippingState x : packaging.getHaveShippingState())
+                countShippingState++;
+        }
+
         ShippingState shippingState = new ShippingState();
 
-        String code = "SHP" + packaging.getCode();
+        // Generate code by package id
+        String code = String.format("SHP%s_%02d" , packaging.getCode(),countShippingState+1);
 
         shippingState.setCode(code);
         shippingState.setTimestamp(LocalDateTime.now());
