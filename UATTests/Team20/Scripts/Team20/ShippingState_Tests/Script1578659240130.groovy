@@ -21,29 +21,28 @@ WebUI.openBrowser('')
 
 WebUI.navigateToUrl('http://localhost:8080/#/login')
 
-WebUI.setText(findTestObject('Object Repository/Page_Parcel Delivery System/input__form-control'), '1')
+WebUI.setText(findTestObject('Page_Parcel Delivery System/input__form-control'), '1')
 
-WebUI.setText(findTestObject('Object Repository/Page_Parcel Delivery System/input__form-control_1'), 'chatdanai374@gmail.com')
+WebUI.setText(findTestObject('Page_Parcel Delivery System/input__form-control_1'), 'chatdanai374@gmail.com')
 
-WebUI.click(findTestObject('Object Repository/Page_Parcel Delivery System/input__btn btn-primary btn-block btn-lg'))
+WebUI.click(findTestObject('Page_Parcel Delivery System/input__btn btn-primary btn-block btn-lg'))
 
-WebUI.click(findTestObject('Object Repository/Page_Parcel Delivery System/a_'))
+WebUI.click(findTestObject('Page_Parcel Delivery System/a_'))
 
-WebUI.selectOptionByValue(findTestObject('Object Repository/Page_Parcel Delivery System/select_Chatdanai PhakaketPattarasit Lomthai_9273ba'), 
-    '1', true)
+WebUI.selectOptionByValue(findTestObject('Object Repository/Page_Parcel Delivery System/select_Chatdanai Phakaket'), '1', 
+    true)
 
-WebUI.setText(findTestObject('Object Repository/Page_Parcel Delivery System/input_ Package ID_input-with-list'), '3')
+WebUI.setText(findTestObject('Object Repository/Page_Parcel Delivery System/input____BVID__19'), 'T2001234')
 
-WebUI.click(findTestObject('Object Repository/Page_Parcel Delivery System/button_'))
+WebUI.click(findTestObject('Page_Parcel Delivery System/button_'))
 
-WebUI.selectOptionByValue(findTestObject('Object Repository/Page_Parcel Delivery System/select_'), '2', true)
+WebUI.selectOptionByValue(findTestObject('Page_Parcel Delivery System/select_'), '1', true)
 
-WebUI.selectOptionByValue(findTestObject('Object Repository/Page_Parcel Delivery System/select__1'), '1', true)
+WebUI.selectOptionByValue(findTestObject('Page_Parcel Delivery System/select__1'), '1', true)
 
-WebUI.click(findTestObject('Object Repository/Page_Parcel Delivery System/button__1'))
+WebUI.click(findTestObject('Page_Parcel Delivery System/button__1'))
 
 assertEquals('ทำการบันทึกสถานะพัสดุสำเร็จ', WebUI.getAlertText())
 
 WebUI.closeBrowser()
-
 
