@@ -38,7 +38,7 @@
       <matchCondition>equals</matchCondition>
       <name>text</name>
       <type>Main</type>
-      <value>มทสเดอะมอลโคราชสีคิ้วบุรีรัมย์</value>
+      <value>มทส</value>
    </webElementProperties>
    <webElementProperties>
       <isSelected>false</isSelected>
