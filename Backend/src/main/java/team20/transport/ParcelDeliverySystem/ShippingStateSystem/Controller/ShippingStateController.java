@@ -56,9 +56,8 @@ public class ShippingStateController {
         Station atStation = stationRepository.findById(allParams.get("stationId")).get();
 
         int countShippingState = 0;
-        if(ofPackage.getHaveShippingState() != null) {
-            for (ShippingState x : ofPackage.getHaveShippingState())
-                countShippingState++;
+        if (ofPackage.getHaveShippingState() != null) {
+            countShippingState = ofPackage.getHaveShippingState().size();
         }
 
         ShippingState newShippingState = new ShippingState();
