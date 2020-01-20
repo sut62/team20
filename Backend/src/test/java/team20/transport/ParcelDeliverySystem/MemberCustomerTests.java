@@ -106,7 +106,7 @@ public class MemberCustomerTests {
         Set<ConstraintViolation<MemberCustomer>> result = validator.validate(memberCustomer);
 
         //ต้องมี 1 error เท่านั้น
-      //  assertEquals(1, result.size());
+        assertEquals(1, result.size());
 
         // error message ตรงชนิด และถูก field
         ConstraintViolation<MemberCustomer> v = result.iterator().next();
