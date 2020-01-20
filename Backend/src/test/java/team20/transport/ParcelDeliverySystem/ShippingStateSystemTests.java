@@ -81,11 +81,9 @@ public class ShippingStateSystemTests {
         packaging.setCreateBy(employee);
         packaging = packagingRepository.saveAndFlush(packaging);
 
-
         int countShippingState = 0;
-        if(packaging.getHaveShippingState() != null) {
-            for (ShippingState x : packaging.getHaveShippingState())
-                countShippingState++;
+        if (packaging.getHaveShippingState() != null) {
+            countShippingState = packaging.getHaveShippingState().size();
         }
 
         ShippingState shippingState = new ShippingState();
@@ -151,9 +149,8 @@ public class ShippingStateSystemTests {
 
 
         int countShippingState = 0;
-        if(packaging.getHaveShippingState() != null) {
-            for (ShippingState x : packaging.getHaveShippingState())
-                countShippingState++;
+        if (packaging.getHaveShippingState() != null) {
+            countShippingState = packaging.getHaveShippingState().size();
         }
 
         ShippingState shippingState = new ShippingState();
@@ -211,9 +208,8 @@ public class ShippingStateSystemTests {
 
 
         int countShippingState = 0;
-        if(packaging.getHaveShippingState() != null) {
-            for (ShippingState x : packaging.getHaveShippingState())
-                countShippingState++;
+        if (packaging.getHaveShippingState() != null) {
+            countShippingState = packaging.getHaveShippingState().size();
         }
 
         ShippingState shippingState = new ShippingState();
@@ -276,9 +272,8 @@ public class ShippingStateSystemTests {
 
 
         int countShippingState = 0;
-        if(packaging.getHaveShippingState() != null) {
-            for (ShippingState x : packaging.getHaveShippingState())
-                countShippingState++;
+        if (packaging.getHaveShippingState() != null) {
+            countShippingState = packaging.getHaveShippingState().size();
         }
 
         ShippingState shippingState = new ShippingState();
@@ -340,9 +335,8 @@ public class ShippingStateSystemTests {
 
 
         int countShippingState = 0;
-        if(packaging.getHaveShippingState() != null) {
-            for (ShippingState x : packaging.getHaveShippingState())
-                countShippingState++;
+        if (packaging.getHaveShippingState() != null) {
+            countShippingState = packaging.getHaveShippingState().size();
         }
 
         ShippingState shippingState = new ShippingState();
