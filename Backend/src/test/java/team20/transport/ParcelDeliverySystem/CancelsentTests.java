@@ -230,7 +230,7 @@ public class CancelsentTests {
         packaging = packagingRepository.saveAndFlush(packaging);
         
         Cancelsent cancelsent = new Cancelsent();
-        cancelsent.setName(null);
+        cancelsent.setName("");
         cancelsent.setCreateBy(employee);
         cancelsent.setOnPackageing(packaging);
         cancelsent.setOnStatus(status);

@@ -12,6 +12,7 @@ import team20.transport.ParcelDeliverySystem.Entity.Employee;
 import team20.transport.ParcelDeliverySystem.PackagingSystem.Entity.Packaging;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
@@ -29,7 +30,7 @@ public class Cancelsent {
 
     @Column(name="CANCLESENT_NAME", nullable = false)
     @Pattern(regexp = "CN\\d{5}")
-    @NotNull
+    @NotEmpty
     private String name;
     
     @OneToOne
