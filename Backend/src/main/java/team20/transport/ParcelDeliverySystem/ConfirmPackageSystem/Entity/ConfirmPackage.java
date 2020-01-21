@@ -10,6 +10,7 @@ import team20.transport.ParcelDeliverySystem.ConfirmPackageSystem.Entity.Satisfa
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 import java.util.Date;
 @Data
@@ -28,7 +29,8 @@ public class ConfirmPackage {
     private @NonNull Long id;
 
     @Column(name="CONFIRM_PACKAGE_CODE", nullable = false)
-    @Pattern(regexp = "T20\\d{4}")
+    @Pattern(regexp = "T20\\d{5}")
+    @Size(min=1, max=8)
     @NotNull
     private String code;
 
@@ -49,6 +51,7 @@ public class ConfirmPackage {
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = SatisfactionLevel.class)
     @JoinColumn(name = "SATISFACTIONLEVEL_ID", insertable = true)
     @JsonBackReference
+    @NotNull
     private SatisfactionLevel satisfactionLevel;
 
 }
