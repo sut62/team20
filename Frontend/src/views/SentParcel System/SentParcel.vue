@@ -34,15 +34,14 @@
                 </b-col>
                 <b-col cols="1"></b-col>
             </b-row>
-
             <hr v-if="this.foundPackage">
 
             <b-row class="mt-4 mb-4" v-if="this.foundPackage">
-
+                
                 <b-col cols="1"></b-col>
                 <b-col>
                     <label for="input-with-list">กรอก Package ID</label>
-                    <b-form-input list="input-list" @change="this.getPackageById" v-model="SentParcel.packageId" id="input-with-list"></b-form-input>
+                    <b-form-select  v-model="SentParcel.packageId" :options="this.allPid" class="mb-3" value-field="id" text-field="id" @change="this.getByPackageId"></b-form-select>
                 </b-col>
                 <b-col cols="1"></b-col>
 
@@ -79,6 +78,7 @@ export default {
             foundPackage: false,
             stationData: "",
             sentTime: "",
+            allPid:{},
             SentParcel: {
                 packageId: null,
                 stationId: null,
@@ -105,7 +105,7 @@ export default {
             .then(
                     response => {
                         if (response.data)
-                            alert("บันทึกข้อมูลเร็จ")
+                            alert("บันทึกข้อมูลสำเร็จ")
                     },
                     error => {
                         if (error)
@@ -117,6 +117,7 @@ export default {
         getpackage() {
             api.get("/getAllPackage")
                 .then(response => {
+                    this.allPid = response.data
                     for(var x in response.data){
                         var dict = {}
                         dict["Package id"] = response.data[x].id
@@ -127,11 +128,11 @@ export default {
                     
                 })
         },
-        getPackageById(){
-            api.get("/findPackageById/"+this.SentParcel.packageId)
-            .then( response => {
-                this.SentParcel.stationId = response.data.station.id
-            })
+        getByPackageId(){
+            for(var i in this.allPid){
+                if(this.allPid[i].id == this.SentParcel.packageId)
+                    this.SentParcel.stationId = this.allPid[i].station.id
+            }
         },
         getAllStation() {
             api.get("/getStations")
