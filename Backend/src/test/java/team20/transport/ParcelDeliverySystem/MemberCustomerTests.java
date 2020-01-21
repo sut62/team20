@@ -62,9 +62,11 @@ public class MemberCustomerTests {
 
 
         MemberCustomer memberCustomer = new MemberCustomer();
+        Date tim = new Date();
         memberCustomer.setMemName("mem Test");
         memberCustomer.setTel("0987654321");
         memberCustomer.setCreateBy(employee);
+        memberCustomer.setRegDate(tim);
         memberCustomer.setMemberType(memberType);
         memberCustomer.setMemberLevel(memberLevel);
         memberCustomer = memberCustomerRepository.saveAndFlush(memberCustomer);
@@ -74,6 +76,7 @@ public class MemberCustomerTests {
         assertEquals("mem Test",checkFoundData.getMemName());
         assertEquals("0987654321",checkFoundData.getTel());
         assertEquals(employee,checkFoundData.getCreateBy());
+        assertEquals(tim,checkFoundData.getRegDate());
         assertEquals(memberType,checkFoundData.getMemberType());
         assertEquals(memberLevel,checkFoundData.getMemberLevel());
 
@@ -184,6 +187,42 @@ public class MemberCustomerTests {
         ConstraintViolation<MemberCustomer> v = result.iterator().next();
         assertEquals("must match \"\\d{10}\"", v.getMessage());
         assertEquals("Tel", v.getPropertyPath().toString());
+    }
+
+    @Test
+    void b6011642_testEmailMustBeEmailForm(){
+
+        Employee employee = new Employee();
+        employee.setName("B6011642");
+        employee.setEmail("B6011642@g.sut.ac.th");
+        employee = employeeRepository.saveAndFlush(employee);
+
+        MemberType memberType = new MemberType();
+        memberType.setType("Business");
+        memberType = memberTypeRepository.saveAndFlush(memberType);
+
+        MemberLevel memberLevel = new MemberLevel();
+        memberLevel.setPermission("Premium");
+        memberLevel = memberLevelRepository.saveAndFlush(memberLevel);
+
+
+        MemberCustomer memberCustomer = new MemberCustomer();
+        memberCustomer.setMemName("mem Test");
+        memberCustomer.setTel("0987654321");
+        memberCustomer.setCreateBy(employee);
+        memberCustomer.setEmail("ccgmail.com");
+        memberCustomer.setMemberType(memberType);
+        memberCustomer.setMemberLevel(memberLevel);
+
+        Set<ConstraintViolation<MemberCustomer>> result = validator.validate(memberCustomer);
+
+        //ต้องมี 1 error เท่านั้น
+        assertEquals(1, result.size());
+
+        // error message ตรงชนิด และถูก field
+        ConstraintViolation<MemberCustomer> v = result.iterator().next();
+        assertEquals("must be a well-formed email address", v.getMessage());
+        assertEquals("email", v.getPropertyPath().toString()); 
     }
 
 
