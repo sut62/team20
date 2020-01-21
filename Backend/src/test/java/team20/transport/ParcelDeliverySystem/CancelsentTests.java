@@ -144,6 +144,7 @@ public class CancelsentTests {
         
         Cancelsent cancelsent = new Cancelsent();
         cancelsent.setName("CN01234");
+        cancelsent.setComment("Test");
         cancelsent.setCreateBy(employee);
         cancelsent.setOnPackageing(packaging);
         cancelsent.setOnStatus(status);
@@ -155,6 +156,7 @@ public class CancelsentTests {
         final Cancelsent found = cancelsentRepository.findById(cancelsent.getId()).get();
 
         assertEquals(("CN01234"), found.getName());
+        assertEquals(("Test"), found.getTest());
         assertEquals(employee, found.getCreateBy());
         assertEquals(packaging, found.getOnPackageing());
         assertEquals(status, found.getOnStatus());
@@ -231,6 +233,7 @@ public class CancelsentTests {
         
         Cancelsent cancelsent = new Cancelsent();
         cancelsent.setName(null);
+        cancelsent.setComment("Test");
         cancelsent.setCreateBy(employee);
         cancelsent.setOnPackageing(packaging);
         cancelsent.setOnStatus(status);
@@ -317,6 +320,7 @@ public class CancelsentTests {
         
         Cancelsent cancelsent = new Cancelsent();
         cancelsent.setName("CN01234");
+        cancelsent.setComment("Test");
         cancelsent.setCreateBy(employee);
         cancelsent.setOnPackageing(packaging);
         cancelsent.setOnStatus(null);
@@ -402,11 +406,12 @@ public class CancelsentTests {
         
         Cancelsent cancelsent = new Cancelsent();
         cancelsent.setName("CN01234");
+        cancelsent.setComment("Test");
         cancelsent.setCreateBy(employee);
         cancelsent.setOnPackageing(packaging);
         cancelsent.setOnStatus(status);
         cancelsent.setOnSenttoback(senttoback);
-        cancelsent.setOnHowtopay("");
+        cancelsent.setOnHowtopay(null);
 
         final Set<ConstraintViolation<Cancelsent>> result = validator.validate(cancelsent);
 
@@ -488,10 +493,11 @@ public class CancelsentTests {
         
         Cancelsent cancelsent = new Cancelsent();
         cancelsent.setName("CN01234");
+        cancelsent.setComment("Test");
         cancelsent.setCreateBy(employee);
         cancelsent.setOnPackageing(packaging);
         cancelsent.setOnStatus(status);
-        cancelsent.setOnSenttoback("");
+        cancelsent.setOnSenttoback(null);
         cancelsent.setOnHowtopay(howtopay);
 
         final Set<ConstraintViolation<Cancelsent>> result = validator.validate(cancelsent);
@@ -573,6 +579,7 @@ public class CancelsentTests {
         
         Cancelsent cancelsent = new Cancelsent();
         cancelsent.setName("CN01234");
+        cancelsent.setComment("Test");
         cancelsent.setCreateBy(employee);
         cancelsent.setOnPackageing(null);
         cancelsent.setOnStatus(status);
@@ -658,6 +665,7 @@ public class CancelsentTests {
         
         Cancelsent cancelsent = new Cancelsent();
         cancelsent.setName("CN01234");
+        cancelsent.setComment("Test");
         cancelsent.setCreateBy(null);
         cancelsent.setOnPackageing(packaging);
         cancelsent.setOnStatus(status);
@@ -743,6 +751,7 @@ public class CancelsentTests {
         
         Cancelsent cancelsent = new Cancelsent();
         cancelsent.setName("CQ01234");
+        cancelsent.setComment("Test");
         cancelsent.setCreateBy(employee);
         cancelsent.setOnPackageing(packaging);
         cancelsent.setOnStatus(status);
@@ -758,6 +767,92 @@ public class CancelsentTests {
         final ConstraintViolation<Cancelsent> v = result.iterator().next();
         assertEquals("must match \"CN\\d{5}\"", v.getMessage());
         assertEquals("name", v.getPropertyPath().toString());
+
+    }
+    
+    @Test
+    void b6021405_CommentMustNotEmpty() {
+        Senttoback senttoback = new Senttoback();
+        senttoback.setName("sentback Test");
+        senttoback = senttobackRepository.saveAndFlush(senttoback);
+        Howtopay howtopay = new Howtopay();
+        howtopay.setName("howpay Test");
+        howtopay = howtopayRepository.saveAndFlush(howtopay);
+
+        Employee employee = new Employee();
+        employee.setName("B6021405");
+        employee.setEmail("B6021405@g.sut.ac.th");
+        employee = employeeRepository.saveAndFlush(employee);
+
+        Status status = new Status();
+        status.setName("test status");
+        status = statusRepository.saveAndFlush(status);
+
+        Station station = new Station();
+        station.setName("test station");
+        station = stationRepository.saveAndFlush(station);
+
+        MemberLevel memberLevel = new MemberLevel();
+        memberLevel.setPermission("Regular");
+        memberLevel = memberLevelRepository.save(memberLevel);
+
+        MemberType memberType = new MemberType();
+        memberType.setType("Company");
+        memberType = memberTypeRepository.save(memberType);
+
+
+        MemberCustomer memberCustomer = new MemberCustomer();
+        memberCustomer.setMemName("mem Test");
+        memberCustomer.setTel("0987654321");
+        memberCustomer.setCreateBy(employee);
+        memberCustomer.setEmail("test@localhost");
+        memberCustomer.setMemberType(memberType);
+        memberCustomer.setMemberLevel(memberLevel);
+        memberCustomer = memberCustomerRepository.saveAndFlush(memberCustomer);
+
+
+
+        PackageType ptype = new PackageType();
+        ptype.setType("test");
+        ptype = packageTypeRepository.saveAndFlush(ptype);
+
+        SendingType stype = new SendingType();
+        stype.setType("test");
+        stype.setUnit(1);
+        stype = sendingTypeRepository.saveAndFlush(stype);
+        Date check = new Date();
+        Packaging packaging = new Packaging();
+        packaging.setSentBy(memberCustomer);
+        packaging.setAtStation(station);
+        packaging.setCreateBy(employee);
+        packaging.setPackageDate(check);
+        packaging.setCode("T2012345");
+        packaging.setPlace("test place");
+        packaging.setReciever("123 reciever");
+        packaging.setVolume(10L);
+        packaging.setWeight(10L);
+        packaging.setPackageType(ptype);
+        packaging.setSendingType(stype);
+        packaging = packagingRepository.saveAndFlush(packaging);
+        
+        Cancelsent cancelsent = new Cancelsent();
+        cancelsent.setName("CQ01234");
+        cancelsent.setComment("");
+        cancelsent.setCreateBy(employee);
+        cancelsent.setOnPackageing(packaging);
+        cancelsent.setOnStatus(status);
+        cancelsent.setOnSenttoback(senttoback);
+        cancelsent.setOnHowtopay(howtopay);
+
+        final Set<ConstraintViolation<Cancelsent>> result = validator.validate(cancelsent);
+
+        // ต้องมี 1 error เท่านั้น
+        assertEquals(1, result.size());
+
+        // error message ตรงชนิด และถูก field
+        final ConstraintViolation<Cancelsent> v = result.iterator().next();
+        assertEquals("must not be empty", v.getMessage());
+        assertEquals("comment", v.getPropertyPath().toString());
 
     }
 
