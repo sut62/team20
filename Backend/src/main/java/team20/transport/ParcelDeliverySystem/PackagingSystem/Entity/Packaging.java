@@ -32,10 +32,15 @@ public class Packaging {
     @Pattern(regexp = "T20\\d{5}")
     @NotNull
     private String code;
+    @NotNull
     private @NonNull String reciever;
+    @NotNull
     private @NonNull String place;
+    @NotNull
     private @NonNull Long weight;
+    @NotNull
     private @NonNull Long volume;
+    @NotNull
     private @NonNull Date packageDate;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = MemberCustomer.class)
@@ -59,11 +64,13 @@ public class Packaging {
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = PackageType.class)
     @JoinColumn(name = "PTYPE_ID", insertable = true)
     @JsonBackReference
+    @NotNull
     private PackageType packageType;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = SendingType.class)
     @JoinColumn(name = "STYPE_ID", insertable = true)
     @JsonBackReference
+    @NotNull
     private SendingType sendingType;
 
     @OneToMany(orphanRemoval = true, mappedBy = "ofPackage")
