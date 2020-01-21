@@ -25,6 +25,9 @@
                             <b-button style="width:100%" @click="this.findCustomer">ค้นหา</b-button>
                         </b-col>
                     </b-row>
+                    <b-alert class="mt-3 mb-4" :show="saveStatus1.popup.dismissCountDown" dismissible fade :variant="saveStatus1.popup.variant">
+                        {{this.saveStatus1.popup.message}}
+                    </b-alert>
                     <label for="selectList">เลือกสถานีที่รับฝาก</label>
                     <b-form-select v-model="packageData.stationId" :options="this.stationData" class="mb-3" value-field="id" text-field="name" disabled-field="notEnabled" id="selectList"></b-form-select>
 
@@ -93,6 +96,15 @@ export default {
                     variant: "danger",
                     message: ""
                 }
+            },
+            saveStatus1: {
+                popup: {
+                    dismissSecs: 3,
+                    dismissCountDown: 0,
+                    showDismissibleAlert: false,
+                    variant: "danger",
+                    message: ""
+                }
             }
         }
     },
@@ -113,7 +125,7 @@ export default {
                         if (response.data){
                             this.saveStatus.popup.dismissCountDown = this.saveStatus.popup.dismissSecs
                             this.saveStatus.popup.variant = "success"
-                            this.saveStatus.popup.message = "ลงทะเบียนพัสดุสำเร็จ\nId package = " + response.data.id + "\nราคา = " + (parseFloat(this.packageData.volume) * parseFloat(this.packageData.weight))
+                            this.saveStatus.popup.message = "ลงทะเบียนพัสดุสำเร็จ Id package = " + response.data.id + "ราคา = " + (parseFloat(this.packageData.volume) * parseFloat(this.packageData.weight))
                         }
                     },
                     error => {
@@ -128,16 +140,16 @@ export default {
             api.get("/FindMemberCustomerId/" + this.findCustomerId)
                 .then(
                     response => {
-                        this.saveStatus.popup.dismissCountDown = this.saveStatus.popup.dismissSecs
-                        this.saveStatus.popup.variant = "danger"
-                        this.saveStatus.popup.message = "พบ id ของลูกค้า ชื่อ : " + response.data.name
+                        this.saveStatus1.popup.dismissCountDown = this.saveStatus1.popup.dismissSecs
+                        this.saveStatus1.popup.variant = "success"
+                        this.saveStatus1.popup.message = "พบ id ของลูกค้า ชื่อ : " + response.data.name
                         this.packageData.customerId = response.data.id
                     },
                     error => {
                         if (error){
-                            this.saveStatus.popup.dismissCountDown = this.saveStatus.popup.dismissSecs
-                            this.saveStatus.popup.variant = "danger"
-                            this.saveStatus.popup.message = "ไม่พบ id ของลูกค้า"
+                            this.saveStatus1.popup.dismissCountDown = this.saveStatus1.popup.dismissSecs
+                            this.saveStatus1.popup.variant = "danger"
+                            this.saveStatus1.popup.message = "ไม่พบ id ของลูกค้า"
                         }
                     }
                 )
