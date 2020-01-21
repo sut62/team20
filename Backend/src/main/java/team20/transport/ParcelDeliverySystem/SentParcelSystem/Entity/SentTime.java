@@ -23,9 +23,9 @@ public class SentTime {
     @Column(name="SENTTIME_ID",unique = true, nullable = true)
     private @NonNull Long id;
     @NotNull
-    private @NonNull Time fTime;
+    private Time fTime;
     @NotNull
-    private @NonNull Time lTime;
+    private Time lTime;
 
     @OneToMany(orphanRemoval = true, mappedBy = "senttime")
     @JsonManagedReference
