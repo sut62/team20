@@ -19,7 +19,7 @@
                     <label for="selectList">เลือกชื่อพนักงาน</label>
                     <b-form-select v-model="Cancelsent.employeeId" :options="this.employeeData" class="mb-3" value-field="id" text-field="name" disabled-field="notEnabled" id="selectList"></b-form-select>
                     <label for="input-with-list">กรอก Package ID</label>
-                    <b-form-select v-model="Cancelsent.packageId" :options="this.packageData" class="mb-3" value-field="id" text-field="id" disabled-field="notEnabled" id="selectList"></b-form-select>
+                    <b-form-input list="input-list" v-model="Cancelsent.packageId" id="input-with-list"></b-form-input>
                     <b-button class="mt-2" @click="this.SearchPackage">ตรวจสอบ Package</b-button>
                     <br>
                     <b-button v-if="this.foundPackage" class="mt-2" @click="this.CheckStatus">ตรวจสอบสถานะ</b-button>
@@ -98,7 +98,20 @@
             </b-row>
             <div v-if="this.statusPackage">
                 <hr>
-                <b-button variant="primary" @click="this.Save">บันทึก</b-button>
+                  <div>
+    <b-alert
+      :show="dismissCountDown"
+      dismissible
+      variant="warning"
+      @dismissed="dismissCountDown=0"
+      @dismiss-count-down="countDownChanged"
+    >
+      This alert will dismiss after {{ dismissCountDown }} seconds...
+    </b-alert>
+    <b-button @click="Save" variant="info" class="m-1">
+      บันทึก
+    </b-button>
+  </div>
             </div>
         </b-card-body>
     </b-card>
@@ -114,6 +127,8 @@ export default {
             statusPackage: false,
             haveSearch1: false,
             haveSearch2: false,
+            dismissSecs: 5,
+            dismissCountDown: 0,
             Cancelsent: {
                 packageId: null,
                 employeeId: null,
@@ -196,7 +211,6 @@ export default {
                             this.statusPackage = false
                         else
                             this.statusPackage = true
-//
                     },
                     error => {
                         if (error)
@@ -216,12 +230,6 @@ export default {
                     this.howtopayData = response.data
                 })
         },
-        getAllPackage() {
-                    api.get("/getAllPackage")
-                        .then(response => {
-                            this.packageData = response.data
-                        })
-         },
         getStatus() {
             api.get("/getStatus")
                 .then(response => {
@@ -230,12 +238,14 @@ export default {
                             this.Cancelsent.statusId = response.data[x].id
                     }
                 })
+        },
+        countDownChanged(dismissCountDown) {
+        this.dismissCountDown = dismissCountDown
         }
     },
     mounted() {
         this.getAllEmployees(),
             this.getAllSenttoback(),
-            this.getAllPackage(),
             this.getAllHowtopay(),
             this.getStatus()
 
