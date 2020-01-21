@@ -156,7 +156,7 @@ public class CancelsentTests {
         final Cancelsent found = cancelsentRepository.findById(cancelsent.getId()).get();
 
         assertEquals(("CN01234"), found.getName());
-        assertEquals(("Test"), found.getTest());
+        assertEquals(("Test"), found.getComment());
         assertEquals(employee, found.getCreateBy());
         assertEquals(packaging, found.getOnPackageing());
         assertEquals(status, found.getOnStatus());
@@ -240,7 +240,7 @@ public class CancelsentTests {
         cancelsent.setOnSenttoback(senttoback);
         cancelsent.setOnHowtopay(howtopay);
 
-        final Set<ConstraintViolation<Cancelsent>> result = validator.validate(cancelsent);
+        Set<ConstraintViolation<Cancelsent>> result = validator.validate(cancelsent);
 
         // ต้องมี 1 error เท่านั้น
         assertEquals(1, result.size());
@@ -758,7 +758,7 @@ public class CancelsentTests {
         cancelsent.setOnSenttoback(senttoback);
         cancelsent.setOnHowtopay(howtopay);
 
-        final Set<ConstraintViolation<Cancelsent>> result = validator.validate(cancelsent);
+         Set<ConstraintViolation<Cancelsent>> result = validator.validate(cancelsent);
 
         // ต้องมี 1 error เท่านั้น
         assertEquals(1, result.size());
