@@ -15,8 +15,12 @@ import team20.transport.ParcelDeliverySystem.Entity.Employee;
 import team20.transport.ParcelDeliverySystem.Entity.Station;
 import team20.transport.ParcelDeliverySystem.Entity.Status;
 import team20.transport.ParcelDeliverySystem.MemberCustomerSystem.Entity.MemberCustomer;
+import team20.transport.ParcelDeliverySystem.MemberCustomerSystem.Entity.MemberLevel;
+import team20.transport.ParcelDeliverySystem.MemberCustomerSystem.Entity.MemberType;
 import team20.transport.ParcelDeliverySystem.MemberCustomerSystem.Repository.MemberCustomerRepository;
+import team20.transport.ParcelDeliverySystem.PackagingSystem.Entity.PackageType;
 import team20.transport.ParcelDeliverySystem.PackagingSystem.Entity.Packaging;
+import team20.transport.ParcelDeliverySystem.PackagingSystem.Entity.SendingType;
 import team20.transport.ParcelDeliverySystem.PackagingSystem.Repository.PackagingRepository;
 import team20.transport.ParcelDeliverySystem.Repository.EmployeeRepository;
 import team20.transport.ParcelDeliverySystem.Repository.StationRepository;
@@ -26,6 +30,8 @@ import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
+
+import java.sql.Date;
 import java.time.LocalDateTime;
 import java.util.Set;
 
@@ -61,7 +67,6 @@ public class CancelsentTests {
 
     @Test
     void b6021405_testCorrectDataInput() {
-
         Senttoback senttoback = new Senttoback();
         senttoback.setName("sentback Test");
         senttoback = senttobackRepository.saveAndFlush(senttoback);
@@ -83,17 +88,47 @@ public class CancelsentTests {
         station.setName("test station");
         station = stationRepository.saveAndFlush(station);
 
+        MemberLevel memberLevel = new MemberLevel();
+        memberLevel.setPermission("Regular");
+        memberLevel = memberLevelRepository.save(memberLevel);
+
+        MemberType memberType = new MemberType();
+        memberType.setType("Company");
+        memberType = memberTypeRepository.save(memberType);
+
+
         MemberCustomer memberCustomer = new MemberCustomer();
         memberCustomer.setMemName("mem Test");
         memberCustomer.setTel("0987654321");
         memberCustomer.setCreateBy(employee);
+        memberCustomer.setEmail("test@localhost");
+        memberCustomer.setMemberType(memberType);
+        memberCustomer.setMemberLevel(memberLevel);
         memberCustomer = memberCustomerRepository.saveAndFlush(memberCustomer);
 
+
+
+        PackageType ptype = new PackageType();
+        ptype.setType("test");
+        ptype = packageTypeRepository.saveAndFlush(ptype);
+
+        SendingType stype = new SendingType();
+        stype.setType("test");
+        stype.setUnit(1);
+        stype = sendingTypeRepository.saveAndFlush(stype);
+
         Packaging packaging = new Packaging();
-        packaging.setCode("T2001234");
         packaging.setSentBy(memberCustomer);
         packaging.setAtStation(station);
         packaging.setCreateBy(employee);
+        packaging.setPackageDate(check);
+        packaging.setCode("T2012345");
+        packaging.setPlace("test place");
+        packaging.setReciever("123 reciever");
+        packaging.setVolume(10L);
+        packaging.setWeight(10L);
+        packaging.setPackageType(ptype);
+        packaging.setSendingType(stype);
         packaging = packagingRepository.saveAndFlush(packaging);
         
         Cancelsent cancelsent = new Cancelsent();
@@ -140,17 +175,47 @@ public class CancelsentTests {
         station.setName("test station");
         station = stationRepository.saveAndFlush(station);
 
+        MemberLevel memberLevel = new MemberLevel();
+        memberLevel.setPermission("Regular");
+        memberLevel = memberLevelRepository.save(memberLevel);
+
+        MemberType memberType = new MemberType();
+        memberType.setType("Company");
+        memberType = memberTypeRepository.save(memberType);
+
+
         MemberCustomer memberCustomer = new MemberCustomer();
         memberCustomer.setMemName("mem Test");
         memberCustomer.setTel("0987654321");
         memberCustomer.setCreateBy(employee);
+        memberCustomer.setEmail("test@localhost");
+        memberCustomer.setMemberType(memberType);
+        memberCustomer.setMemberLevel(memberLevel);
         memberCustomer = memberCustomerRepository.saveAndFlush(memberCustomer);
 
+
+
+        PackageType ptype = new PackageType();
+        ptype.setType("test");
+        ptype = packageTypeRepository.saveAndFlush(ptype);
+
+        SendingType stype = new SendingType();
+        stype.setType("test");
+        stype.setUnit(1);
+        stype = sendingTypeRepository.saveAndFlush(stype);
+
         Packaging packaging = new Packaging();
-        packaging.setCode("T2001234");
         packaging.setSentBy(memberCustomer);
         packaging.setAtStation(station);
         packaging.setCreateBy(employee);
+        packaging.setPackageDate(check);
+        packaging.setCode("T2012345");
+        packaging.setPlace("test place");
+        packaging.setReciever("123 reciever");
+        packaging.setVolume(10L);
+        packaging.setWeight(10L);
+        packaging.setPackageType(ptype);
+        packaging.setSendingType(stype);
         packaging = packagingRepository.saveAndFlush(packaging);
         
         Cancelsent cancelsent = new Cancelsent();
@@ -196,17 +261,47 @@ public class CancelsentTests {
         station.setName("test station");
         station = stationRepository.saveAndFlush(station);
 
+        MemberLevel memberLevel = new MemberLevel();
+        memberLevel.setPermission("Regular");
+        memberLevel = memberLevelRepository.save(memberLevel);
+
+        MemberType memberType = new MemberType();
+        memberType.setType("Company");
+        memberType = memberTypeRepository.save(memberType);
+
+
         MemberCustomer memberCustomer = new MemberCustomer();
         memberCustomer.setMemName("mem Test");
         memberCustomer.setTel("0987654321");
         memberCustomer.setCreateBy(employee);
+        memberCustomer.setEmail("test@localhost");
+        memberCustomer.setMemberType(memberType);
+        memberCustomer.setMemberLevel(memberLevel);
         memberCustomer = memberCustomerRepository.saveAndFlush(memberCustomer);
 
+
+
+        PackageType ptype = new PackageType();
+        ptype.setType("test");
+        ptype = packageTypeRepository.saveAndFlush(ptype);
+
+        SendingType stype = new SendingType();
+        stype.setType("test");
+        stype.setUnit(1);
+        stype = sendingTypeRepository.saveAndFlush(stype);
+
         Packaging packaging = new Packaging();
-        packaging.setCode("T2001234");
         packaging.setSentBy(memberCustomer);
         packaging.setAtStation(station);
         packaging.setCreateBy(employee);
+        packaging.setPackageDate(check);
+        packaging.setCode("T2012345");
+        packaging.setPlace("test place");
+        packaging.setReciever("123 reciever");
+        packaging.setVolume(10L);
+        packaging.setWeight(10L);
+        packaging.setPackageType(ptype);
+        packaging.setSendingType(stype);
         packaging = packagingRepository.saveAndFlush(packaging);
         
         Cancelsent cancelsent = new Cancelsent();
@@ -251,17 +346,47 @@ public class CancelsentTests {
         station.setName("test station");
         station = stationRepository.saveAndFlush(station);
 
+        MemberLevel memberLevel = new MemberLevel();
+        memberLevel.setPermission("Regular");
+        memberLevel = memberLevelRepository.save(memberLevel);
+
+        MemberType memberType = new MemberType();
+        memberType.setType("Company");
+        memberType = memberTypeRepository.save(memberType);
+
+
         MemberCustomer memberCustomer = new MemberCustomer();
         memberCustomer.setMemName("mem Test");
         memberCustomer.setTel("0987654321");
         memberCustomer.setCreateBy(employee);
+        memberCustomer.setEmail("test@localhost");
+        memberCustomer.setMemberType(memberType);
+        memberCustomer.setMemberLevel(memberLevel);
         memberCustomer = memberCustomerRepository.saveAndFlush(memberCustomer);
 
+
+
+        PackageType ptype = new PackageType();
+        ptype.setType("test");
+        ptype = packageTypeRepository.saveAndFlush(ptype);
+
+        SendingType stype = new SendingType();
+        stype.setType("test");
+        stype.setUnit(1);
+        stype = sendingTypeRepository.saveAndFlush(stype);
+
         Packaging packaging = new Packaging();
-        packaging.setCode("T2001234");
         packaging.setSentBy(memberCustomer);
         packaging.setAtStation(station);
         packaging.setCreateBy(employee);
+        packaging.setPackageDate(check);
+        packaging.setCode("T2012345");
+        packaging.setPlace("test place");
+        packaging.setReciever("123 reciever");
+        packaging.setVolume(10L);
+        packaging.setWeight(10L);
+        packaging.setPackageType(ptype);
+        packaging.setSendingType(stype);
         packaging = packagingRepository.saveAndFlush(packaging);
         
         Cancelsent cancelsent = new Cancelsent();
@@ -306,17 +431,47 @@ public class CancelsentTests {
         station.setName("test station");
         station = stationRepository.saveAndFlush(station);
 
+        MemberLevel memberLevel = new MemberLevel();
+        memberLevel.setPermission("Regular");
+        memberLevel = memberLevelRepository.save(memberLevel);
+
+        MemberType memberType = new MemberType();
+        memberType.setType("Company");
+        memberType = memberTypeRepository.save(memberType);
+
+
         MemberCustomer memberCustomer = new MemberCustomer();
         memberCustomer.setMemName("mem Test");
         memberCustomer.setTel("0987654321");
         memberCustomer.setCreateBy(employee);
+        memberCustomer.setEmail("test@localhost");
+        memberCustomer.setMemberType(memberType);
+        memberCustomer.setMemberLevel(memberLevel);
         memberCustomer = memberCustomerRepository.saveAndFlush(memberCustomer);
 
+
+
+        PackageType ptype = new PackageType();
+        ptype.setType("test");
+        ptype = packageTypeRepository.saveAndFlush(ptype);
+
+        SendingType stype = new SendingType();
+        stype.setType("test");
+        stype.setUnit(1);
+        stype = sendingTypeRepository.saveAndFlush(stype);
+
         Packaging packaging = new Packaging();
-        packaging.setCode("T2001234");
         packaging.setSentBy(memberCustomer);
         packaging.setAtStation(station);
         packaging.setCreateBy(employee);
+        packaging.setPackageDate(check);
+        packaging.setCode("T2012345");
+        packaging.setPlace("test place");
+        packaging.setReciever("123 reciever");
+        packaging.setVolume(10L);
+        packaging.setWeight(10L);
+        packaging.setPackageType(ptype);
+        packaging.setSendingType(stype);
         packaging = packagingRepository.saveAndFlush(packaging);
         
         Cancelsent cancelsent = new Cancelsent();
@@ -361,17 +516,47 @@ public class CancelsentTests {
         station.setName("test station");
         station = stationRepository.saveAndFlush(station);
 
+        MemberLevel memberLevel = new MemberLevel();
+        memberLevel.setPermission("Regular");
+        memberLevel = memberLevelRepository.save(memberLevel);
+
+        MemberType memberType = new MemberType();
+        memberType.setType("Company");
+        memberType = memberTypeRepository.save(memberType);
+
+
         MemberCustomer memberCustomer = new MemberCustomer();
         memberCustomer.setMemName("mem Test");
         memberCustomer.setTel("0987654321");
         memberCustomer.setCreateBy(employee);
+        memberCustomer.setEmail("test@localhost");
+        memberCustomer.setMemberType(memberType);
+        memberCustomer.setMemberLevel(memberLevel);
         memberCustomer = memberCustomerRepository.saveAndFlush(memberCustomer);
 
+
+
+        PackageType ptype = new PackageType();
+        ptype.setType("test");
+        ptype = packageTypeRepository.saveAndFlush(ptype);
+
+        SendingType stype = new SendingType();
+        stype.setType("test");
+        stype.setUnit(1);
+        stype = sendingTypeRepository.saveAndFlush(stype);
+
         Packaging packaging = new Packaging();
-        packaging.setCode("T2001234");
         packaging.setSentBy(memberCustomer);
         packaging.setAtStation(station);
         packaging.setCreateBy(employee);
+        packaging.setPackageDate(check);
+        packaging.setCode("T2012345");
+        packaging.setPlace("test place");
+        packaging.setReciever("123 reciever");
+        packaging.setVolume(10L);
+        packaging.setWeight(10L);
+        packaging.setPackageType(ptype);
+        packaging.setSendingType(stype);
         packaging = packagingRepository.saveAndFlush(packaging);
         
         Cancelsent cancelsent = new Cancelsent();
@@ -416,17 +601,47 @@ public class CancelsentTests {
         station.setName("test station");
         station = stationRepository.saveAndFlush(station);
 
+        MemberLevel memberLevel = new MemberLevel();
+        memberLevel.setPermission("Regular");
+        memberLevel = memberLevelRepository.save(memberLevel);
+
+        MemberType memberType = new MemberType();
+        memberType.setType("Company");
+        memberType = memberTypeRepository.save(memberType);
+
+
         MemberCustomer memberCustomer = new MemberCustomer();
         memberCustomer.setMemName("mem Test");
         memberCustomer.setTel("0987654321");
         memberCustomer.setCreateBy(employee);
+        memberCustomer.setEmail("test@localhost");
+        memberCustomer.setMemberType(memberType);
+        memberCustomer.setMemberLevel(memberLevel);
         memberCustomer = memberCustomerRepository.saveAndFlush(memberCustomer);
 
+
+
+        PackageType ptype = new PackageType();
+        ptype.setType("test");
+        ptype = packageTypeRepository.saveAndFlush(ptype);
+
+        SendingType stype = new SendingType();
+        stype.setType("test");
+        stype.setUnit(1);
+        stype = sendingTypeRepository.saveAndFlush(stype);
+
         Packaging packaging = new Packaging();
-        packaging.setCode("T2001234");
         packaging.setSentBy(memberCustomer);
         packaging.setAtStation(station);
         packaging.setCreateBy(employee);
+        packaging.setPackageDate(check);
+        packaging.setCode("T2012345");
+        packaging.setPlace("test place");
+        packaging.setReciever("123 reciever");
+        packaging.setVolume(10L);
+        packaging.setWeight(10L);
+        packaging.setPackageType(ptype);
+        packaging.setSendingType(stype);
         packaging = packagingRepository.saveAndFlush(packaging);
         
         Cancelsent cancelsent = new Cancelsent();
