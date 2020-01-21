@@ -22,8 +22,10 @@ public class SentTime {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="SENTTIME_SEQ")
     @Column(name="SENTTIME_ID",unique = true, nullable = true)
     private @NonNull Long id;
-    private @NotNull Time fTime;
-    private @NotNull Time lTime;
+    @NotNull
+    private @NonNull Time fTime;
+    @NotNull
+    private @NonNull Time lTime;
 
     @OneToMany(orphanRemoval = true, mappedBy = "senttime")
     @JsonManagedReference
