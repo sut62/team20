@@ -23,8 +23,13 @@ public class Cancelsent {
     @SequenceGenerator(name="CANCELSENT_SEQ",sequenceName="CANCELSENT_SEQ")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="CANCELSENT_SEQ")
     @Column(name = "CANCELSENT_ID", unique = true, nullable = true)
-    private @NonNull Long id;
+    private Long id;
 
+    @Column(name="SHIPPINGSTATE_CODE", nullable = false)
+    @Pattern(regexp = "CN\\d{5}")
+    @NotNull
+    private String name;
+    
     @OneToOne
     @JsonBackReference
     private Status onStatus;

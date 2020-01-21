@@ -20,7 +20,7 @@ public class Howtopay {
     @SequenceGenerator(name="HOWTOPAY_SEQ",sequenceName="HOWTOPAY_SEQ")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="HOWTOPAY_SEQ")
     @Column(name="HOWTOPAY_ID",unique = true, nullable = true)
-    private @NonNull Long id;
+    private Long id;
 
     @Column(name="HOWTOPAY_NAME")
     private @NonNull String name;
