@@ -62,11 +62,10 @@ public class MemberCustomerTests {
 
 
         MemberCustomer memberCustomer = new MemberCustomer();
-        Date tim = new Date();
         memberCustomer.setMemName("mem Test");
         memberCustomer.setTel("0987654321");
         memberCustomer.setCreateBy(employee);
-        memberCustomer.setRegDate(tim);
+        memberCustomer.setEmail("cc@gmail.com");
         memberCustomer.setMemberType(memberType);
         memberCustomer.setMemberLevel(memberLevel);
         memberCustomer = memberCustomerRepository.saveAndFlush(memberCustomer);
@@ -76,7 +75,7 @@ public class MemberCustomerTests {
         assertEquals("mem Test",checkFoundData.getMemName());
         assertEquals("0987654321",checkFoundData.getTel());
         assertEquals(employee,checkFoundData.getCreateBy());
-        assertEquals(tim,checkFoundData.getRegDate());
+        assertEquals("cc@gmail.com",checkFoundData.getEmail());
         assertEquals(memberType,checkFoundData.getMemberType());
         assertEquals(memberLevel,checkFoundData.getMemberLevel());
 
@@ -117,6 +116,7 @@ public class MemberCustomerTests {
         assertEquals("MemName", v.getPropertyPath().toString()); 
     }
 
+
     @Test
     void b6011642_testTelMustBeNumberOnly(){
 
@@ -138,6 +138,7 @@ public class MemberCustomerTests {
         memberCustomer.setMemName("mem Test");
         memberCustomer.setTel("09876x4321");
         memberCustomer.setCreateBy(employee);
+        memberCustomer.setEmail("cc@gmail.com");
         memberCustomer.setMemberType(memberType);
         memberCustomer.setMemberLevel(memberLevel);
 
@@ -175,6 +176,7 @@ public class MemberCustomerTests {
         memberCustomer.setMemName("mem Test");
         memberCustomer.setTel("098765432");
         memberCustomer.setCreateBy(employee);
+        memberCustomer.setEmail("cc@gmail.com");
         memberCustomer.setMemberType(memberType);
         memberCustomer.setMemberLevel(memberLevel);
 
