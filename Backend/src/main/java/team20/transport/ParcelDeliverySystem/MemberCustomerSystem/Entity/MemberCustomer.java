@@ -28,7 +28,6 @@ public class MemberCustomer {
     private @NonNull Long id;
 
     @Column(name="MEMBER_NAME",unique = false, nullable = false)
-    @NotNull
     @NotEmpty
     private String MemName;
 
