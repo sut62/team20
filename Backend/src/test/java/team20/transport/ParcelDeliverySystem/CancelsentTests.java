@@ -156,7 +156,7 @@ public class CancelsentTests {
 
         assertEquals(("CN01234"), found.getName());
         assertEquals(employee, found.getCreateBy());
-        assertEquals(packaging, found.getOnPackageing());
+        assertEquals(packaging, found.setOnPackageing());
         assertEquals(status, found.getOnStatus());
         assertEquals(senttoback, found.getOnSenttoback());
         assertEquals(howtopay, found.getOnHowtopay());
@@ -331,7 +331,7 @@ public class CancelsentTests {
         // error message ตรงชนิด และถูก field
         final ConstraintViolation<Cancelsent> v = result.iterator().next();
         assertEquals("must not be null", v.getMessage());
-        assertEquals("status", v.getPropertyPath().toString());
+        assertEquals("onStatus", v.getPropertyPath().toString());
 
     }
 
@@ -502,7 +502,7 @@ public class CancelsentTests {
         // error message ตรงชนิด และถูก field
         final ConstraintViolation<Cancelsent> v = result.iterator().next();
         assertEquals("must not be null", v.getMessage());
-        assertEquals("senttoback", v.getPropertyPath().toString());
+        assertEquals("onSenttoback", v.getPropertyPath().toString());
 
     }
 
@@ -587,7 +587,7 @@ public class CancelsentTests {
         // error message ตรงชนิด และถูก field
         final ConstraintViolation<Cancelsent> v = result.iterator().next();
         assertEquals("must not be null", v.getMessage());
-        assertEquals("packageing", v.getPropertyPath().toString());
+        assertEquals("onPackageing", v.getPropertyPath().toString());
 
     }
 
@@ -672,9 +672,8 @@ public class CancelsentTests {
         // error message ตรงชนิด และถูก field
         final ConstraintViolation<Cancelsent> v = result.iterator().next();
         assertEquals("must not be null", v.getMessage());
-        assertEquals("employee", v.getPropertyPath().toString());
+        assertEquals("createBy", v.getPropertyPath().toString());
 
     }
-    
 
 }

@@ -45,7 +45,7 @@ public class Cancelsent {
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = team20.transport.ParcelDeliverySystem.CancelsentSystem.Entity.Howtopay.class)
     @JoinColumn(name = "HOWTOPAY_ID", insertable = true)
     @JsonBackReference
-    @NonNull
+    @NotNull
     private  Howtopay onHowtopay;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = team20.transport.ParcelDeliverySystem.CancelsentSystem.Entity.Senttoback.class)
