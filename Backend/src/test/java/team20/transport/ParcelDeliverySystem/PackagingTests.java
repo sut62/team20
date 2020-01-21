@@ -7,9 +7,17 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import team20.transport.ParcelDeliverySystem.Entity.Employee;
 import team20.transport.ParcelDeliverySystem.Entity.Station;
 import team20.transport.ParcelDeliverySystem.MemberCustomerSystem.Entity.MemberCustomer;
+import team20.transport.ParcelDeliverySystem.MemberCustomerSystem.Entity.MemberLevel;
+import team20.transport.ParcelDeliverySystem.MemberCustomerSystem.Entity.MemberType;
 import team20.transport.ParcelDeliverySystem.MemberCustomerSystem.Repository.MemberCustomerRepository;
+import team20.transport.ParcelDeliverySystem.MemberCustomerSystem.Repository.MemberLevelRepository;
+import team20.transport.ParcelDeliverySystem.MemberCustomerSystem.Repository.MemberTypeRepository;
+import team20.transport.ParcelDeliverySystem.PackagingSystem.Entity.PackageType;
 import team20.transport.ParcelDeliverySystem.PackagingSystem.Entity.Packaging;
+import team20.transport.ParcelDeliverySystem.PackagingSystem.Entity.SendingType;
+import team20.transport.ParcelDeliverySystem.PackagingSystem.Repository.PackageTypeRepository;
 import team20.transport.ParcelDeliverySystem.PackagingSystem.Repository.PackagingRepository;
+import team20.transport.ParcelDeliverySystem.PackagingSystem.Repository.SendingTypeRepository;
 import team20.transport.ParcelDeliverySystem.Repository.EmployeeRepository;
 import team20.transport.ParcelDeliverySystem.Repository.StationRepository;
 
@@ -17,7 +25,6 @@ import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
-import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Set;
 
@@ -33,6 +40,14 @@ public class PackagingTests {
     PackagingRepository packagingRepository;
     @Autowired
     MemberCustomerRepository memberCustomerRepository;
+    @Autowired
+    PackageTypeRepository packageTypeRepository;
+    @Autowired
+    SendingTypeRepository sendingTypeRepository;
+    @Autowired
+    MemberTypeRepository memberTypeRepository;
+    @Autowired
+    MemberLevelRepository memberLevelRepository;
 
     Validator validator;
 
@@ -55,11 +70,26 @@ public class PackagingTests {
         station.setName("test station");
         station = stationRepository.saveAndFlush(station);
 
+        MemberType mtype = new MemberType();
+        mtype.setType("test");
+        MemberLevel mlevel = new MemberLevel();
+        mlevel.setPermission("test");
 
         MemberCustomer memberCustomer = new MemberCustomer();
         memberCustomer.setMemName("mem Test");
         memberCustomer.setTel("0987654321");
+        memberCustomer.setEmail("test2542@gmail.com");
+        memberCustomer.setCreateBy(employee);
+        memberCustomer.setMemberLevel(mlevel);
+        memberCustomer.setMemberType(mtype);
         memberCustomer = memberCustomerRepository.saveAndFlush(memberCustomer);
+
+        PackageType ptype = new PackageType();
+        ptype.setType("test");
+
+        SendingType stype = new SendingType();
+        stype.setType("test");
+        stype.setUnit(1);
 
         Date check = new Date();
         Packaging packaging = new Packaging();
@@ -72,6 +102,8 @@ public class PackagingTests {
         packaging.setReciever("123 reciever");
         packaging.setVolume(10L);
         packaging.setWeight(10L);
+        packaging.setPackageType(ptype);
+        packaging.setSendingType(stype);
         packaging = packagingRepository.saveAndFlush(packaging);
 
         Packaging found = packagingRepository.findById(packaging.getId()).get();
@@ -83,6 +115,8 @@ public class PackagingTests {
         assertEquals("T2012345",found.getCode());
         assertEquals("test place",found.getPlace());
         assertEquals("123 reciever",found.getReciever());
+        assertEquals(ptype,found.getPackageType());
+        assertEquals(stype,found.getSendingType());
     }
 
     @Test
@@ -97,11 +131,26 @@ public class PackagingTests {
         station.setName("test station");
         station = stationRepository.saveAndFlush(station);
 
+        MemberType mtype = new MemberType();
+        mtype.setType("test");
+        MemberLevel mlevel = new MemberLevel();
+        mlevel.setPermission("test");
 
         MemberCustomer memberCustomer = new MemberCustomer();
         memberCustomer.setMemName("mem Test");
         memberCustomer.setTel("0987654321");
+        memberCustomer.setEmail("test2542@gmail.com");
+        memberCustomer.setCreateBy(employee);
+        memberCustomer.setMemberLevel(mlevel);
+        memberCustomer.setMemberType(mtype);
         memberCustomer = memberCustomerRepository.saveAndFlush(memberCustomer);
+
+        PackageType ptype = new PackageType();
+        ptype.setType("test");
+
+        SendingType stype = new SendingType();
+        stype.setType("test");
+        stype.setUnit(1);
 
         Date check = new Date();
         Packaging packaging = new Packaging();
@@ -114,6 +163,8 @@ public class PackagingTests {
         packaging.setReciever("123 reciever");
         packaging.setVolume(10L);
         packaging.setWeight(10L);
+        packaging.setPackageType(ptype);
+        packaging.setSendingType(stype);
 
         Set<ConstraintViolation<Packaging>> result = validator.validate(packaging);
 
@@ -137,11 +188,26 @@ public class PackagingTests {
         station.setName("test station");
         station = stationRepository.saveAndFlush(station);
 
+        MemberType mtype = new MemberType();
+        mtype.setType("test");
+        MemberLevel mlevel = new MemberLevel();
+        mlevel.setPermission("test");
 
         MemberCustomer memberCustomer = new MemberCustomer();
         memberCustomer.setMemName("mem Test");
         memberCustomer.setTel("0987654321");
+        memberCustomer.setEmail("test2542@gmail.com");
+        memberCustomer.setCreateBy(employee);
+        memberCustomer.setMemberLevel(mlevel);
+        memberCustomer.setMemberType(mtype);
         memberCustomer = memberCustomerRepository.saveAndFlush(memberCustomer);
+
+        PackageType ptype = new PackageType();
+        ptype.setType("test");
+
+        SendingType stype = new SendingType();
+        stype.setType("test");
+        stype.setUnit(1);
 
         Date check = new Date();
         Packaging packaging = new Packaging();
@@ -154,6 +220,8 @@ public class PackagingTests {
         packaging.setReciever("123 reciever");
         packaging.setVolume(10L);
         packaging.setWeight(10L);
+        packaging.setPackageType(ptype);
+        packaging.setSendingType(stype);
 
         Set<ConstraintViolation<Packaging>> result = validator.validate(packaging);
 
@@ -177,11 +245,26 @@ public class PackagingTests {
         station.setName("test station");
         station = stationRepository.saveAndFlush(station);
 
+        MemberType mtype = new MemberType();
+        mtype.setType("test");
+        MemberLevel mlevel = new MemberLevel();
+        mlevel.setPermission("test");
 
         MemberCustomer memberCustomer = new MemberCustomer();
         memberCustomer.setMemName("mem Test");
         memberCustomer.setTel("0987654321");
+        memberCustomer.setEmail("test2542@gmail.com");
+        memberCustomer.setCreateBy(employee);
+        memberCustomer.setMemberLevel(mlevel);
+        memberCustomer.setMemberType(mtype);
         memberCustomer = memberCustomerRepository.saveAndFlush(memberCustomer);
+
+        PackageType ptype = new PackageType();
+        ptype.setType("test");
+
+        SendingType stype = new SendingType();
+        stype.setType("test");
+        stype.setUnit(1);
 
         Date check = new Date();
         Packaging packaging = new Packaging();
@@ -194,6 +277,8 @@ public class PackagingTests {
         packaging.setReciever("123 reciever");
         packaging.setVolume(10L);
         packaging.setWeight(10L);
+        packaging.setPackageType(ptype);
+        packaging.setSendingType(stype);
 
         Set<ConstraintViolation<Packaging>> result = validator.validate(packaging);
 
