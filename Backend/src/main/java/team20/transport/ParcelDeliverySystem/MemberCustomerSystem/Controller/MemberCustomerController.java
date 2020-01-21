@@ -13,6 +13,7 @@ import net.minidev.json.JSONObject;
 import java.util.Collection;
 import java.util.stream.Collectors;
 import java.util.Map;
+import java.util.Date;
 
 @RestController
 @RequestMapping("/team20")
@@ -50,8 +51,12 @@ public class MemberCustomerController {
             MemberType mt = memberTypeRepository.findById(Long.valueOf(allParams.get("typeId"))).get();
             MemberLevel ml = memberLevelRepository.findById(Long.valueOf(allParams.get("levelId"))).get();
             
+
+            Date time = new Date();
             newMemberCustomer.setMemName((allParams.get("mname")));
             newMemberCustomer.setTel((allParams.get("tel")));
+            newMemberCustomer.setEmail((allParams.get("email")));
+            newMemberCustomer.setRegDate(time);
             newMemberCustomer.setCreateBy(emp);
             newMemberCustomer.setMemberType(mt);
             newMemberCustomer.setMemberLevel(ml);
