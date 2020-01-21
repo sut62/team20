@@ -30,7 +30,7 @@ public class Cancelsent {
 
     @Column(name="CANCLESENT_NAME", nullable = false)
     @Pattern(regexp = "CN\\d{5}")
-    @NotEmpty
+    @NotNull
     private String name;
     
     @OneToOne
@@ -46,13 +46,13 @@ public class Cancelsent {
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = team20.transport.ParcelDeliverySystem.CancelsentSystem.Entity.Howtopay.class)
     @JoinColumn(name = "HOWTOPAY_ID", insertable = true)
     @JsonBackReference
-    @NotNull
+    @NotEmpty
     private  Howtopay onHowtopay;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = team20.transport.ParcelDeliverySystem.CancelsentSystem.Entity.Senttoback.class)
     @JoinColumn(name = "SENTTOBACK_ID", insertable = true)
     @JsonBackReference
-    @NotNull
+    @NotEmpty
     private Senttoback onSenttoback;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Employee.class)
