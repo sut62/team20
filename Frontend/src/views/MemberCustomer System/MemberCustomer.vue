@@ -43,7 +43,9 @@
                         <div class="badge badge-danger text-wrap">
                             โปรดระมัดระวังข้อมูล!!! การบันทึกซ่ำซ้อนอาจทำให้เสียค่าใช้จ่ายในการสมัครเพิ่มเติมเพิ่มเติม
                         </div>
-                        
+                        <b-alert class="mt-3 mb-4" :show="saveStatus.popup.dismissCountDown" dismissible fade :variant="saveStatus.popup.variant">
+                                    {{this.saveStatus.popup.message}}
+                        </b-alert>
                         <div>
                                 <div class="badge badge-light text-wrap" style="width: 15rem;">
                                     feature ถัดไป +_+ ระบบแสดงข้อมูลสมาชิก Coming Soon!!
@@ -80,6 +82,15 @@ export default {
                 memberLevelId: null,
                 memberTypeId: null,
                 employeeId: null
+            },
+            saveStatus: {
+                popup: {
+                    dismissSecs: 3,
+                    dismissCountDown: 0,
+                    showDismissibleAlert: false,
+                    variant: "danger",
+                    message: ""
+                }
             }
 
         }
@@ -96,13 +107,17 @@ export default {
                 })
                 .then(
                     response => {
-                        if (response.data){
-                            
-                        alert("สมัครสมาชิกสำเร็จ สมาชิกใหม่IDคือ "+response.data.id)}
+                        if (response.data){                                                        this.saveStatus.popup.dismissCountDown = this.saveStatus.popup.dismissSecs
+                        this.saveStatus.popup.variant = "success"
+                        this.saveStatus.popup.message = "สมัครสมาชิกสำเร็จ สมาชิกใหม่IDคือ "+response.data.id
+
+                        }
                     },
                     error => {
                         if (error){
-                            alert("สมัครสมาชิกไม่สำเร็จ")
+                            this.saveStatus.popup.dismissCountDown = this.saveStatus.popup.dismissSecs
+                            this.saveStatus.popup.variant = "danger"
+                            this.saveStatus.popup.message = "สมัครสมาชิกไม่สำเร็จ"
                             
                         }
                     }
