@@ -35,7 +35,7 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
-import java.sql.Date;
+import java.util.Date;
 import java.time.LocalDateTime;
 import java.util.Set;
 
@@ -127,7 +127,7 @@ public class CancelsentTests {
         stype.setType("test");
         stype.setUnit(1);
         stype = sendingTypeRepository.saveAndFlush(stype);
-
+        Date check = new Date();
         Packaging packaging = new Packaging();
         packaging.setSentBy(memberCustomer);
         packaging.setAtStation(station);
@@ -214,7 +214,7 @@ public class CancelsentTests {
         stype.setType("test");
         stype.setUnit(1);
         stype = sendingTypeRepository.saveAndFlush(stype);
-
+        Date check = new Date();
         Packaging packaging = new Packaging();
         packaging.setSentBy(memberCustomer);
         packaging.setAtStation(station);
@@ -300,7 +300,7 @@ public class CancelsentTests {
         stype.setType("test");
         stype.setUnit(1);
         stype = sendingTypeRepository.saveAndFlush(stype);
-
+        Date check = new Date();
         Packaging packaging = new Packaging();
         packaging.setSentBy(memberCustomer);
         packaging.setAtStation(station);
@@ -385,7 +385,7 @@ public class CancelsentTests {
         stype.setType("test");
         stype.setUnit(1);
         stype = sendingTypeRepository.saveAndFlush(stype);
-
+        Date check = new Date();
         Packaging packaging = new Packaging();
         packaging.setSentBy(memberCustomer);
         packaging.setAtStation(station);
@@ -425,6 +425,7 @@ public class CancelsentTests {
         Senttoback senttoback = new Senttoback();
         senttoback.setName("sentback Test");
         senttoback = senttobackRepository.saveAndFlush(senttoback);
+        
         Howtopay howtopay = new Howtopay();
         howtopay.setName("howpay Test");
         howtopay = howtopayRepository.saveAndFlush(howtopay);
@@ -470,7 +471,7 @@ public class CancelsentTests {
         stype.setType("test");
         stype.setUnit(1);
         stype = sendingTypeRepository.saveAndFlush(stype);
-
+        Date check = new Date();
         Packaging packaging = new Packaging();
         packaging.setSentBy(memberCustomer);
         packaging.setAtStation(station);
@@ -555,7 +556,7 @@ public class CancelsentTests {
         stype.setType("test");
         stype.setUnit(1);
         stype = sendingTypeRepository.saveAndFlush(stype);
-
+        Date check = new Date();
         Packaging packaging = new Packaging();
         packaging.setSentBy(memberCustomer);
         packaging.setAtStation(station);
@@ -640,7 +641,7 @@ public class CancelsentTests {
         stype.setType("test");
         stype.setUnit(1);
         stype = sendingTypeRepository.saveAndFlush(stype);
-
+        Date check = new Date();
         Packaging packaging = new Packaging();
         packaging.setSentBy(memberCustomer);
         packaging.setAtStation(station);
