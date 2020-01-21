@@ -128,12 +128,17 @@ export default {
             api.get("/FindMemberCustomerId/" + this.findCustomerId)
                 .then(
                     response => {
-                        alert("พบ id ของลูกค้า ชื่อ : " + response.data.name),
-                            this.packageData.customerId = response.data.id
+                        this.saveStatus.popup.dismissCountDown = this.saveStatus.popup.dismissSecs
+                        this.saveStatus.popup.variant = "danger"
+                        this.saveStatus.popup.message = "พบ id ของลูกค้า ชื่อ : " + response.data.name
+                        this.packageData.customerId = response.data.id
                     },
                     error => {
-                        if (error)
-                            alert("ไม่พบ id ของลูกค้า")
+                        if (error){
+                            this.saveStatus.popup.dismissCountDown = this.saveStatus.popup.dismissSecs
+                            this.saveStatus.popup.variant = "danger"
+                            this.saveStatus.popup.message = "ไม่พบ id ของลูกค้า"
+                        }
                     }
                 )
         },
