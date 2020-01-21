@@ -18,10 +18,14 @@ import team20.transport.ParcelDeliverySystem.MemberCustomerSystem.Entity.MemberC
 import team20.transport.ParcelDeliverySystem.MemberCustomerSystem.Entity.MemberLevel;
 import team20.transport.ParcelDeliverySystem.MemberCustomerSystem.Entity.MemberType;
 import team20.transport.ParcelDeliverySystem.MemberCustomerSystem.Repository.MemberCustomerRepository;
+import team20.transport.ParcelDeliverySystem.MemberCustomerSystem.Repository.MemberLevelRepository;
+import team20.transport.ParcelDeliverySystem.MemberCustomerSystem.Repository.MemberTypeRepository;
 import team20.transport.ParcelDeliverySystem.PackagingSystem.Entity.PackageType;
 import team20.transport.ParcelDeliverySystem.PackagingSystem.Entity.Packaging;
 import team20.transport.ParcelDeliverySystem.PackagingSystem.Entity.SendingType;
+import team20.transport.ParcelDeliverySystem.PackagingSystem.Repository.PackageTypeRepository;
 import team20.transport.ParcelDeliverySystem.PackagingSystem.Repository.PackagingRepository;
+import team20.transport.ParcelDeliverySystem.PackagingSystem.Repository.SendingTypeRepository;
 import team20.transport.ParcelDeliverySystem.Repository.EmployeeRepository;
 import team20.transport.ParcelDeliverySystem.Repository.StationRepository;
 import team20.transport.ParcelDeliverySystem.Repository.StatusRepository;
@@ -55,7 +59,14 @@ public class CancelsentTests {
     HowtopayRepository howtopayRepository;
     @Autowired
     MemberCustomerRepository memberCustomerRepository;
-    
+    @Autowired
+    MemberLevelRepository memberLevelRepository;
+    @Autowired
+    MemberTypeRepository memberTypeRepository;
+    @Autowired
+    PackageTypeRepository packageTypeRepository;
+    @Autowired
+    SendingTypeRepository sendingTypeRepository;
 
     Validator validator;
 
