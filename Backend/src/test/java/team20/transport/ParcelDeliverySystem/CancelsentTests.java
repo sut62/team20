@@ -416,7 +416,7 @@ public class CancelsentTests {
         // error message ตรงชนิด และถูก field
         final ConstraintViolation<Cancelsent> v = result.iterator().next();
         assertEquals("must not be null", v.getMessage());
-        assertEquals("howtopay", v.getPropertyPath().toString());
+        assertEquals("onHowtopay", v.getPropertyPath().toString());
 
     }
 
