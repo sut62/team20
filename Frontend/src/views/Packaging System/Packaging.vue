@@ -51,7 +51,9 @@
 
                 <b-col cols="2"></b-col>
             </b-row>
-
+            <b-alert class="mt-3 mb-4" :show="saveStatus.popup.dismissCountDown" dismissible fade :variant="saveStatus.popup.variant">
+                {{this.saveStatus.popup.message}}
+            </b-alert>
             <div v-if="this.foundPackage">
                 <hr>
 
