@@ -102,6 +102,7 @@ public class MemberCustomerTests {
         memberCustomer.setMemName(null);
         memberCustomer.setTel("0987654321");
         memberCustomer.setCreateBy(employee);
+        memberCustomer.setEmail("cc@gmail.com");
         memberCustomer.setMemberType(memberType);
         memberCustomer.setMemberLevel(memberLevel);
 
@@ -112,7 +113,7 @@ public class MemberCustomerTests {
 
         // error message ตรงชนิด และถูก field
         ConstraintViolation<MemberCustomer> v = result.iterator().next();
-        assertEquals("must not be null", v.getMessage());
+        assertEquals("must not be empty", v.getMessage());
         assertEquals("MemName", v.getPropertyPath().toString()); 
     }
 
