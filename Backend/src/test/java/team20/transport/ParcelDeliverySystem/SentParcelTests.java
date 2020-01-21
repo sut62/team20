@@ -21,12 +21,14 @@ import team20.transport.ParcelDeliverySystem.PackagingSystem.Repository.Packagin
 import team20.transport.ParcelDeliverySystem.PackagingSystem.Repository.SendingTypeRepository;
 import team20.transport.ParcelDeliverySystem.Repository.EmployeeRepository;
 import team20.transport.ParcelDeliverySystem.Repository.StationRepository;
+import team20.transport.ParcelDeliverySystem.SentParcelSystem.Entity.SentTime;
 import team20.transport.ParcelDeliverySystem.SentParcelSystem.Repository.SentTimeRepository;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
+import java.sql.Time;
 import java.util.Date;
 import java.util.Set;
 
@@ -64,9 +66,14 @@ public class SentParcelTests {
     @Test
     void b6004798_codeMustNotBeNull(){
 
+        SentTime sentTime = new SentTime();
+        sentTime.setFTime(new Time(1256175797428L));
+        sentTime.setLTime(new Time(1556175797428L));
+        sentTime = sentTimeRepository.saveAndFlush(sentTime);
+
         Employee employee = new Employee();
-        employee.setName("B6003234");
-        employee.setEmail("B6003234@g.sut.ac.th");
+        employee.setName("B6004798");
+        employee.setEmail("B6004798@g.sut.ac.th");
         employee = employeeRepository.saveAndFlush(employee);
 
         Station station = new Station();
@@ -82,8 +89,8 @@ public class SentParcelTests {
 
         MemberCustomer memberCustomer = new MemberCustomer();
         memberCustomer.setMemName("mem Test");
-        memberCustomer.setTel("0987654321");
-        memberCustomer.setEmail("test2542@gmail.com");
+        memberCustomer.setTel("0999999999");
+        memberCustomer.setEmail("test2541@gmail.com");
         memberCustomer.setCreateBy(employee);
         memberCustomer.setMemberLevel(mlevel);
         memberCustomer.setMemberType(mtype);
@@ -92,6 +99,7 @@ public class SentParcelTests {
         PackageType ptype = new PackageType();
         ptype.setType("test");
         ptype = packageTypeRepository.saveAndFlush(ptype);
+
         SendingType stype = new SendingType();
         stype.setType("test");
         stype.setUnit(1);
@@ -110,14 +118,15 @@ public class SentParcelTests {
         packaging.setWeight(10L);
         packaging.setPackageType(ptype);
         packaging.setSendingType(stype);
+        packaging = packagingRepository.saveAndFlush(packaging);
 
-        Set<ConstraintViolation<Packaging>> result = validator.validate(packaging);
+        Set<ConstraintViolation<SentTime>> result = validator.validate(sentTime);
 
         //ต้องมี 1 error เท่านั้น
         assertEquals(1, result.size());
 
         // error message ตรงชนิด และถูก field
-        ConstraintViolation<Packaging> v = result.iterator().next();
+        ConstraintViolation<SentTime> v = result.iterator().next();
         assertEquals("must not be null", v.getMessage());
         assertEquals("code", v.getPropertyPath().toString());
     }
