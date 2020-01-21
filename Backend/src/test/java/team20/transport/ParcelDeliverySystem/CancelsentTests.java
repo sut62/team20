@@ -836,7 +836,7 @@ public class CancelsentTests {
         packaging = packagingRepository.saveAndFlush(packaging);
         
         Cancelsent cancelsent = new Cancelsent();
-        cancelsent.setName("CQ01234");
+        cancelsent.setName("CN01234");
         cancelsent.setComment("");
         cancelsent.setCreateBy(employee);
         cancelsent.setOnPackageing(packaging);
