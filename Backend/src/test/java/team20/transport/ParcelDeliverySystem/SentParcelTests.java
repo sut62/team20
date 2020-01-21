@@ -66,11 +66,6 @@ public class SentParcelTests {
     @Test
     void b6004798_codeMustNotBeNull(){
 
-        SentTime sentTime = new SentTime();
-        sentTime.setFTime(new Time(1256175797428L));
-        sentTime.setLTime(new Time(1556175797428L));
-        sentTime = sentTimeRepository.saveAndFlush(sentTime);
-
         Employee employee = new Employee();
         employee.setName("B6004798");
         employee.setEmail("B6004798@g.sut.ac.th");
@@ -111,7 +106,7 @@ public class SentParcelTests {
         packaging.setAtStation(station);
         packaging.setCreateBy(employee);
         packaging.setPackageDate(check);
-        packaging.setCode(null);
+        packaging.setCode("T2001234");
         packaging.setPlace("test place");
         packaging.setReciever("123 reciever");
         packaging.setVolume(10L);
@@ -119,6 +114,10 @@ public class SentParcelTests {
         packaging.setPackageType(ptype);
         packaging.setSendingType(stype);
         packaging = packagingRepository.saveAndFlush(packaging);
+
+        SentTime sentTime = new SentTime();
+        sentTime.setFTime(null);
+        sentTime.setLTime(new Time(1556175797428L));
 
         Set<ConstraintViolation<SentTime>> result = validator.validate(sentTime);
 
@@ -128,6 +127,6 @@ public class SentParcelTests {
         // error message ตรงชนิด และถูก field
         ConstraintViolation<SentTime> v = result.iterator().next();
         assertEquals("must not be null", v.getMessage());
-        assertEquals("code", v.getPropertyPath().toString());
+        assertEquals("fTime", v.getPropertyPath().toString());
     }
 }
