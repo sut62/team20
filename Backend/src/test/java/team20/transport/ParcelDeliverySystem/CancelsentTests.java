@@ -156,7 +156,7 @@ public class CancelsentTests {
 
         assertEquals(("CN01234"), found.getName());
         assertEquals(employee, found.getCreateBy());
-        assertEquals(packaging, found.setOnPackageing());
+        assertEquals(packaging, found.getOnPackageing());
         assertEquals(status, found.getOnStatus());
         assertEquals(senttoback, found.getOnSenttoback());
         assertEquals(howtopay, found.getOnHowtopay());
