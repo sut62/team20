@@ -12,7 +12,7 @@ import team20.transport.ParcelDeliverySystem.PackagingSystem.Entity.Packaging;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.PastOrPresent;
+import javax.validation.constraints.NotEmpty;
 import java.util.Date;
 
 @Entity
@@ -29,6 +29,7 @@ public class MemberCustomer {
 
     @Column(name="MEMBER_NAME",unique = false, nullable = false)
     @NotNull
+    @NotEmpty
     private String MemName;
 
     @Pattern(regexp = "\\d{10}")
@@ -39,9 +40,6 @@ public class MemberCustomer {
     @Column(name="MEMBER_EMAIL",unique = false, nullable = true)
     private String email;
 
-    @PastOrPresent
-    @Column(name="MEMBER_REGDATE",unique = false, nullable = true)
-    private Date RegDate;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Employee.class)
     @JoinColumn(name = "EMPOLYEE_ID", insertable = true)
