@@ -230,7 +230,7 @@ public class CancelsentTests {
         packaging = packagingRepository.saveAndFlush(packaging);
         
         Cancelsent cancelsent = new Cancelsent();
-        cancelsent.setName("");
+        cancelsent.setName(null);
         cancelsent.setCreateBy(employee);
         cancelsent.setOnPackageing(packaging);
         cancelsent.setOnStatus(status);
@@ -406,7 +406,7 @@ public class CancelsentTests {
         cancelsent.setOnPackageing(packaging);
         cancelsent.setOnStatus(status);
         cancelsent.setOnSenttoback(senttoback);
-        cancelsent.setOnHowtopay(null);
+        cancelsent.setOnHowtopay("");
 
         final Set<ConstraintViolation<Cancelsent>> result = validator.validate(cancelsent);
 
@@ -491,7 +491,7 @@ public class CancelsentTests {
         cancelsent.setCreateBy(employee);
         cancelsent.setOnPackageing(packaging);
         cancelsent.setOnStatus(status);
-        cancelsent.setOnSenttoback(null);
+        cancelsent.setOnSenttoback("");
         cancelsent.setOnHowtopay(howtopay);
 
         final Set<ConstraintViolation<Cancelsent>> result = validator.validate(cancelsent);
@@ -757,7 +757,7 @@ public class CancelsentTests {
         // error message ตรงชนิด และถูก field
         final ConstraintViolation<Cancelsent> v = result.iterator().next();
         assertEquals("must match \"CN\\d{5}\"", v.getMessage());
-        assertEquals("Name", v.getPropertyPath().toString());
+        assertEquals("name", v.getPropertyPath().toString());
 
     }
 
