@@ -52,11 +52,9 @@ public class MemberCustomerController {
             MemberLevel ml = memberLevelRepository.findById(Long.valueOf(allParams.get("levelId"))).get();
             
 
-            Date time = new Date();
             newMemberCustomer.setMemName((allParams.get("mname")));
             newMemberCustomer.setTel((allParams.get("tel")));
             newMemberCustomer.setEmail((allParams.get("email")));
-            newMemberCustomer.setRegDate(time);
             newMemberCustomer.setCreateBy(emp);
             newMemberCustomer.setMemberType(mt);
             newMemberCustomer.setMemberLevel(ml);
