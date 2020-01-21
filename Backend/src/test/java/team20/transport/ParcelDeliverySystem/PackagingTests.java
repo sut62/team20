@@ -72,8 +72,10 @@ public class PackagingTests {
 
         MemberType mtype = new MemberType();
         mtype.setType("test");
+        mtype = memberTypeRepository.saveAndFlush(mtype);
         MemberLevel mlevel = new MemberLevel();
         mlevel.setPermission("test");
+        mlevel = memberLevelRepository.saveAndFlush(mlevel);
 
         MemberCustomer memberCustomer = new MemberCustomer();
         memberCustomer.setMemName("mem Test");
@@ -86,10 +88,11 @@ public class PackagingTests {
 
         PackageType ptype = new PackageType();
         ptype.setType("test");
-
+        ptype = packageTypeRepository.saveAndFlush(ptype);
         SendingType stype = new SendingType();
         stype.setType("test");
         stype.setUnit(1);
+        stype = sendingTypeRepository.saveAndFlush(stype);
 
         Date check = new Date();
         Packaging packaging = new Packaging();
@@ -133,8 +136,10 @@ public class PackagingTests {
 
         MemberType mtype = new MemberType();
         mtype.setType("test");
+        mtype = memberTypeRepository.saveAndFlush(mtype);
         MemberLevel mlevel = new MemberLevel();
         mlevel.setPermission("test");
+        mlevel = memberLevelRepository.saveAndFlush(mlevel);
 
         MemberCustomer memberCustomer = new MemberCustomer();
         memberCustomer.setMemName("mem Test");
@@ -147,10 +152,11 @@ public class PackagingTests {
 
         PackageType ptype = new PackageType();
         ptype.setType("test");
-
+        ptype = packageTypeRepository.saveAndFlush(ptype);
         SendingType stype = new SendingType();
         stype.setType("test");
         stype.setUnit(1);
+        stype = sendingTypeRepository.saveAndFlush(stype);
 
         Date check = new Date();
         Packaging packaging = new Packaging();
@@ -190,8 +196,10 @@ public class PackagingTests {
 
         MemberType mtype = new MemberType();
         mtype.setType("test");
+        mtype = memberTypeRepository.saveAndFlush(mtype);
         MemberLevel mlevel = new MemberLevel();
         mlevel.setPermission("test");
+        mlevel = memberLevelRepository.saveAndFlush(mlevel);
 
         MemberCustomer memberCustomer = new MemberCustomer();
         memberCustomer.setMemName("mem Test");
@@ -204,10 +212,11 @@ public class PackagingTests {
 
         PackageType ptype = new PackageType();
         ptype.setType("test");
-
+        ptype = packageTypeRepository.saveAndFlush(ptype);
         SendingType stype = new SendingType();
         stype.setType("test");
         stype.setUnit(1);
+        stype = sendingTypeRepository.saveAndFlush(stype);
 
         Date check = new Date();
         Packaging packaging = new Packaging();
@@ -247,8 +256,10 @@ public class PackagingTests {
 
         MemberType mtype = new MemberType();
         mtype.setType("test");
+        mtype = memberTypeRepository.saveAndFlush(mtype);
         MemberLevel mlevel = new MemberLevel();
         mlevel.setPermission("test");
+        mlevel = memberLevelRepository.saveAndFlush(mlevel);
 
         MemberCustomer memberCustomer = new MemberCustomer();
         memberCustomer.setMemName("mem Test");
@@ -261,10 +272,11 @@ public class PackagingTests {
 
         PackageType ptype = new PackageType();
         ptype.setType("test");
-
+        ptype = packageTypeRepository.saveAndFlush(ptype);
         SendingType stype = new SendingType();
         stype.setType("test");
         stype.setUnit(1);
+        stype = sendingTypeRepository.saveAndFlush(stype);
 
         Date check = new Date();
         Packaging packaging = new Packaging();
