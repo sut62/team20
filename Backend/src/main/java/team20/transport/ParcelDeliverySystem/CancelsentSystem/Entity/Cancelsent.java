@@ -27,32 +27,37 @@ public class Cancelsent {
     @Column(name = "CANCELSENT_ID", unique = true, nullable = true)
     private Long id;
 
-    @Column(name="SHIPPINGSTATE_CODE", nullable = false)
+    @Column(name="CANCLESENT_NAME", nullable = false)
     @Pattern(regexp = "CN\\d{5}")
     @NotNull
     private String name;
     
     @OneToOne
     @JsonBackReference
+    @NotNull
     private Status onStatus;
 
     @OneToOne
     @JsonBackReference
+    @NotNull
     private Packaging onPackageing;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = team20.transport.ParcelDeliverySystem.CancelsentSystem.Entity.Howtopay.class)
     @JoinColumn(name = "HOWTOPAY_ID", insertable = true)
     @JsonBackReference
+    @NonNull
     private  Howtopay onHowtopay;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = team20.transport.ParcelDeliverySystem.CancelsentSystem.Entity.Senttoback.class)
     @JoinColumn(name = "SENTTOBACK_ID", insertable = true)
     @JsonBackReference
+    @NotNull
     private Senttoback onSenttoback;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Employee.class)
     @JoinColumn(name = "EMPOLYEE_ID", insertable = true)
     @JsonBackReference
+    @NotNull
     private Employee createBy;
 
 }
