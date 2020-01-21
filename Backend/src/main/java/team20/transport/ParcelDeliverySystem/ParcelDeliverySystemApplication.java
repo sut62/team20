@@ -24,6 +24,8 @@ import team20.transport.ParcelDeliverySystem.Repository.EmployeePositionReposito
 import team20.transport.ParcelDeliverySystem.Repository.EmployeeRepository;
 import team20.transport.ParcelDeliverySystem.Repository.StationRepository;
 import team20.transport.ParcelDeliverySystem.Repository.StatusRepository;
+import team20.transport.ParcelDeliverySystem.ConfirmPackageSystem.Entity.SatisfactionLevel;
+import team20.transport.ParcelDeliverySystem.ConfirmPackageSystem.Repository.SatisfactionLevelRepository;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -46,7 +48,8 @@ public class ParcelDeliverySystemApplication {
 			StatusRepository statusRepository,
 			StationRepository stationRepository,
 			HowtopayRepository howtopayRepository,
-			SenttobackRepository senttobackRepository
+			SenttobackRepository senttobackRepository,
+			SatisfactionLevelRepository satisfactionLevelRepository
 	){
 		return args -> {
 			String [] allStation = { "มทส","เดอะมอลโคราช","บุรีรัมย์","สีคิ้ว" };
@@ -56,7 +59,7 @@ public class ParcelDeliverySystemApplication {
 					{"chatdanai374@gmail.com","Chatdanai Phakaket",1L},
 					{"pattarasit0@gmail.com","Pattarasit Lomthaisong",2L},
 					{"konggmhw@gmail.com","Pairat Tonkean",3L},
-					{"Riw.Kittitorn@gmail.com","Kittitorn Seanjeen",2L},
+					{"Riw.Kittitorn@gmail.com","Kittitorn Seangjeen",2L},
 					{"pream.thamai@gmail.com","Chaiwin Siriphan",3L},
 					{"athithan23123@gmail.com","Athitan Jitsopaporn",1L}
 			};
@@ -69,6 +72,7 @@ public class ParcelDeliverySystemApplication {
 					{"Register",10}
 			};
 			String [] allPackageType = {"ขนาดเล็ก","ขนาดกลาง","ขนาดใหญ่","เอกสาร"};
+			String [] allSatisfactionLevel = {"ไม่พอใจ","พอใจ","พอใจมาก"};
 
 			Collection<Station> initStation = new ArrayList<Station>();
 			for(String x: allStation){
@@ -153,6 +157,13 @@ public class ParcelDeliverySystemApplication {
 			}
 			packageTypeRepository.saveAll(initPackageType);
 
+			Collection<SatisfactionLevel> initSatisfactionLevel = new ArrayList<SatisfactionLevel>();
+			for(String x: allSatisfactionLevel){
+				SatisfactionLevel newSatisfactionLevel = new SatisfactionLevel();
+				newSatisfactionLevel.setSatisfactionlevel_name(x);
+				initSatisfactionLevel.add(newSatisfactionLevel);
+			}
+			satisfactionLevelRepository.saveAll(initSatisfactionLevel);
 
 		};
 	}
