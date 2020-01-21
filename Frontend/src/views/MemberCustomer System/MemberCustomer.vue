@@ -22,6 +22,10 @@
                     <label for="input-with-list">กรอกเบอร์โทรศัพท์</label>
                     <b-form-input list="input-list" v-model="MemberCustomer.tel" id="input-with-list"></b-form-input>
 
+
+                    <label for="input-with-list">กรอกEmail(สามารถเว้นว่างได้)</label>
+                    <b-form-input list="input-list" v-model="MemberCustomer.email" id="input-with-list"></b-form-input>
+
                     <label for="selectList">เลือกระดับสมาชิก</label>
                     <b-form-select v-model="MemberCustomer.memberLevelId" :options="this.memberLevel" class="mb-3" value-field="id" text-field="permission" disabled-field="notEnabled" id="selectList"></b-form-select>
 
@@ -72,6 +76,7 @@ export default {
             MemberCustomer: {
                 mname: null,
                 tel: null,
+                email:null,
                 memberLevelId: null,
                 memberTypeId: null,
                 employeeId: null
@@ -84,6 +89,7 @@ export default {
             api.post("/addMemberCustomer", {
                     mname: this.MemberCustomer.mname,
                     tel: this.MemberCustomer.tel,
+                    email: this.MemberCustomer.email,
                     levelId: this.MemberCustomer.memberLevelId,
                     typeId: this.MemberCustomer.memberTypeId,
                     employeeId: this.MemberCustomer.employeeId
