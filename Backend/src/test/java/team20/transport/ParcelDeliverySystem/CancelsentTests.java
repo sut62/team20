@@ -325,7 +325,7 @@ public class CancelsentTests {
         cancelsent.setOnPackageing(packaging);
         cancelsent.setOnStatus(status);
         cancelsent.setOnSenttoback(null);
-        cancelsent.setOnHowtopay(howtopat);
+        cancelsent.setOnHowtopay(howtopay);
 
         final Set<ConstraintViolation<Cancelsent>> result = validator.validate(cancelsent);
 
@@ -435,7 +435,7 @@ public class CancelsentTests {
         cancelsent.setOnPackageing(packaging);
         cancelsent.setOnStatus(status);
         cancelsent.setOnSenttoback(senttoback);
-        cancelsent.setOnHowtopay(howtopat);
+        cancelsent.setOnHowtopay(howtopay);
 
         final Set<ConstraintViolation<Cancelsent>> result = validator.validate(cancelsent);
 
