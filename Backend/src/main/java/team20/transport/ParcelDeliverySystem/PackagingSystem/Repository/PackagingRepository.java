@@ -10,6 +10,6 @@ import java.util.Collection;
 
 @RepositoryRestResource
 public interface PackagingRepository extends JpaRepository<Packaging, Long> {
-    @Query(value = "SELECT * FROM PACKAGEING WHERE PACKAGING_ID = :package_id",nativeQuery = true)
-    Collection<Packaging> findByPackageId(@Param("package_id") Long package_id);
+    @Query(value = "SELECT * FROM PACKAGING WHERE PACKAGE_CODE = :package_code",nativeQuery = true)
+    Packaging findPackageByCode(@Param("package_code") String package_code);
 }

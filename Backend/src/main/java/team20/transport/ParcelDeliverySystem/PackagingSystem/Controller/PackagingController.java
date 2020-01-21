@@ -46,15 +46,23 @@ public class PackagingController {
         Station atStation = stationRepository.findById(Long.valueOf(allParams.get("stationId"))).get();
         PackageType ptype = packageTypeRepository.findById(Long.valueOf(allParams.get("pTypeId"))).get();
         SendingType stype = sendingTypeRepository.findById(Long.valueOf(allParams.get("sTypeId"))).get();
+
+
         String receiver = allParams.get("receiever");
         String place = allParams.get("place");
         Long volume = Long.valueOf(allParams.get("volume"));
         Long weight = Long.valueOf(allParams.get("weight"));
         Date pdate = new Date();
 
+        Long countAllPackage = packagingRepository.count();
+
+        String code = String.format("T20%05d",countAllPackage + 1);
+
+
         Packaging newPackaging = new Packaging();
         newPackaging.setSentBy(sentBy);
         newPackaging.setAtStation(atStation);
+        newPackaging.setCode(code);
         newPackaging.setCreateBy(createBy);
         newPackaging.setPackageType(ptype);
         newPackaging.setSendingType(stype);
@@ -67,12 +75,13 @@ public class PackagingController {
         return packagingRepository.save(newPackaging);
     }
 
-    @GetMapping("/findPackageById/{id}")
-    public JSONObject findPackageById(@PathVariable Long id){
-        Packaging pac = packagingRepository.findById(id).get();
+    @GetMapping("/findPackageByCode/{code}")
+    public JSONObject findPackageByCode(@PathVariable String code){
+        Packaging pac = packagingRepository.findPackageByCode(code);
         JSONObject json = new JSONObject();
         json.put("id",pac.getId());
         json.put("packaging_date",pac.getPackageDate());
+        json.put("code",pac.getCode());
         json.put("place",pac.getPlace());
         json.put("receiever",pac.getReciever());
         json.put("volume",pac.getVolume());
@@ -94,6 +103,7 @@ public class PackagingController {
             json.put("id",pac.getId());
             json.put("packaging_date",pac.getPackageDate());
             json.put("place",pac.getPlace());
+            json.put("code",pac.getCode());
             json.put("receiever",pac.getReciever());
             json.put("volume",pac.getVolume());
             json.put("weight",pac.getWeight());
