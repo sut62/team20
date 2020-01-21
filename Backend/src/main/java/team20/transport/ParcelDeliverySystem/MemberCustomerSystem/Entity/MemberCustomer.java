@@ -44,16 +44,19 @@ public class MemberCustomer {
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Employee.class)
     @JoinColumn(name = "EMPOLYEE_ID", insertable = true)
     @JsonBackReference
+    @NotNull
     private Employee createBy;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = MemberType.class)
     @JoinColumn(name = "MEMBER_TYPE_ID", insertable = true)
     @JsonBackReference
+    @NotNull
     private MemberType memberType;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = MemberLevel.class)
     @JoinColumn(name = "MEMBER_LEVEL_ID", insertable = true)
     @JsonBackReference
+    @NotNull
     private MemberLevel memberLevel;
 
     @OneToMany(orphanRemoval = true, mappedBy = "sentBy")
