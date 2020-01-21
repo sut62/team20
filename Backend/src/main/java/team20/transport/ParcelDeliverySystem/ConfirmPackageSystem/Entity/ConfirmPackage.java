@@ -19,17 +19,17 @@ import java.util.Date;
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode
-@Table(name="CONFIRM_PACKGAGE")
+@Table(name="CONFIRM_PACKAGE")
 public class ConfirmPackage {
 
     @Id
     @SequenceGenerator(name="confirm_package_seq",sequenceName="confirm_package_seq")               
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="confirm_package_seq")  
-    @Column(name = "CONFIRM_PACKGAGE_ID", unique = true, nullable = true)
+    @Column(name = "CONFIRM_PACKAGE_ID", unique = true, nullable = true)
     private @NonNull Long id;
 
     @Column(name="CONFIRM_PACKAGE_CODE", nullable = false)
-    @Pattern(regexp = "T20\\d{5}")
+    @Pattern(regexp = "CPT20\\d{5}")
     @Size(min=1, max=8)
     @NotNull
     private String code;
