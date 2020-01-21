@@ -82,6 +82,15 @@ export default {
                 sendingTypeId: "",
                 volume: "",
                 weight: "",
+            },
+            saveStatus: {
+                popup: {
+                    dismissSecs: 3,
+                    dismissCountDown: 0,
+                    showDismissibleAlert: false,
+                    variant: "danger",
+                    message: ""
+                }
             }
         }
     },
@@ -99,12 +108,18 @@ export default {
                     weight: this.packageData.weight
                 })
                 .then(response => {
-                        if (response.data)
-                            alert("ลงทะเบียนพัสดุสำเร็จ\nId package = " + response.data.id + "\nราคา = " + (parseFloat(this.packageData.volume) * parseFloat(this.packageData.weight)))
+                        if (response.data){
+                            this.saveStatus.popup.dismissCountDown = this.saveStatus.popup.dismissSecs
+                            this.saveStatus.popup.variant = "success"
+                            this.saveStatus.popup.message = "ลงทะเบียนพัสดุสำเร็จ\nId package = " + response.data.id + "\nราคา = " + (parseFloat(this.packageData.volume) * parseFloat(this.packageData.weight))
+                        }
                     },
                     error => {
-                        if (error)
-                            alert("ลงทะเบียนพัสดุไม่สำเร็จ")
+                        if (error){
+                            this.saveStatus.popup.dismissCountDown = this.saveStatus.popup.dismissSecs
+                            this.saveStatus.popup.variant = "danger"
+                            this.saveStatus.popup.message = "ลงทะเบียนพัสดุไม่สำเร็จ"
+                        }
                     })
         },
         findCustomer() {
