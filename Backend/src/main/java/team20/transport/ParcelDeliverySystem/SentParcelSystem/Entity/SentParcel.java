@@ -9,6 +9,7 @@ import team20.transport.ParcelDeliverySystem.PackagingSystem.Entity.Packaging;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 @Entity
 @Getter
@@ -44,4 +45,9 @@ public class SentParcel {
     @JsonBackReference
     @NotNull
     private SentTime senttime;
+
+    @Column(name="SENTPARCEL_CODE", nullable = false)
+    @Pattern(regexp = "SN\\d{5}")
+    @NotNull
+    private String code;
 }
