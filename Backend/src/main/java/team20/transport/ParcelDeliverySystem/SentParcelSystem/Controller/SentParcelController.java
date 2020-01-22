@@ -36,7 +36,7 @@ public class SentParcelController {
         y.put("atOriginStation",x.getAtOriginStation());
         y.put("atArriveStation",x.getAtArriveStation());
         y.put("senttime",x.getSenttime());
-
+        y.put("code",x.getCode());
         return y;
 
     }
@@ -50,11 +50,16 @@ public class SentParcelController {
         Station atArriveStation = stationRepository.findById(allParams.get("receiveId")).get();
         SentTime toParcel = sentTimeRepository.findById(allParams.get("senttimeId")).get();
 
+
+        Long countAllSent = packagingRepository.count();
+        String code = String.format("SN%05d",countAllSent + 1);
+
         SentParcel newSentParcel = new SentParcel();
         newSentParcel.setPackaging(ofPackage);
         newSentParcel.setAtOriginStation(atOriginStation);
         newSentParcel.setAtArriveStation(atArriveStation);
         newSentParcel.setSenttime(toParcel);
+        newSentParcel.setCode(code);
 
         return sentParcelRepository.save(newSentParcel);
     }
