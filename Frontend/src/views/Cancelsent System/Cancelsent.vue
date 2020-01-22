@@ -18,9 +18,15 @@
 
                     <label for="selectList">เลือกชื่อพนักงาน</label>
                     <b-form-select v-model="Cancelsent.employeeId" :options="this.employeeData" class="mb-3" value-field="id" text-field="name" disabled-field="notEnabled" id="selectList"></b-form-select>
-                    <label for="input-with-list">กรอก Package ID</label>
-                    <b-form-input list="input-list" v-model="Cancelsent.packageId" id="input-with-list"></b-form-input>
+                    
+                    <b-form-input list="my-list-id" name="packageCode" id="packageCode"  v-model="packageCode" placeholder="กรอก Package ID"></b-form-input>
+
+                    <datalist id="my-list-id">
+                        <option v-for="pack in allPackage" v-bind:key="pack">{{ pack.code }}</option>
+                    </datalist>
+
                     <b-button class="mt-2" @click="this.SearchPackage">ตรวจสอบ Package</b-button>
+
                     <br>
                     <b-button v-if="this.foundPackage" class="mt-2" @click="this.CheckStatus">ตรวจสอบสถานะ</b-button>
 
@@ -99,20 +105,13 @@
             <div v-if="this.statusPackage">
                 <hr>
                   <div>
-    <b-alert
-      :show="dismissCountDown"
-      dismissible
-      variant="warning"
-      @dismissed="dismissCountDown=0"
-      @dismiss-count-down="countDownChanged"
-    >
-      This alert will dismiss after {{ dismissCountDown }} seconds...
-    </b-alert>
-    <b-button @click="Save" variant="info" class="m-1">
-      บันทึก
-    </b-button>
+
+    <b-button variant="primary" @click="this.Save">บันทึก</b-button>
   </div>
             </div>
+                  <b-alert class="mt-3 mb-4" :show="saveStatus.popup.dismissCountDown" dismissible fade :variant="saveStatus.popup.variant">
+                {{this.saveStatus.popup.message}}
+            </b-alert>
         </b-card-body>
     </b-card>
 </div>
@@ -127,8 +126,6 @@ export default {
             statusPackage: false,
             haveSearch1: false,
             haveSearch2: false,
-            dismissSecs: 5,
-            dismissCountDown: 0,
             Cancelsent: {
                 packageId: null,
                 employeeId: null,
@@ -146,6 +143,17 @@ export default {
                     "name": "Origin"
                 }
             },
+            saveStatus: {
+                popup: {
+                    dismissSecs: 3,
+                    dismissCountDown: 0,
+                    showDismissibleAlert: false,
+                    variant: "danger",
+                    message: ""
+                }
+            },
+            allPackage: "",
+            packageCode: "",
             employeeData: "",
             senttobackData: "",
             howtopayData: "",
@@ -172,16 +180,22 @@ export default {
                     statusId: this.Cancelsent.statusId
                 })
                 .then(
-                    response => {
-                        if (response.data)
-                            alert("ส่งคำร้องขอยกเลิกสำเร็จ\nId package = " + response.data.id + "\nราคา = " + ((parseFloat(this.packageData.volume) * parseFloat(this.packageData.weight)) / 2))
+                     response => {
+                        if (response.data) {
+                            this.saveStatus.popup.dismissCountDown = this.saveStatus.popup.dismissSecs
+                            this.saveStatus.popup.variant = "success"
+                            this.saveStatus.popup.message = "ทำรายการสำเร็จ Id package = " + response.data.id + "\nราคา = " + ((parseFloat(this.packageData.volume) * parseFloat(this.packageData.weight)) / 2)
+                        }
                     },
                     error => {
-                        if (error)
-                            alert("ทำการบันทึกสถานะพัสดุไม่สำเร็จ")
+                        if (error) {
+                            this.saveStatus.popup.dismissCountDown = this.saveStatus.popup.dismissSecs
+                            this.saveStatus.popup.variant = "danger"
+                            this.saveStatus.popup.message = "ทำการบันทึกสถานะพัสดุไม่สำเร็จ"
+
+                        }
                     }
                 )
-
         },
         getAllEmployees() {
             api.get("/getEmployees")
@@ -190,16 +204,19 @@ export default {
                 })
         },
         findPackageById() {
-            api.get("/findPackageById/" + this.Cancelsent.packageId)
+            api.get("/findPackageByCode/" + this.packageCode)
                 .then(
                     response => {
                         this.packageData = response.data
+                        this.Cancelsent.packageId = this.packageData.id
                         this.lastShippingState = this.packageData.haveShippingState[this.packageData.haveShippingState.length - 1]
                         this.foundPackage = true
                     },
                     error => {
                         if (error)
-                            alert("ไม่พบ package จากการค้นหากรุณาค้นหาอีกครั้ง !")
+                            this.saveStatus.popup.dismissCountDown = this.saveStatus.popup.dismissSecs
+                            this.saveStatus.popup.variant = "danger"
+                            this.saveStatus.popup.message = "ไม่พบ package จากการค้นหากรุณาค้นหาอีกครั้ง !"
                     }
                 )
         },
@@ -207,14 +224,20 @@ export default {
             api.get("/getShippingStateById/" + this.lastShippingState.id)
                 .then(
                     response => {
-                        if (response.data.onStatus.name == "ยกเลิก" || response.data.onStatus.name == "เสร็จสิ้น")
+                        if (response.data.onStatus.name == "ยกเลิก" || response.data.onStatus.name == "สำเร็จ"){
                             this.statusPackage = false
+                            this.saveStatus.popup.dismissCountDown = this.saveStatus.popup.dismissSecs
+                            this.saveStatus.popup.variant = "danger"
+                            this.saveStatus.popup.message = "ไม่พบ status จากการค้นหากรุณาค้นหาอีกครั้ง !"
+                        }
                         else
                             this.statusPackage = true
                     },
                     error => {
                         if (error)
-                            alert("ไม่พบ status จากการค้นหากรุณาค้นหาอีกครั้ง !")
+                        this.saveStatus.popup.dismissCountDown = this.saveStatus.popup.dismissSecs
+                            this.saveStatus.popup.variant = "danger"
+                            this.saveStatus.popup.message = "ไม่พบ status จากการค้นหากรุณาค้นหาอีกครั้ง !"
                     }
                 )
         },
@@ -230,6 +253,12 @@ export default {
                     this.howtopayData = response.data
                 })
         },
+        getAllPackage(){
+            api.get("/getAllPackage")
+                .then(response => {
+                    this.allPackage = response.data
+                })
+        },
         getStatus() {
             api.get("/getStatus")
                 .then(response => {
@@ -239,16 +268,13 @@ export default {
                     }
                 })
         },
-        countDownChanged(dismissCountDown) {
-        this.dismissCountDown = dismissCountDown
-        }
     },
     mounted() {
-        this.getAllEmployees(),
-            this.getAllSenttoback(),
-            this.getAllHowtopay(),
+            this.getAllEmployees()
+            this.getAllSenttoback()
+            this.getAllHowtopay()
             this.getStatus()
-
+            this.getAllPackage()
     }
 }
 </script>
