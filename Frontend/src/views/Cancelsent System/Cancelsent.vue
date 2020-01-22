@@ -101,6 +101,11 @@
                     <b-form-select v-model="Cancelsent.howtopayId" :options="this.howtopayData" class="mb-3" value-field="id" text-field="name" disabled-field="notEnabled" id="selectList"></b-form-select>
                 </b-col>
                 <b-col cols="1"></b-col>
+                <b-col>
+                <label for="input-with-list">*กรุณาใส่เหตุผล</label>
+                    <b-form-input list="input-list" v-model="Cancelsent.cancelcomment" id="input-with-list"></b-form-input>
+                </b-col>
+                <b-col cols="1"></b-col>
             </b-row>
             <div v-if="this.statusPackage">
                 <hr>
@@ -128,10 +133,12 @@ export default {
             haveSearch2: false,
             Cancelsent: {
                 packageId: null,
+                cancelcomment: null,
                 employeeId: null,
                 senttobackId: null,
                 howtopayId: null,
                 statusId: null,
+
             },
             packageData: {
                 receiever: "None",
@@ -174,6 +181,7 @@ export default {
         Save() {
             api.post("/addCancelsent", {
                     packageId: this.Cancelsent.packageId,
+                    cancelcomment: this.Cancelsent.cancelcomment,
                     employeeId: this.Cancelsent.employeeId,
                     senttobackId: this.Cancelsent.senttobackId,
                     howtopayId: this.Cancelsent.howtopayId,
