@@ -34,7 +34,14 @@ public class ConfirmPackageController {
         Employee createBy = employeeRepository.findById(allParams.get("employeeId")).get();
         SatisfactionLevel satisfactionLevel = satisfactionLevelRepository.findById(allParams.get("satisfactionLevelId")).get();
 
+	Long countaddConfirmPackge = confirmPackageRepository.count();
+
+        String code = String.format("CPT20%05d",countaddConfirmPackge + 1);
+        String name = "T20";
+
         ConfirmPackage newConfirmPackage = new ConfirmPackage();
+	newConfirmPackage.setName(name);
+        newConfirmPackage.setCode(code);
         newConfirmPackage.setConfirmDate(new Date());
         newConfirmPackage.setSatisfactionLevel(satisfactionLevel);
         newConfirmPackage.setCreateBy(createBy);
