@@ -41,7 +41,7 @@
                 <b-col cols="1"></b-col>
                 <b-col>
                     <label for="input-with-list">กรอก Package ID</label>
-                    <b-form-select  v-model="SentParcel.packageId" :options="this.allPid" class="mb-3" value-field="id" text-field="id" @change="this.getByPackageId"></b-form-select>
+                    <b-form-select  v-model="SentParcel.packageId" :options="this.allPid" id="selectList" class="mb-3" value-field="id" text-field="id" @change="this.getByPackageId"></b-form-select>
                 </b-col>
                 <b-col cols="1"></b-col>
 

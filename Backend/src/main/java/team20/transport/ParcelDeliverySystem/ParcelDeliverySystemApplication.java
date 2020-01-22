@@ -26,9 +26,14 @@ import team20.transport.ParcelDeliverySystem.Repository.StationRepository;
 import team20.transport.ParcelDeliverySystem.Repository.StatusRepository;
 import team20.transport.ParcelDeliverySystem.ConfirmPackageSystem.Entity.SatisfactionLevel;
 import team20.transport.ParcelDeliverySystem.ConfirmPackageSystem.Repository.SatisfactionLevelRepository;
+import team20.transport.ParcelDeliverySystem.SentParcelSystem.Entity.SentTime;
+import team20.transport.ParcelDeliverySystem.SentParcelSystem.Repository.SentTimeRepository;
 
+import java.sql.Time;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 
 @SpringBootApplication
 public class ParcelDeliverySystemApplication {
@@ -49,7 +54,8 @@ public class ParcelDeliverySystemApplication {
 			StationRepository stationRepository,
 			HowtopayRepository howtopayRepository,
 			SenttobackRepository senttobackRepository,
-			SatisfactionLevelRepository satisfactionLevelRepository
+			SatisfactionLevelRepository satisfactionLevelRepository,
+			SentTimeRepository sentTimeRepository
 	){
 		return args -> {
 			String [] allStation = { "มทส","เดอะมอลโคราช","บุรีรัมย์","สีคิ้ว" };
@@ -73,6 +79,24 @@ public class ParcelDeliverySystemApplication {
 			};
 			String [] allPackageType = {"ขนาดเล็ก","ขนาดกลาง","ขนาดใหญ่","เอกสาร"};
 			String [] allSatisfactionLevel = {"ไม่พอใจ","พอใจ","พอใจมาก"};
+			String [][] allTime = {
+					{"2020-01-22 10:00:00", "2020-01-22 12:00:00"},
+					{"2020-01-22 13:00:00", "2020-01-22 15:00:00"}
+			};
+
+			Collection<SentTime> initSentTime = new ArrayList<SentTime>();
+			for(String [] x: allTime){
+				SentTime newSentTime = new SentTime();
+				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss");
+				Date fDate = formatter.parse(x[0]);
+				Date lDate = formatter.parse(x[1]);
+
+				newSentTime.setFTime(new Time(fDate.getTime()));
+				newSentTime.setLTime(new Time(lDate.getTime()));
+
+				initSentTime.add(newSentTime);
+			}
+			sentTimeRepository.saveAll(initSentTime);
 
 			Collection<Station> initStation = new ArrayList<Station>();
 			for(String x: allStation){
