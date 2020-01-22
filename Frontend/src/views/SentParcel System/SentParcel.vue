@@ -3,64 +3,70 @@
     <b-card no-body>
         <b-card-header header-tag="nav">
             <b-nav card-header tabs>
-                <b-nav-item active>ระบบรับฝากพัสดุ</b-nav-item>
+                <b-nav-item active>ระบบจัดการสถานะพัสดุ</b-nav-item>
             </b-nav>
         </b-card-header>
 
         <b-card-body class="text-center">
-            <b-card-title>รับฝากพัสดุ</b-card-title>
+            <b-card-title>แบบฟอร์มเพิ่มสถานะพัสดุ</b-card-title>
 
             <hr>
 
             <b-row class="mt-4 mb-4">
-                <b-col cols="2"></b-col>
-                <b-col cols="8">
-                    <label for="input-with-list">กรอก Customer ID</label>
+                <b-col cols="1"></b-col>
+                <b-col cols="2">
 
-                    <b-row>
-                        <b-col cols="8">
-                            <b-form-input list="input-list" v-model="findCustomerId" id="input-with-list"></b-form-input>
-                        </b-col>
-                        <b-col cols="4">
-                            <b-button style="width:100%" @click="this.findCustomer">ค้นหา</b-button>
-                        </b-col>
-                    </b-row>
-                    <b-alert class="mt-3 mb-4" :show="saveStatus1.popup.dismissCountDown" dismissible fade :variant="saveStatus1.popup.variant">
-                        {{this.saveStatus1.popup.message}}
-                    </b-alert>
-                    <label for="selectList">เลือกสถานีที่รับฝาก</label>
-                    <b-form-select v-model="packageData.stationId" :options="this.stationData" class="mb-3" value-field="id" text-field="name" disabled-field="notEnabled" id="selectList"></b-form-select>
-
-                    <label for="input-with-list">กรอกชื่อผู้รับ</label>
-                    <b-form-input list="input-list" v-model="packageData.receieverName" id="input-with-list"></b-form-input>
-
-                    <label for="input-with-list">กรอกที่อยู่ผู้รับ</label>
-                    <b-form-input list="input-list" v-model="packageData.place" id="input-with-list"></b-form-input>
-
-                    <label for="selectList">เลือกประเภทพัสดุ</label>
-                    <b-form-select v-model="packageData.packageTypeId" :options="this.packageTypeData" class="mb-3" value-field="id" text-field="type" disabled-field="notEnabled" id="selectList"></b-form-select>
-
-                    <label for="input-with-list">กรอกน้ำหนักพัสดุ</label>
-                    <b-form-input list="input-list" v-model="packageData.weight" id="input-with-list"></b-form-input>
-
-                    <label for="input-with-list">กรอกปริมาตรพัสดุ</label>
-                    <b-form-input list="input-list" v-model="packageData.volume" id="input-with-list"></b-form-input>
-
-                    <label for="selectList">เลือกประเภทการส่ง</label>
-                    <b-form-select v-model="packageData.sendingTypeId" :options="this.sendingTypeData" class="mb-3" value-field="id" text-field="type" disabled-field="notEnabled" id="selectList"></b-form-select>
-                    
-                    <b-button variant="primary" style="width:80%" @click="this.Save">บันทึก</b-button>
+                    <b-button class="mt-2" variant="warning" @click="this.Search">ค้นหา</b-button>
                 </b-col>
 
-                <b-col cols="2"></b-col>
+                <b-col cols="1"></b-col>
+                <b-col>
+                    <b>ข้อมูล Package</b>
+                    <div class="text-left mt-2 text-break">
+                        <div v-if="this.foundPackage">
+                            <hr>
+                            <div class="ml-2">
+                                <b-table sticky-header :items="items" head-variant="light"></b-table>
+                            </div>
+                        </div>
+
+                    </div>
+                </b-col>
+                <b-col cols="1"></b-col>
             </b-row>
+            <hr v-if="this.foundPackage">
+
+            <b-row class="mt-4 mb-4" v-if="this.foundPackage">
+                
+                <b-col cols="1"></b-col>
+                <b-col>
+                    <label for="input-with-list">กรอก Package ID</label>
+                    <b-form-select  v-model="SentParcel.packageId" :options="this.allPid" class="mb-3" value-field="id" text-field="id" @change="this.getByPackageId"></b-form-select>
+                </b-col>
+                <b-col cols="1"></b-col>
+
+                <b-col cols="1"></b-col>
+                <b-col>
+                    <label for="selectList">เลือกสถานีจัดส่งต่อไป</label>
+                    <b-form-select v-model="SentParcel.receiveId" :options="this.stationData" class="mb-3" value-field="id" text-field="name" disabled-field="notEnabled" id="selectList"></b-form-select>
+
+                </b-col>
+                <b-col cols="1"></b-col>
+                <b-col>
+                    <label for="selectList">เวลาส่งพัสดุ</label>
+                    <b-form-select v-model="SentParcel.senttimeId" :options="this.sentTime" class="mb-3" value-field="id" text-field="rangeTime" disabled-field="notEnabled" id="selectList"></b-form-select>
+                </b-col>
+                <b-col cols="1"></b-col>
+            </b-row>
+
             <b-alert class="mt-3 mb-4" :show="saveStatus.popup.dismissCountDown" dismissible fade :variant="saveStatus.popup.variant">
-                {{this.saveStatus.popup.message}}
+                                    {{this.saveStatus.popup.message}}
             </b-alert>
+
             <div v-if="this.foundPackage">
                 <hr>
 
-                
+                <b-button variant="warning" @click="this.Save">บันทึก</b-button>
 
             </div>
         </b-card-body>
@@ -73,20 +79,15 @@ import api from "../../apiConnector"
 export default {
     data() {
         return {
-            findCustomerId: "",
-            employeeData: JSON.parse(localStorage.getItem("employeeLogin")),
+            foundPackage: false,
             stationData: "",
-            sendingTypeData: "",
-            packageTypeData: "",
-            packageData: {
-                receieverName: "",
-                place: "",
-                customerId: "",
-                stationId: "",
-                packageTypeId: "",
-                sendingTypeId: "",
-                volume: "",
-                weight: "",
+            sentTime: "",
+            allPid:{},
+            SentParcel: {
+                packageId: null,
+                stationId: null,
+                senttimeId: null,
+                receiveId: null
             },
             saveStatus: {
                 popup: {
@@ -97,62 +98,58 @@ export default {
                     message: ""
                 }
             },
-            saveStatus1: {
-                popup: {
-                    dismissSecs: 3,
-                    dismissCountDown: 0,
-                    showDismissibleAlert: false,
-                    variant: "danger",
-                    message: ""
-                }
-            }
+            items: [
+
+            ]
         }
     },
     methods: {
+        Search() {
+            this.foundPackage = true
+            this.getpackage()
+        },
         Save() {
-            api.post("/addPackaging", {
-                    customerId: this.packageData.customerId,
-                    employeeId: this.employeeData.id,
-                    stationId: this.packageData.stationId,
-                    pTypeId: this.packageData.packageTypeId,
-                    sTypeId: this.packageData.sendingTypeId,
-                    receiever: this.packageData.receieverName,
-                    place: this.packageData.place,
-                    volume: this.packageData.volume,
-                    weight: this.packageData.weight
-                })
-                .then(response => {
-                        if (response.data){
+            api.post("/addSentParcel", {
+                packageId: this.SentParcel.packageId,
+                stationId: this.SentParcel.stationId,
+                senttimeId: this.SentParcel.senttimeId,
+                receiveId: this.SentParcel.receiveId
+            })
+            .then(
+                    response => {
+                        if (response.data)
                             this.saveStatus.popup.dismissCountDown = this.saveStatus.popup.dismissSecs
                             this.saveStatus.popup.variant = "success"
-                            this.saveStatus.popup.message = "ลงทะเบียนพัสดุสำเร็จ Id package = " + response.data.id + "ราคา = " + (parseFloat(this.packageData.volume) * parseFloat(this.packageData.weight))
-                        }
+                            this.saveStatus.popup.message = "บันทึกข้อมูลสำเร็จ"
                     },
                     error => {
-                        if (error){
+                        if (error)
                             this.saveStatus.popup.dismissCountDown = this.saveStatus.popup.dismissSecs
                             this.saveStatus.popup.variant = "danger"
-                            this.saveStatus.popup.message = "ลงทะเบียนพัสดุไม่สำเร็จ"
-                        }
-                    })
-        },
-        findCustomer() {
-            api.get("/FindMemberCustomerId/" + this.findCustomerId)
-                .then(
-                    response => {
-                        this.saveStatus1.popup.dismissCountDown = this.saveStatus1.popup.dismissSecs
-                        this.saveStatus1.popup.variant = "success"
-                        this.saveStatus1.popup.message = "พบ id ของลูกค้า ชื่อ : " + response.data.name
-                        this.packageData.customerId = response.data.id
-                    },
-                    error => {
-                        if (error){
-                            this.saveStatus1.popup.dismissCountDown = this.saveStatus1.popup.dismissSecs
-                            this.saveStatus1.popup.variant = "danger"
-                            this.saveStatus1.popup.message = "ไม่พบ id ของลูกค้า"
-                        }
+                            this.saveStatus.popup.message = "บันทึกข้อมูลไม่สำเร็จ"
                     }
                 )
+
+        },
+        getpackage() {
+            api.get("/getAllPackage")
+                .then(response => {
+                    this.allPid = response.data
+                    for(var x in response.data){
+                        var dict = {}
+                        dict["Package id"] = response.data[x].id
+                        dict["ต้นทาง"] =response.data[x].station.name
+                        dict["ปลายทาง"] = response.data[x].place
+                        this.items[x] = dict
+                    }
+                    
+                })
+        },
+        getByPackageId(){
+            for(var i in this.allPid){
+                if(this.allPid[i].id == this.SentParcel.packageId)
+                    this.SentParcel.stationId = this.allPid[i].station.id
+            }
         },
         getAllStation() {
             api.get("/getStations")
@@ -160,23 +157,17 @@ export default {
                     this.stationData = response.data
                 })
         },
-        getAllSendingType() {
-            api.get("/getSendingType")
+        getAllSenttime() {
+            api.get("/getAllRangeTimes")
                 .then(response => {
-                    this.sendingTypeData = response.data
-                })
-        },
-        getAllPackageType() {
-            api.get("/getPackageType")
-                .then(response => {
-                    this.packageTypeData = response.data
+                    this.sentTime = response.data
                 })
         }
     },
     mounted() {
         this.getAllStation(),
-            this.getAllSendingType(),
-            this.getAllPackageType()
+            this.getAllSenttime(),
+            this.getpackage() 
     }
 }
 </script>
