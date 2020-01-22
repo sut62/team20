@@ -39,16 +39,15 @@ public class CancelsentController {
     @Autowired
     HowtopayRepository howtopayRepository;
 
-
     @PostMapping("/addCancelsent")
-    public Cancelsent addCancelsent(@RequestBody Map<String,Long> allParams){
+    public Cancelsent addCancelsent(@RequestBody Map<String,String> allParams){
 
-        Employee createBy = employeeRepository.findById(allParams.get("employeeId")).get();
-        Packaging packaging = packagingRepository.findById(allParams.get("packageId")).get();
-        Status onStatus = statusRepository.findById(allParams.get("statusId")).get();
-        Senttoback onSenttoback = senttobackRepository.findById(allParams.get("senttobackId")).get();
-        Howtopay onHowtopay = howtopayRepository.findById(allParams.get("howtopayId")).get();
-        
+        Employee createBy = employeeRepository.findById(Long.valueOf(allParams.get("employeeId"))).get();
+        Packaging packaging = packagingRepository.findById(Long.valueOf(allParams.get("packageId"))).get();
+        Status onStatus = statusRepository.findById(Long.valueOf(allParams.get("statusId"))).get();
+        Senttoback onSenttoback = senttobackRepository.findById(Long.valueOf(allParams.get("senttobackId"))).get();
+        Howtopay onHowtopay = howtopayRepository.findById(Long.valueOf(allParams.get("howtopayId"))).get();
+
         Long countAllName = cancelsentRepository.count();
 
         String name = String.format("CN%05d",countAllName + 1);
@@ -56,7 +55,7 @@ public class CancelsentController {
         Cancelsent newCancelsent = new Cancelsent();
         newCancelsent.setCreateBy(createBy);
         newCancelsent.setName(name);
-        newCancelsent.setComment((allParams.get("cancelcomment")));
+        newCancelsent.setComment(allParams.get("cancelcomment"));
         newCancelsent.setOnPackageing(packaging);
         newCancelsent.setOnStatus(onStatus);
         newCancelsent.setOnSenttoback(onSenttoback);
