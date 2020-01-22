@@ -56,7 +56,7 @@ public class CancelsentController {
         Cancelsent newCancelsent = new Cancelsent();
         newCancelsent.setCreateBy(createBy);
         newCancelsent.setName(name);
-        newCancelsent.setComment((allParams.get("comment")));
+        newCancelsent.setComment((allParams.get("cancelcomment")));
         newCancelsent.setOnPackageing(packaging);
         newCancelsent.setOnStatus(onStatus);
         newCancelsent.setOnSenttoback(onSenttoback);
