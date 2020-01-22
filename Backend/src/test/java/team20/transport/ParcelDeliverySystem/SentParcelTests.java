@@ -21,7 +21,9 @@ import team20.transport.ParcelDeliverySystem.PackagingSystem.Repository.Packagin
 import team20.transport.ParcelDeliverySystem.PackagingSystem.Repository.SendingTypeRepository;
 import team20.transport.ParcelDeliverySystem.Repository.EmployeeRepository;
 import team20.transport.ParcelDeliverySystem.Repository.StationRepository;
+import team20.transport.ParcelDeliverySystem.SentParcelSystem.Entity.SentParcel;
 import team20.transport.ParcelDeliverySystem.SentParcelSystem.Entity.SentTime;
+import team20.transport.ParcelDeliverySystem.SentParcelSystem.Repository.SentParcelRepository;
 import team20.transport.ParcelDeliverySystem.SentParcelSystem.Repository.SentTimeRepository;
 
 import javax.validation.ConstraintViolation;
@@ -54,6 +56,8 @@ public class SentParcelTests {
     PackageTypeRepository packageTypeRepository;
     @Autowired
     SendingTypeRepository sendingTypeRepository;
+    @Autowired
+    SentParcelRepository sentParcelRepository;
 
     Validator validator;
 
@@ -118,6 +122,7 @@ public class SentParcelTests {
         SentTime sentTime = new SentTime();
         sentTime.setFTime(null);
         sentTime.setLTime(new Time(1556175797428L));
+
 
         Set<ConstraintViolation<SentTime>> result = validator.validate(sentTime);
 
@@ -188,6 +193,15 @@ public class SentParcelTests {
         sentTime.setLTime(new Time(1556175797428L));
         sentTime = sentTimeRepository.saveAndFlush(sentTime);
 
+        SentParcel sentParcel = new SentParcel();
+        sentParcel.setCode("SN01234");
+        sentParcel.setSenttime(sentTime);
+        sentParcel.setAtArriveStation(station);
+        sentParcel.setAtOriginStation(station);
+        sentParcel.setPackaging(packaging);
+        sentParcel = sentParcelRepository.saveAndFlush(sentParcel);
+
+
         SentTime found = sentTimeRepository.findById(sentTime.getId()).get();
 
         assertEquals(new Time(1256175797428L),found.getFTime());
@@ -202,5 +216,83 @@ public class SentParcelTests {
 //        assertEquals("123 reciever",found.getReciever());
 //        assertEquals(ptype,found.getPackageType());
 //        assertEquals(stype,found.getSendingType());
+    }
+
+
+
+
+    @Test
+    void b6004798_codePattern(){
+
+        Employee employee = new Employee();
+        employee.setName("B6004798");
+        employee.setEmail("B6004798@g.sut.ac.th");
+        employee = employeeRepository.saveAndFlush(employee);
+
+        Station station = new Station();
+        station.setName("test station");
+        station = stationRepository.saveAndFlush(station);
+
+        MemberType mtype = new MemberType();
+        mtype.setType("test");
+        mtype = memberTypeRepository.saveAndFlush(mtype);
+        MemberLevel mlevel = new MemberLevel();
+        mlevel.setPermission("test");
+        mlevel = memberLevelRepository.saveAndFlush(mlevel);
+
+        MemberCustomer memberCustomer = new MemberCustomer();
+        memberCustomer.setMemName("mem Test");
+        memberCustomer.setTel("0999999999");
+        memberCustomer.setEmail("test2541@gmail.com");
+        memberCustomer.setCreateBy(employee);
+        memberCustomer.setMemberLevel(mlevel);
+        memberCustomer.setMemberType(mtype);
+        memberCustomer = memberCustomerRepository.saveAndFlush(memberCustomer);
+
+        PackageType ptype = new PackageType();
+        ptype.setType("test");
+        ptype = packageTypeRepository.saveAndFlush(ptype);
+
+        SendingType stype = new SendingType();
+        stype.setType("test");
+        stype.setUnit(1);
+        stype = sendingTypeRepository.saveAndFlush(stype);
+
+        Date check = new Date();
+        Packaging packaging = new Packaging();
+        packaging.setSentBy(memberCustomer);
+        packaging.setAtStation(station);
+        packaging.setCreateBy(employee);
+        packaging.setPackageDate(check);
+        packaging.setCode("T2001234");
+        packaging.setPlace("test place");
+        packaging.setReciever("123 reciever");
+        packaging.setVolume(10L);
+        packaging.setWeight(10L);
+        packaging.setPackageType(ptype);
+        packaging.setSendingType(stype);
+        packaging = packagingRepository.saveAndFlush(packaging);
+
+        SentTime sentTime = new SentTime();
+        sentTime.setFTime(new Time(1256175797428L));
+        sentTime.setLTime(new Time(1556175797428L));
+        sentTime = sentTimeRepository.saveAndFlush(sentTime);
+
+        SentParcel sentParcel = new SentParcel();
+        sentParcel.setCode(null);
+        sentParcel.setSenttime(sentTime);
+        sentParcel.setAtArriveStation(station);
+        sentParcel.setPackaging(packaging);
+        sentParcel.setAtOriginStation(station);
+
+        Set<ConstraintViolation<SentParcel>> result = validator.validate(sentParcel);
+
+        //ต้องมี 1 error เท่านั้น
+        assertEquals(1, result.size());
+
+        // error message ตรงชนิด และถูก field
+        ConstraintViolation<SentParcel> v = result.iterator().next();
+        assertEquals("must not be null", v.getMessage());
+        assertEquals("code", v.getPropertyPath().toString());
     }
 }
