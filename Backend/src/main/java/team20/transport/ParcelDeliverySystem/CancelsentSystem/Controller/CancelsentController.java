@@ -48,9 +48,15 @@ public class CancelsentController {
         Status onStatus = statusRepository.findById(allParams.get("statusId")).get();
         Senttoback onSenttoback = senttobackRepository.findById(allParams.get("senttobackId")).get();
         Howtopay onHowtopay = howtopayRepository.findById(allParams.get("howtopayId")).get();
+        
+        Long countAllName = cancelsentRepository.count();
+
+        String name = String.format("CN%05d",countAllName + 1);
 
         Cancelsent newCancelsent = new Cancelsent();
         newCancelsent.setCreateBy(createBy);
+        newCancelsent.setName(name);
+        newCancelsent.setComment((allParams.get("comment")));
         newCancelsent.setOnPackageing(packaging);
         newCancelsent.setOnStatus(onStatus);
         newCancelsent.setOnSenttoback(onSenttoback);
