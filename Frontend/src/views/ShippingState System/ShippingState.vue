@@ -19,7 +19,7 @@
                     <label for="selectList">เลือกชื่อพนักงาน</label>
                     <b-form-select v-model="ShippingState.employeeId" :options="this.employeeData" class="mb-3" value-field="id" text-field="name" disabled-field="notEnabled" id="selectList"></b-form-select>
             
-                    <b-form-input list="my-list-id" name="packageCode" id="packageCode"  v-model="packageCode" placeholder="กรอก package id"></b-form-input>
+                    <b-form-input list="my-list-id" name="packageCode" id="packageCode"  v-model="packageCode" placeholder="กรอก package code"></b-form-input>
 
                     <datalist id="my-list-id">
                         <option v-for="pack in allPackage" v-bind:key="pack">{{ pack.code }}</option>
