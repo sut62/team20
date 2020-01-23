@@ -7,16 +7,12 @@ import java.util.Collection;
 import team20.transport.ParcelDeliverySystem.Entity.Employee;
 import team20.transport.ParcelDeliverySystem.PackagingSystem.Entity.Packaging;
 import team20.transport.ParcelDeliverySystem.ConfirmPackageSystem.Entity.SatisfactionLevel;
-
 import javax.validation.constraints.*;
-
 import java.util.Date;
-@Data
+
 @Entity
-@Getter @Setter
-@NoArgsConstructor
-@ToString
-@EqualsAndHashCode
+@Getter
+@Setter
 @Table(name="CONFIRM_PACKAGE")
 public class ConfirmPackage {
 
@@ -26,9 +22,12 @@ public class ConfirmPackage {
     @Column(name = "CONFIRM_PACKAGE_ID", unique = true, nullable = true)
     private @NonNull Long id;
 
-    @Column(name="CONFIRM_PACKAGE_name", nullable = false)
+    @Column(name="CONFIRM_PACKAGE_COMMENT", nullable = false)
+    @Size(min=1, max=20)
+    private String comment;
+
+    @Column(name="CONFIRM_PACKAGE_NAME", nullable = false)
     @NotEmpty
-    @Size(min=1, max=3)
     private String name;
 
     @Column(name="CONFIRM_PACKAGE_CODE", nullable = false)
