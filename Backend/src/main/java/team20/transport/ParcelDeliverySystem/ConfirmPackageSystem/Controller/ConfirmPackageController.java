@@ -43,12 +43,13 @@ public class ConfirmPackageController {
 
         long countaddConfirmPackge = confirmPackageRepository.count();
         String code = String.format("CPT20%05d", countaddConfirmPackge + 1);
-        
-        String name = "T20";
+        String name = ("C20");
+        String comment = ("test");
 
         ConfirmPackage newConfirmPackage = new ConfirmPackage();
         newConfirmPackage.setName(name);
         newConfirmPackage.setCode(code);
+        newConfirmPackage.setComment(comment);
         newConfirmPackage.setConfirmDate(new Date());
         newConfirmPackage.setSatisfactionLevel(satisfactionLevel);
         newConfirmPackage.setCreateBy(createBy);
