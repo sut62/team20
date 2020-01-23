@@ -6,6 +6,7 @@ import Dashboard from './views/Dashboard'
 import ShippingState from './views/ShippingState System/ShippingState'
 import Cancelsent from './views/Cancelsent System/Cancelsent'
 import SentParcel from './views/SentParcel System/SentParcel'
+import HistorySentParcel from './views/SentParcel System/HistorySentParcel'
 import Packaging from './views/Packaging System/Packaging'
 import ConfirmPackage from './views/ConfirmPackage System/ConfirmPackage'
 import MemberCustomer from './views/MemberCustomer System/MemberCustomer'
@@ -44,6 +45,11 @@ export default new Router({
           path: '/sentparcel',
           name: 'sentparcel',
           component: SentParcel
+        },
+        {
+          path: '/historysentparcel',
+          name: 'historysentparcel',
+          component: HistorySentParcel
         },
         {
           path: '/packaging',
