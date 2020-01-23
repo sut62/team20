@@ -9,6 +9,7 @@ import SentParcel from './views/SentParcel System/SentParcel'
 import Packaging from './views/Packaging System/Packaging'
 import ConfirmPackage from './views/ConfirmPackage System/ConfirmPackage'
 import MemberCustomer from './views/MemberCustomer System/MemberCustomer'
+import DisplayShippingState from './views/ShippingState System/DisplayShippingState'
 Vue.use(Router)
 
 export default new Router({
@@ -28,6 +29,11 @@ export default new Router({
           path: '/shippingstate',
           name: 'shippingstate',
           component: ShippingState
+        },
+        {
+          path: '/displayshippingstate',
+          name: 'displayshippingstate',
+          component: DisplayShippingState
         },
         {
           path: '/cancelsent',
