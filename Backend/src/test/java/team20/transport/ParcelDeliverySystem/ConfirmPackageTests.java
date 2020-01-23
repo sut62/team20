@@ -143,6 +143,7 @@ public class ConfirmPackageTests {
         confirmPackage.setConfirmDate(time);
         confirmPackage.setCode("CPT2001234");
         confirmPackage.setName("C20");
+        confirmPackage.setComment("Test");
         confirmPackage.setPackaging(packaging);
         confirmPackage.setSatisfactionLevel(satisfactionLevel);
         confirmPackage = confirmPackageRepository.saveAndFlush(confirmPackage);
@@ -153,6 +154,7 @@ public class ConfirmPackageTests {
         assertEquals(time, found.getConfirmDate());
         assertEquals("CPT2001234",found.getCode());
         assertEquals("C20",found.getName());
+        assertEquals("Test",found.getComment());
         assertEquals(packaging, found.getPackaging());
         assertEquals(satisfactionLevel, found.getSatisfactionLevel());
     }
@@ -225,6 +227,7 @@ public class ConfirmPackageTests {
         confirmPackage.setConfirmDate(time);
         confirmPackage.setCode("CPT2001234");
         confirmPackage.setName("C20");
+        confirmPackage.setComment("Test");
         confirmPackage.setPackaging(packaging);
         confirmPackage.setSatisfactionLevel(null);
 
@@ -306,6 +309,7 @@ public class ConfirmPackageTests {
         confirmPackage.setConfirmDate(time);
         confirmPackage.setCode("CPT20012345");
         confirmPackage.setName("C20");
+        confirmPackage.setComment("Test");
         confirmPackage.setPackaging(packaging);
         confirmPackage.setSatisfactionLevel(satisfactionLevel);
 
@@ -387,6 +391,7 @@ public class ConfirmPackageTests {
         confirmPackage.setConfirmDate(time);
         confirmPackage.setCode("CPT2001234");
         confirmPackage.setName("");
+        confirmPackage.setComment("Test");
         confirmPackage.setPackaging(packaging);
         confirmPackage.setSatisfactionLevel(satisfactionLevel);
 
@@ -468,6 +473,7 @@ public class ConfirmPackageTests {
         confirmPackage.setConfirmDate(time);
         confirmPackage.setCode("CPT2001234");
         confirmPackage.setName("C20");
+        confirmPackage.setComment("Test");
         confirmPackage.setPackaging(packaging);
         confirmPackage.setSatisfactionLevel(satisfactionLevel);
 
@@ -549,6 +555,7 @@ public class ConfirmPackageTests {
         confirmPackage.setConfirmDate(time);
         confirmPackage.setCode("CPT2001234");
         confirmPackage.setName("C20");
+        confirmPackage.setComment("Test");
         confirmPackage.setPackaging(null);
         confirmPackage.setSatisfactionLevel(satisfactionLevel);
 
@@ -564,7 +571,7 @@ public class ConfirmPackageTests {
     }
 
     @Test
-    void b6012496_NameNotSize() {
+    void b6012496_CommentNotSize() {
 
         Employee employee = new Employee();
         employee.setName("B6012496");
@@ -629,7 +636,8 @@ public class ConfirmPackageTests {
         confirmPackage.setCreateBy(employee);
         confirmPackage.setConfirmDate(time);
         confirmPackage.setCode("CPT2001234");
-        confirmPackage.setName("C201");
+        confirmPackage.setName("C20");
+        confirmPackage.setComment("");
         confirmPackage.setPackaging(packaging);
         confirmPackage.setSatisfactionLevel(satisfactionLevel);
 
@@ -640,8 +648,8 @@ public class ConfirmPackageTests {
 
         // error message ตรงชนิด และถูก field
         ConstraintViolation<ConfirmPackage> v = result.iterator().next();
-        assertEquals("size must be between 1 and 3", v.getMessage());
-        assertEquals("name", v.getPropertyPath().toString());
+        assertEquals("size must be between 1 and 20", v.getMessage());
+        assertEquals("comment", v.getPropertyPath().toString());
     }
 
     @Test
@@ -711,6 +719,7 @@ public class ConfirmPackageTests {
         confirmPackage.setConfirmDate(time);
         confirmPackage.setCode(null);
         confirmPackage.setName("C20");
+        confirmPackage.setComment("Test");
         confirmPackage.setPackaging(packaging);
         confirmPackage.setSatisfactionLevel(satisfactionLevel);
 
