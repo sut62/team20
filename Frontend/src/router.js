@@ -11,6 +11,7 @@ import Packaging from './views/Packaging System/Packaging'
 import ConfirmPackage from './views/ConfirmPackage System/ConfirmPackage'
 import MemberCustomer from './views/MemberCustomer System/MemberCustomer'
 import DisplayShippingState from './views/ShippingState System/DisplayShippingState'
+import DisplayMemberCustomer from './views/MemberCustomer System/DisplayMemberCustomer'
 Vue.use(Router)
 
 export default new Router({
@@ -65,6 +66,11 @@ export default new Router({
           path: '/membercustomer',
           name: 'membercustomer',
           component: MemberCustomer
+        },
+        {
+          path: '/displaymembercustomer',
+          name: 'displaymembercustomer',
+          component: DisplayMemberCustomer
         },
       ]
     },
