@@ -22,22 +22,22 @@
                 </b-col>
                 <b-col cols="1"></b-col>
                 <b-col>
-                    <b>สถานะการค้นหา Package</b>
+                    <b>สถานะการแสดง ShippingState</b>
                     <div class="text-left mt-2 text-break">
                         <div>
                             สถานะ :
                             <span v-if="this.haveSearch">
-                                <div v-if="this.foundPackage" class="badge badge-success text-wrap" style="width: 6rem;">
-                                    พบ Package
+                                <div v-if="this.foundPackage" class="badge badge-success text-wrap" style="width: 7rem;">
+                                    พบ ShippingState
                                 </div>
-                                <div v-else class="badge badge-danger text-wrap" style="width: 6rem;">
-                                    ไม่พบ Package
+                                <div v-else class="badge badge-danger text-wrap" style="width: 11rem;">
+                                    ไม่พบ ShippingState
                                 </div>
                             </span>
 
                             <span v-if="!this.haveSearch">
-                                <div class="badge badge-warning text-wrap" style="width: 8rem;">
-                                    รอการค้นหา package
+                                <div class="badge badge-warning text-wrap" style="width: 12rem;">
+                                    รอการค้นหา ShippingState
                                 </div>
                             </span>
 
@@ -72,10 +72,6 @@
                 <b-col cols="2"></b-col>
             </b-row>
 
-            <b-alert class="mt-3 mb-4" :show="saveStatus.popup.dismissCountDown" dismissible fade :variant="saveStatus.popup.variant">
-                {{this.saveStatus.popup.message}}
-            </b-alert>
-
         </b-card-body>
     </b-card>
 </div>
@@ -104,15 +100,6 @@ export default {
                 packageCode: "",
             },
             shippingStateData: null,
-            saveStatus: {
-                popup: {
-                    dismissSecs: 3,
-                    dismissCountDown: 0,
-                    showDismissibleAlert: false,
-                    variant: "danger",
-                    message: ""
-                }
-            }
         }
     },
     methods: {
@@ -127,13 +114,6 @@ export default {
                     response => {
                         this.packageData = response.data
                         this.foundPackage = true
-                    },
-                    error => {
-                        if (error) {
-                            this.saveStatus.popup.dismissCountDown = this.saveStatus.popup.dismissSecs
-                            this.saveStatus.popup.variant = "danger"
-                            this.saveStatus.popup.message = "ไม่พบ package จากการค้นหากรุณาค้นหาอีกครั้ง !"
-                        }
                     }
                 )
         },
