@@ -69,6 +69,7 @@ export default {
     },
     methods: {
         return(){
+            localStorage.setItem("PackageCode",null)
             this.$router.push("dashboard")
         },
         getData(){
