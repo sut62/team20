@@ -193,7 +193,8 @@ export default {
                         if (response.data) {
                             this.saveStatus.popup.dismissCountDown = this.saveStatus.popup.dismissSecs
                             this.saveStatus.popup.variant = "success"
-                            this.saveStatus.popup.message = "ทำรายการสำเร็จ Id Cancel = " + response.data.name + "\nราคา = " + ((parseFloat(this.packageData.price) * 0.5))
+                            this.saveStatus.popup.message = "ทำรายการสำเร็จ Id Cancel = " + response.data.name
+                            getPriceFromCode()
                         }
                     },
                     error => {
@@ -205,6 +206,16 @@ export default {
                         }
                     }
                 )
+        },
+        getPriceFromCode(){
+            api.get("/getPackagePayment/"+this.code)
+            .then(
+                response => {
+                    this.packageData.price = response.data.price
+                    this.saveStatus.popup.message = "\nราคา = " + ((parseFloat(this.packageData.price) * 0.5))
+                }
+            )
+
         },
         getAllEmployees() {
             api.get("/getEmployees")
