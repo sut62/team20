@@ -14,7 +14,7 @@ import DisplayShippingState from './views/ShippingState System/DisplayShippingSt
 import DisplayMemberCustomer from './views/MemberCustomer System/DisplayMemberCustomer'
 import DisplayPackagePayment from './views/Packaging System/DisplayPackagePayment'
 import EnterCodeToFindPackagePayment from './views/Packaging System/EnterCodeToFindPackagePayment'
-import ShowConfirmPackage from './views/ConfirmPackage System/ShowConfirmPackage'
+//import ShowConfirmPackage from './views/ConfirmPackage System/ShowConfirmPackage'
 Vue.use(Router)
 
 export default new Router({
@@ -85,11 +85,13 @@ export default new Router({
           name: 'entercodetofindpackagepayment',
           component: EnterCodeToFindPackagePayment
         },
+/*
         {
           path: '/showconfirmpackage',
           name: 'showconfirmpackage',
           component: ShowConfirmPackage
         }
+*/
       ]
     },
     {
