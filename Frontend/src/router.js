@@ -14,6 +14,7 @@ import DisplayShippingState from './views/ShippingState System/DisplayShippingSt
 import DisplayMemberCustomer from './views/MemberCustomer System/DisplayMemberCustomer'
 import DisplayPackagePayment from './views/Packaging System/DisplayPackagePayment'
 import EnterCodeToFindPackagePayment from './views/Packaging System/EnterCodeToFindPackagePayment'
+import DisplayCancelsent from './views/Cancelsent System/DisplayCancelsent'
 //import ShowConfirmPackage from './views/ConfirmPackage System/ShowConfirmPackage'
 Vue.use(Router)
 
