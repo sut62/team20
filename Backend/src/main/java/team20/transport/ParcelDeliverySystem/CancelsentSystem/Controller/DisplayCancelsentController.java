@@ -28,7 +28,7 @@ public class DisplayCancelsentController {
 			cancel.put("CreateBy",x.getCreateBy());
     		cancel.put("OnSenttoback",x.getOnSenttoback());
 			cancel.put("OnHowtopay",x.getOnHowtopay());
-			cancel.put("price",(x.getWeight()*x.getVolume()*x.getSendingType().getUnit())*0.5);
+			cancel.put("price",(x.getOnPackageing().getWeight() * x.getOnPackageing().getSendingType().getUnit())*0.5);
 			cancel.put("Comment",x.getComment());
     		allCancel.add(cancel);
     	}
