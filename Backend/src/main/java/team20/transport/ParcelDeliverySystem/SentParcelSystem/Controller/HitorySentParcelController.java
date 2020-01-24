@@ -28,6 +28,7 @@ public class HitorySentParcelController {
             history.put("atOriginStation",temp.getAtOriginStation());
             history.put("atArriveStation",temp.getAtArriveStation());
             history.put("sentparcel",temp.getSenttime());
+            history.put("packageCode",temp.getPackaging().getCode());
             sent.add(history);
         }
         return sent;
