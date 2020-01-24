@@ -41,6 +41,11 @@ export default new Router({
           component: DisplayShippingState
         },
         {
+          path: '/displaycancelsent',
+          name: 'displaycancelsent',
+          component: DisplayCancelsent
+        },
+        {
           path: '/cancelsent',
           name: 'cancelsent',
           component: Cancelsent
