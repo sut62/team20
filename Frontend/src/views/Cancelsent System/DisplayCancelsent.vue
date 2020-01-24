@@ -71,15 +71,15 @@ export default {
                         var item = {}
                         item["id"] = object[i].id
                         item["Cancel Code	"] = object[i].Name
-                        item["Package Code	"] = object[i].OnPackageing.code
-                        item["Employee Name	"] = object[i].CreateBy.Name
-                        item["วิธีการรับ    	"] = object[i].OnSenttoback.name
-                        item["วิธีการจ่าย      	"] = object[i].OnHowtopay.name
-                        item["ราคา      	"] = object[i].OnPackageing.price
+                        item["Package Code	"] = object[i].OnPackageing
+                        item["Employee Name	"] = object[i].CreateBy
+                        item["วิธีการรับพัสดุ    	"] = object[i].OnSenttoback
+                        item["วิธีการจ่าย      	"] = object[i].OnHowtopay
+                        item["ราคา      	"] = object[i].price
                         item["Comment	"] = object[i].Comment
                         dict[i] = item
                     }
-
+// 
                     this.Cancelsent = dict
                 })
         },
