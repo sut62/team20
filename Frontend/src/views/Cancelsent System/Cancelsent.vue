@@ -194,7 +194,7 @@ export default {
                             this.saveStatus.popup.dismissCountDown = this.saveStatus.popup.dismissSecs
                             this.saveStatus.popup.variant = "success"
                             this.saveStatus.popup.message = "ทำรายการสำเร็จ Id Cancel = " + response.data.name
-                            getPriceFromCode()
+                            this.getPriceFromCode()
                         }
                     },
                     error => {
