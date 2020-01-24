@@ -142,6 +142,7 @@ export default {
             },
             packageData: {
                 receiever: "None",
+                price: "" ,
                 place: "Arrive",
                 createBy: {
                     name: "Annonymous"
@@ -192,7 +193,7 @@ export default {
                         if (response.data) {
                             this.saveStatus.popup.dismissCountDown = this.saveStatus.popup.dismissSecs
                             this.saveStatus.popup.variant = "success"
-                            this.saveStatus.popup.message = "ทำรายการสำเร็จ Id package = " + response.data.id + "\nราคา = " + ((parseFloat(this.packageData.volume) * parseFloat(this.packageData.weight)) / 2)
+                            this.saveStatus.popup.message = "ทำรายการสำเร็จ Id Cancel = " + response.data.name + "\nราคา = " + ((parseFloat(this.packageData.price) * 0.5))
                         }
                     },
                     error => {
