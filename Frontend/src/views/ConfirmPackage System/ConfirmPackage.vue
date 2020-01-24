@@ -19,13 +19,20 @@
                     <label for="selectList">เลือกชื่อพนักงาน</label>
                     <b-form-select v-model="ConfirmPackage.employeeId" :options="this.employeeData" class="mb-3" value-field="id" text-field="name" disabled-field="notEnabled" id="selectList"></b-form-select>
                     
-                    <label for="selectList">เลือกID package</label>
-                    <b-form-select v-model="ConfirmPackage.packageId" :options="this.packageData" class="mb-3" value-field="id" text-field="id" disabled-field="notEnabled" id="selectList"></b-form-select>
+                    <label for="selectList">เลือก ID package</label>
+                    <b-form-select v-model="ConfirmPackage.packageId" :options="this.packageData" class="mb-3" value-field="id" text-field="code" disabled-field="notEnabled" id="selectList"></b-form-select>
     
                     <label for="selectList">เลือกระดับความพึงพอใจ</label>
                     <b-form-select v-model="ConfirmPackage.satisfactionlevelId" :options="this.satisfactionlevelData" class="mb-3" value-field="satisfactionlevel_id" text-field="satisfactionlevel_name" disabled-field="notEnabled" id="selectList"></b-form-select>
 
+                    <label for="input-with-list">กรุณากรอกชื่อผู้รับ</label>
+                    <b-form-input list="input-list" v-model="ConfirmPackage.name" id="input-with-list"></b-form-input>
+                
+                    <label for="input-with-list">กรุณากรอกเหตุผล</label>
+                    <b-form-input list="input-list" v-model="ConfirmPackage.comment" id="input-with-list"></b-form-input>
+                
                 </b-col>
+
                 <b-col cols="1"></b-col>    
 
             </b-row>
@@ -53,6 +60,8 @@ export default {
                 employeeId: null,
                 satisfactionlevelId: null,
             },
+            commentData: "",
+            nameData: "",
             employeeData: "",
             packageData: "",
             satisfactionlevelData: "",
@@ -74,6 +83,8 @@ export default {
         },
         Save() {
             api.post("/addConfirmPackage", {
+                    name: this.ConfirmPackage.name,
+                    comment: this.ConfirmPackage.comment,
                     packageId: this.ConfirmPackage.packageId,
                     employeeId: this.ConfirmPackage.employeeId,
                     satisfactionLevelId: this.ConfirmPackage.satisfactionlevelId
