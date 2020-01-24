@@ -18,9 +18,9 @@ public class HitorySentParcelController {
     @Autowired
     SentParcelRepository sentParcelRepository;
 
-    @GetMapping("/historySentParcel/{id}")
-    public JSONArray historysentparcel(@PathVariable Long id){
-        Collection<SentParcel> sentParcel = sentParcelRepository.findBySentparcelId(id);
+    @GetMapping("/getAllSentParcel")
+    public JSONArray historysentparcel(){
+        Collection<SentParcel> sentParcel = sentParcelRepository.findAll();
         JSONArray sent = new JSONArray();
         for(SentParcel temp : sentParcel){
             JSONObject history = new JSONObject();
