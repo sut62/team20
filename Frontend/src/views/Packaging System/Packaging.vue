@@ -57,12 +57,6 @@
             <b-alert class="mt-3 mb-4" :show="saveStatus.popup.dismissCountDown" dismissible fade :variant="saveStatus.popup.variant">
                 {{this.saveStatus.popup.message}}
             </b-alert>
-            <div v-if="this.foundPackage">
-                <hr>
-
-                
-
-            </div>
         </b-card-body>
     </b-card>
 </div>
@@ -123,9 +117,8 @@ export default {
                 })
                 .then(response => {
                         if (response.data){
-                            this.saveStatus.popup.dismissCountDown = this.saveStatus.popup.dismissSecs
-                            this.saveStatus.popup.variant = "success"
-                            this.saveStatus.popup.message = "ลงทะเบียนพัสดุสำเร็จ Id package = " + response.data.id + "ราคา = " + (parseFloat(this.packageData.volume) * parseFloat(this.packageData.weight))
+                            localStorage.setItem("PackageCode",JSON.stringify(response.data.code))                 
+                            this.$router.push("displaypackagepayment")
                         }
                     },
                     error => {
