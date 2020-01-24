@@ -57,6 +57,11 @@
             <b-button to="displaymembercustomer" variant="primary">ไปที่หน้าโปรแกรม</b-button>
         </b-card>
 
+        <b-card header="" header-tag="header" footer="จัดทำโดย นายไพรัช ต้นเขียน B6009649" footer-tag="footer" title="Display Package Payment System">
+            <b-card-text>ระบบแสดงค่าใช้จ่ายการรับฝากพัสดุ</b-card-text>
+            <b-button to="entercodetofindpackagepayment" variant="primary">ไปที่หน้าโปรแกรม</b-button>
+        </b-card>
+
     </b-card-group>
 
 </div>

@@ -17,7 +17,7 @@
                 <b-col cols="8">
                     
                     <p class="text-center mb-1"><b>ข้อมูล Package</b></p>
-                                รหัสพัสดุ : {{this.packageData.code}} <br>
+                                รหัสพัสดุ : {{this.packageData.packageCode}} <br>
                                 ชื่อผู้ส่ง : {{this.packageData.sentBy}} <br>
                                 ต้นสถานี : {{this.packageData.atStation}} <br>
                                 ชื่อผู้รับ : {{this.packageData.receiver}} <br>                            
@@ -31,6 +31,9 @@
 
                 <b-col cols="2"></b-col>
             </b-row>
+            <b-alert class="mt-3 mb-4" :show="saveStatus.popup.dismissCountDown" dismissible fade :variant="saveStatus.popup.variant">
+                {{this.saveStatus.popup.message}}
+            </b-alert>
         </b-card-body>
     </b-card>
 </div>
@@ -41,8 +44,9 @@ import api from "../../apiConnector"
 export default {
     data() {
         return {
+            code: JSON.parse(localStorage.getItem("PackageCode")),
             packageData: {
-                code: JSON.parse(localStorage.getItem("PackageCode")),
+                packageCode: "",
                 sentBy: "",
                 createBy: "",
                 atStation: "",
@@ -51,7 +55,16 @@ export default {
                 sendingType: "",
                 weight: "",
                 price: ""
-            }
+            },
+            saveStatus: {
+                popup: {
+                    dismissSecs: 10,
+                    dismissCountDown: 0,
+                    showDismissibleAlert: false,
+                    variant: "danger",
+                    message: ""
+                }
+            },
         }
     },
     methods: {
@@ -59,9 +72,10 @@ export default {
             this.$router.push("dashboard")
         },
         getData(){
-            api.get("/getPackagePayment/"+this.packageData.code)
+            api.get("/getPackagePayment/"+this.code)
             .then(
                 response => {
+                    this.packageData.packageCode = this.code
                     this.packageData.sentBy = response.data.sentBy
                     this.packageData.createBy = response.data.createBy
                     this.packageData.atStation = response.data.atStation
@@ -73,7 +87,9 @@ export default {
                 },
                 error => {
                     if(error){
-                        this.$router.push("dashboard")
+                        this.saveStatus.popup.dismissCountDown = this.saveStatus.popup.dismissSecs
+                        this.saveStatus.popup.variant = "danger"
+                        this.saveStatus.popup.message = "ไม่พบ Code ของพัสดุ"
                     }
                 }
             )

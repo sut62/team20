@@ -13,6 +13,7 @@ import MemberCustomer from './views/MemberCustomer System/MemberCustomer'
 import DisplayShippingState from './views/ShippingState System/DisplayShippingState'
 import DisplayMemberCustomer from './views/MemberCustomer System/DisplayMemberCustomer'
 import DisplayPackagePayment from './views/Packaging System/DisplayPackagePayment'
+import EnterCodeToFindPackagePayment from './views/Packaging System/EnterCodeToFindPackagePayment'
 Vue.use(Router)
 
 export default new Router({
@@ -77,6 +78,11 @@ export default new Router({
           path: '/displaypackagepayment',
           name: 'displaypackagepayment',
           component: DisplayPackagePayment
+        },
+        {
+          path: '/entercodetofindpackagepayment',
+          name: 'entercodetofindpackagepayment',
+          component: EnterCodeToFindPackagePayment
         },
       ]
     },
