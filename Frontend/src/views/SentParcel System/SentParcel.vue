@@ -40,8 +40,8 @@
                 
                 <b-col cols="1"></b-col>
                 <b-col>
-                    <label for="input-with-list">กรอก Package ID</label>
-                    <b-form-select  v-model="SentParcel.packageId" :options="this.allPid" id="selectList" class="mb-3" value-field="id" text-field="id" @change="this.getByPackageId"></b-form-select>
+                    <label for="input-with-list">เลือก Package</label>
+                    <b-form-select  v-model="SentParcel.packageId" :options="this.allPid" id="selectList" class="mb-3" value-field="id" text-field="code" @change="this.getByPackageId"></b-form-select>
                 </b-col>
                 <b-col cols="1"></b-col>
 
@@ -137,7 +137,7 @@ export default {
                     this.allPid = response.data
                     for(var x in response.data){
                         var dict = {}
-                        dict["Package id"] = response.data[x].id
+                        dict["Package"] = response.data[x].code
                         dict["ต้นทาง"] =response.data[x].station.name
                         dict["ปลายทาง"] = response.data[x].place
                         this.items[x] = dict
