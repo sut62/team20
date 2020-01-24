@@ -49,7 +49,8 @@
                     <label for="selectList">เลือกประเภทการส่ง</label>
                     <b-form-select v-model="packageData.sendingTypeId" :options="this.sendingTypeData" class="mb-3" value-field="id" text-field="type" disabled-field="notEnabled" id="selectList"></b-form-select>
                     
-                    <b-button variant="primary" style="width:80%" @click="this.Save">บันทึก</b-button>
+                    <b-button deck v-if="this.saveState == 1" variant="primary" style="width:80%" @click="this.Save">บันทึก</b-button>
+                    <b-button deck v-if="this.saveState == 2" variant="primary" style="width:80%" @click="this.DisplayPayment">แสดงค่าใช้จ่ายการรับฝากพัสดุ</b-button>
                 </b-col>
 
                 <b-col cols="2"></b-col>
@@ -72,6 +73,7 @@ export default {
             stationData: "",
             sendingTypeData: "",
             packageTypeData: "",
+            saveState: "",
             packageData: {
                 receieverName: "",
                 place: "",
@@ -103,6 +105,9 @@ export default {
         }
     },
     methods: {
+        DisplayPayment(){
+            this.$router.push("displaypackagepayment")
+        },
         Save() {
             api.post("/addPackaging", {
                     customerId: this.packageData.customerId,
@@ -117,8 +122,11 @@ export default {
                 })
                 .then(response => {
                         if (response.data){
-                            localStorage.setItem("PackageCode",JSON.stringify(response.data.code))                 
-                            this.$router.push("displaypackagepayment")
+                            this.saveStatus.popup.dismissCountDown = this.saveStatus.popup.dismissSecs
+                            this.saveStatus.popup.variant = "success"
+                            this.saveStatus.popup.message = "ลงทะเบียนพัสดุสำเร็จ"
+                            localStorage.setItem("PackageCode",JSON.stringify(response.data.code))    
+                            this.saveState = 2                    
                         }
                     },
                     error => {
@@ -169,7 +177,8 @@ export default {
     mounted() {
         this.getAllStation(),
             this.getAllSendingType(),
-            this.getAllPackageType()
+            this.getAllPackageType(),
+            this.saveState = 1
     }
 }
 </script>
