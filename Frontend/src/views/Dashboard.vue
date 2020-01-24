@@ -16,6 +16,11 @@
             <b-button to="displayshippingstate" variant="primary">ไปที่หน้าโปรแกรม</b-button>
         </b-card>
 
+        <b-card header="" header-tag="header" footer="จัดทำโดย นายอธิษฐาน จิตรโสภาภรณ์ B6021405" footer-tag="footer" title="Display Cancelsent System">
+            <b-card-text>ระบบยกเลิกพัสดุ</b-card-text>
+            <b-button to="displaycancelsent" variant="primary">ไปที่หน้าโปรแกรม</b-button>
+        </b-card>
+
     </b-card-group>
 
     <b-card-group deck v-if="this.selectMenu == 2">
