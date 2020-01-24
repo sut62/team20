@@ -23,6 +23,7 @@ public class ShowConfirmPackageController {
             confirmPackage.put("id",con.getId());
             confirmPackage.put("code",con.getCode());
             confirmPackage.put("name",con.getName());
+            confirmPackage.put("comment",con.getComment());
             confirmPackage.put("ConfirmDate",con.getConfirmDate());
             confirmPackage.put("Packaging",con.getPackaging());
             confirmPackage.put("createBy",con.getCreateBy().getName());
