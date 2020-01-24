@@ -40,7 +40,7 @@
                 <b-col>
                     <b>สถานะการสมัครสมาชิก</b>
                     <div class="text-left mt-2 text-break">
-                        <div class="badge badge-danger text-wrap">
+                        <div class="badge badge-warning text-wrap">
                             โปรดระมัดระวังข้อมูล!!! การบันทึกซ่ำซ้อนอาจทำให้เสียค่าใช้จ่ายในการสมัครเพิ่มเติมเพิ่มเติม
                         </div>
                         <b-alert class="mt-3 mb-4" :show="saveStatus.popup.dismissCountDown" dismissible fade :variant="saveStatus.popup.variant">
@@ -48,7 +48,6 @@
                         </b-alert>
                         <div>
                                 <div class="badge badge-light text-wrap" style="width: 15rem;">
-                                    feature ถัดไป +_+ ระบบแสดงข้อมูลสมาชิก Coming Soon!!
                                 </div>
                         </div>
 
