@@ -34,6 +34,11 @@
             <b-button to="historysentparcel" variant="primary">ไปที่หน้าโปรแกรม</b-button>
         </b-card>
 
+	<b-card header="" header-tag="header" footer="จัดทำโดย นายกิตติธร แสงจีน B6012496" footer-tag="footer" title="Show Confirm Package System">
+            <b-card-text>ระบบแสดงข้อมูลยืนยันการรับพัสดุ</b-card-text>
+            <b-button to="showconfirmpackage" variant="primary">ไปที่หน้าโปรแกรม</b-button>
+        </b-card>
+
     </b-card-group>
 
     <b-card-group deck v-if="this.selectMenu == 3">
