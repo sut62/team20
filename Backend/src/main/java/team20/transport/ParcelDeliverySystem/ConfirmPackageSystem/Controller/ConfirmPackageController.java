@@ -31,11 +31,11 @@ public class ConfirmPackageController {
 
     @PostMapping("/addConfirmPackage")
     @ResponseBody
-    public Object addConfirmPackage(@RequestBody Map<String,Long> allParams) {
+    public Object addConfirmPackage(@RequestBody Map<String,String> allParams) {
 
-        Packaging packaging = packagingRepository.findById(allParams.get("packageId")).get();
-        Employee createBy = employeeRepository.findById(allParams.get("employeeId")).get();
-        SatisfactionLevel satisfactionLevel = satisfactionLevelRepository.findById(allParams.get("satisfactionLevelId")).get();
+        Packaging packaging = packagingRepository.findById(Long.valueOf(allParams.get("packageId"))).get();
+        Employee createBy = employeeRepository.findById(Long.valueOf(allParams.get("employeeId"))).get();
+        SatisfactionLevel satisfactionLevel = satisfactionLevelRepository.findById(Long.valueOf(allParams.get("satisfactionLevelId"))).get();
 
         if (packaging.getConfirmPackage() != null) {
             return new ResponseEntity(HttpStatus.NOT_ACCEPTABLE);
@@ -43,12 +43,12 @@ public class ConfirmPackageController {
 
         long countaddConfirmPackge = confirmPackageRepository.count();
         String code = String.format("CPT20%05d", countaddConfirmPackge + 1);
-        String name = ("C20");
-        String comment = ("test");
+        String name = allParams.get("name");
+        String comment = allParams.get("comment");
 
         ConfirmPackage newConfirmPackage = new ConfirmPackage();
-        newConfirmPackage.setName(name);
         newConfirmPackage.setCode(code);
+        newConfirmPackage.setName(name);
         newConfirmPackage.setComment(comment);
         newConfirmPackage.setConfirmDate(new Date());
         newConfirmPackage.setSatisfactionLevel(satisfactionLevel);
