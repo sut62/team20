@@ -29,4 +29,5 @@ public class SentTime {
     @OneToMany(orphanRemoval = true, mappedBy = "senttime")
     @JsonManagedReference
     private Collection<SentParcel> sentParcel;
+
 }
