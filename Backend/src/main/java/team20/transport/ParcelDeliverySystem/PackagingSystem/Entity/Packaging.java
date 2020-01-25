@@ -15,13 +15,14 @@ import team20.transport.ParcelDeliverySystem.SentParcelSystem.Entity.SentParcel;
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Date;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 @Entity
 @Getter
 @Setter
-@Table(name="PACKAGING")
+@Table(name="PACKAGING",uniqueConstraints = @UniqueConstraint(columnNames = {"PACKAGE_CODE"}))
 public class Packaging {
     @Id
     @SequenceGenerator(name="PACKAGING_SEQ",sequenceName="PACKAGING_SEQ",initialValue = 1,allocationSize = 1)
@@ -33,15 +34,16 @@ public class Packaging {
     @NotNull
     private String code;
     @NotNull
-    private @NonNull String reciever;
+    @NotEmpty
+    private String reciever;
     @NotNull
-    private @NonNull String place;
+    private String place;
     @NotNull
-    private @NonNull Long weight;
+    private Long weight;
     @NotNull
-    private @NonNull Long volume;
+    private Long volume;
     @NotNull
-    private @NonNull Date packageDate;
+    private Date packageDate;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = MemberCustomer.class)
     @JoinColumn(name = "CUSTOMER_ID", insertable = true)

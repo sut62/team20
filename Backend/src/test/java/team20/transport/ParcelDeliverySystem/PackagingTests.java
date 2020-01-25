@@ -123,6 +123,77 @@ public class PackagingTests {
     }
 
     @Test
+    void b6009649_testCodeMustNotDuplicate(){
+
+        Employee employee = new Employee();
+        employee.setName("B6003234");
+        employee.setEmail("B6003234@g.sut.ac.th");
+        employee = employeeRepository.saveAndFlush(employee);
+
+        Station station = new Station();
+        station.setName("test station");
+        station = stationRepository.saveAndFlush(station);
+
+        MemberType mtype = new MemberType();
+        mtype.setType("test");
+        mtype = memberTypeRepository.saveAndFlush(mtype);
+        MemberLevel mlevel = new MemberLevel();
+        mlevel.setPermission("test");
+        mlevel = memberLevelRepository.saveAndFlush(mlevel);
+
+        MemberCustomer memberCustomer = new MemberCustomer();
+        memberCustomer.setMemName("mem Test");
+        memberCustomer.setTel("0987654321");
+        memberCustomer.setEmail("test2542@gmail.com");
+        memberCustomer.setCreateBy(employee);
+        memberCustomer.setMemberLevel(mlevel);
+        memberCustomer.setMemberType(mtype);
+        memberCustomer = memberCustomerRepository.saveAndFlush(memberCustomer);
+
+        PackageType ptype = new PackageType();
+        ptype.setType("test");
+        ptype = packageTypeRepository.saveAndFlush(ptype);
+        SendingType stype = new SendingType();
+        stype.setType("test");
+        stype.setUnit(1);
+        stype = sendingTypeRepository.saveAndFlush(stype);
+
+        Date check = new Date();
+        Packaging packaging = new Packaging();
+        packaging.setSentBy(memberCustomer);
+        packaging.setAtStation(station);
+        packaging.setCreateBy(employee);
+        packaging.setPackageDate(check);
+        packaging.setCode("T2012345");
+        packaging.setPlace("test place");
+        packaging.setReciever("123 reciever");
+        packaging.setVolume(10L);
+        packaging.setWeight(10L);
+        packaging.setPackageType(ptype);
+        packaging.setSendingType(stype);
+        packagingRepository.saveAndFlush(packaging);
+
+        Packaging packagingDup = new Packaging();
+        packagingDup.setSentBy(memberCustomer);
+        packagingDup.setAtStation(station);
+        packagingDup.setCreateBy(employee);
+        packagingDup.setPackageDate(check);
+        packagingDup.setCode("T2012345");
+        packagingDup.setPlace("test place");
+        packagingDup.setReciever("123 reciever");
+        packagingDup.setVolume(10L);
+        packagingDup.setWeight(10L);
+        packagingDup.setPackageType(ptype);
+        packagingDup.setSendingType(stype);
+        try{
+            packagingRepository.saveAndFlush(packagingDup);
+        }catch(Exception e){
+            assertEquals("could not execute statement; SQL [n/a]; constraint [\"PUBLIC.UKJ6RW48HVA3YL94X4KXUS1ES1_INDEX_1 ON PUBLIC.PACKAGING(PACKAGE_CODE) VALUES 1\"; SQL statement:\n" +
+                    "insert into packaging (station_id, package_code, empolyee_id, package_date, ptype_id, place, reciever, stype_id, customer_id, volume, weight, packaging_id) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) [23505-200]]; nested exception is org.hibernate.exception.ConstraintViolationException: could not execute statement",e.getMessage());
+        }
+    }
+
+    @Test
     void b6009649_testCodeMustNotBeNull(){
 
         Employee employee = new Employee();
@@ -303,5 +374,586 @@ public class PackagingTests {
         assertEquals("code", v.getPropertyPath().toString());
     }
 
+    @Test
+    void b6009649_testReceiverMustNotBeEmpty(){
+
+        Employee employee = new Employee();
+        employee.setName("B6003234");
+        employee.setEmail("B6003234@g.sut.ac.th");
+        employee = employeeRepository.saveAndFlush(employee);
+
+        Station station = new Station();
+        station.setName("test station");
+        station = stationRepository.saveAndFlush(station);
+
+        MemberType mtype = new MemberType();
+        mtype.setType("test");
+        mtype = memberTypeRepository.saveAndFlush(mtype);
+        MemberLevel mlevel = new MemberLevel();
+        mlevel.setPermission("test");
+        mlevel = memberLevelRepository.saveAndFlush(mlevel);
+
+        MemberCustomer memberCustomer = new MemberCustomer();
+        memberCustomer.setMemName("mem Test");
+        memberCustomer.setTel("0987654321");
+        memberCustomer.setEmail("test2542@gmail.com");
+        memberCustomer.setCreateBy(employee);
+        memberCustomer.setMemberLevel(mlevel);
+        memberCustomer.setMemberType(mtype);
+        memberCustomer = memberCustomerRepository.saveAndFlush(memberCustomer);
+
+        PackageType ptype = new PackageType();
+        ptype.setType("test");
+        ptype = packageTypeRepository.saveAndFlush(ptype);
+        SendingType stype = new SendingType();
+        stype.setType("test");
+        stype.setUnit(1);
+        stype = sendingTypeRepository.saveAndFlush(stype);
+
+        Date check = new Date();
+        Packaging packaging = new Packaging();
+        packaging.setSentBy(memberCustomer);
+        packaging.setAtStation(station);
+        packaging.setCreateBy(employee);
+        packaging.setPackageDate(check);
+        packaging.setCode("T2012345");
+        packaging.setPlace("test place");
+        packaging.setReciever("");
+        packaging.setVolume(10L);
+        packaging.setWeight(10L);
+        packaging.setPackageType(ptype);
+        packaging.setSendingType(stype);
+
+        Set<ConstraintViolation<Packaging>> result = validator.validate(packaging);
+
+        //ต้องมี 1 error เท่านั้น
+        assertEquals(1, result.size());
+
+        // error message ตรงชนิด และถูก field
+        ConstraintViolation<Packaging> v = result.iterator().next();
+        assertEquals("must not be empty", v.getMessage());
+        assertEquals("reciever", v.getPropertyPath().toString());
+    }
+
+    @Test
+    void b6009649_testPlaceMustNotBeNull(){
+
+        Employee employee = new Employee();
+        employee.setName("B6003234");
+        employee.setEmail("B6003234@g.sut.ac.th");
+        employee = employeeRepository.saveAndFlush(employee);
+
+        Station station = new Station();
+        station.setName("test station");
+        station = stationRepository.saveAndFlush(station);
+
+        MemberType mtype = new MemberType();
+        mtype.setType("test");
+        mtype = memberTypeRepository.saveAndFlush(mtype);
+        MemberLevel mlevel = new MemberLevel();
+        mlevel.setPermission("test");
+        mlevel = memberLevelRepository.saveAndFlush(mlevel);
+
+        MemberCustomer memberCustomer = new MemberCustomer();
+        memberCustomer.setMemName("mem Test");
+        memberCustomer.setTel("0987654321");
+        memberCustomer.setEmail("test2542@gmail.com");
+        memberCustomer.setCreateBy(employee);
+        memberCustomer.setMemberLevel(mlevel);
+        memberCustomer.setMemberType(mtype);
+        memberCustomer = memberCustomerRepository.saveAndFlush(memberCustomer);
+
+        PackageType ptype = new PackageType();
+        ptype.setType("test");
+        ptype = packageTypeRepository.saveAndFlush(ptype);
+        SendingType stype = new SendingType();
+        stype.setType("test");
+        stype.setUnit(1);
+        stype = sendingTypeRepository.saveAndFlush(stype);
+
+        Date check = new Date();
+        Packaging packaging = new Packaging();
+        packaging.setSentBy(memberCustomer);
+        packaging.setAtStation(station);
+        packaging.setCreateBy(employee);
+        packaging.setPackageDate(check);
+        packaging.setCode("T2012345");
+        packaging.setPlace(null);
+        packaging.setReciever("test receiver");
+        packaging.setVolume(10L);
+        packaging.setWeight(10L);
+        packaging.setPackageType(ptype);
+        packaging.setSendingType(stype);
+
+        Set<ConstraintViolation<Packaging>> result = validator.validate(packaging);
+
+        //ต้องมี 1 error เท่านั้น
+        assertEquals(1, result.size());
+
+        // error message ตรงชนิด และถูก field
+        ConstraintViolation<Packaging> v = result.iterator().next();
+        assertEquals("must not be null", v.getMessage());
+        assertEquals("place", v.getPropertyPath().toString());
+    }
+
+    @Test
+    void b6009649_testWeightMustNotBeNull(){
+
+        Employee employee = new Employee();
+        employee.setName("B6003234");
+        employee.setEmail("B6003234@g.sut.ac.th");
+        employee = employeeRepository.saveAndFlush(employee);
+
+        Station station = new Station();
+        station.setName("test station");
+        station = stationRepository.saveAndFlush(station);
+
+        MemberType mtype = new MemberType();
+        mtype.setType("test");
+        mtype = memberTypeRepository.saveAndFlush(mtype);
+        MemberLevel mlevel = new MemberLevel();
+        mlevel.setPermission("test");
+        mlevel = memberLevelRepository.saveAndFlush(mlevel);
+
+        MemberCustomer memberCustomer = new MemberCustomer();
+        memberCustomer.setMemName("mem Test");
+        memberCustomer.setTel("0987654321");
+        memberCustomer.setEmail("test2542@gmail.com");
+        memberCustomer.setCreateBy(employee);
+        memberCustomer.setMemberLevel(mlevel);
+        memberCustomer.setMemberType(mtype);
+        memberCustomer = memberCustomerRepository.saveAndFlush(memberCustomer);
+
+        PackageType ptype = new PackageType();
+        ptype.setType("test");
+        ptype = packageTypeRepository.saveAndFlush(ptype);
+        SendingType stype = new SendingType();
+        stype.setType("test");
+        stype.setUnit(1);
+        stype = sendingTypeRepository.saveAndFlush(stype);
+
+        Date check = new Date();
+        Packaging packaging = new Packaging();
+        packaging.setSentBy(memberCustomer);
+        packaging.setAtStation(station);
+        packaging.setCreateBy(employee);
+        packaging.setPackageDate(check);
+        packaging.setCode("T2012345");
+        packaging.setPlace("test place");
+        packaging.setReciever("test receiver");
+        packaging.setVolume(10L);
+        packaging.setWeight(null);
+        packaging.setPackageType(ptype);
+        packaging.setSendingType(stype);
+
+        Set<ConstraintViolation<Packaging>> result = validator.validate(packaging);
+
+        //ต้องมี 1 error เท่านั้น
+        assertEquals(1, result.size());
+
+        // error message ตรงชนิด และถูก field
+        ConstraintViolation<Packaging> v = result.iterator().next();
+        assertEquals("must not be null", v.getMessage());
+        assertEquals("weight", v.getPropertyPath().toString());
+    }
+
+    @Test
+    void b6009649_testVolumeMustNotBeNull(){
+
+        Employee employee = new Employee();
+        employee.setName("B6003234");
+        employee.setEmail("B6003234@g.sut.ac.th");
+        employee = employeeRepository.saveAndFlush(employee);
+
+        Station station = new Station();
+        station.setName("test station");
+        station = stationRepository.saveAndFlush(station);
+
+        MemberType mtype = new MemberType();
+        mtype.setType("test");
+        mtype = memberTypeRepository.saveAndFlush(mtype);
+        MemberLevel mlevel = new MemberLevel();
+        mlevel.setPermission("test");
+        mlevel = memberLevelRepository.saveAndFlush(mlevel);
+
+        MemberCustomer memberCustomer = new MemberCustomer();
+        memberCustomer.setMemName("mem Test");
+        memberCustomer.setTel("0987654321");
+        memberCustomer.setEmail("test2542@gmail.com");
+        memberCustomer.setCreateBy(employee);
+        memberCustomer.setMemberLevel(mlevel);
+        memberCustomer.setMemberType(mtype);
+        memberCustomer = memberCustomerRepository.saveAndFlush(memberCustomer);
+
+        PackageType ptype = new PackageType();
+        ptype.setType("test");
+        ptype = packageTypeRepository.saveAndFlush(ptype);
+        SendingType stype = new SendingType();
+        stype.setType("test");
+        stype.setUnit(1);
+        stype = sendingTypeRepository.saveAndFlush(stype);
+
+        Date check = new Date();
+        Packaging packaging = new Packaging();
+        packaging.setSentBy(memberCustomer);
+        packaging.setAtStation(station);
+        packaging.setCreateBy(employee);
+        packaging.setPackageDate(check);
+        packaging.setCode("T2012345");
+        packaging.setPlace("test place");
+        packaging.setReciever("test receiver");
+        packaging.setVolume(null);
+        packaging.setWeight(10L);
+        packaging.setPackageType(ptype);
+        packaging.setSendingType(stype);
+
+        Set<ConstraintViolation<Packaging>> result = validator.validate(packaging);
+
+        //ต้องมี 1 error เท่านั้น
+        assertEquals(1, result.size());
+
+        // error message ตรงชนิด และถูก field
+        ConstraintViolation<Packaging> v = result.iterator().next();
+        assertEquals("must not be null", v.getMessage());
+        assertEquals("volume", v.getPropertyPath().toString());
+    }
+
+    @Test
+    void b6009649_testSentByMustNotBeNull(){
+
+        Employee employee = new Employee();
+        employee.setName("B6003234");
+        employee.setEmail("B6003234@g.sut.ac.th");
+        employee = employeeRepository.saveAndFlush(employee);
+
+        Station station = new Station();
+        station.setName("test station");
+        station = stationRepository.saveAndFlush(station);
+
+        PackageType ptype = new PackageType();
+        ptype.setType("test");
+        ptype = packageTypeRepository.saveAndFlush(ptype);
+        SendingType stype = new SendingType();
+        stype.setType("test");
+        stype.setUnit(1);
+        stype = sendingTypeRepository.saveAndFlush(stype);
+
+        Date check = new Date();
+        Packaging packaging = new Packaging();
+        packaging.setSentBy(null);
+        packaging.setAtStation(station);
+        packaging.setCreateBy(employee);
+        packaging.setPackageDate(check);
+        packaging.setCode("T2012345");
+        packaging.setPlace("test place");
+        packaging.setReciever("test receiver");
+        packaging.setVolume(10L);
+        packaging.setWeight(10L);
+        packaging.setPackageType(ptype);
+        packaging.setSendingType(stype);
+
+        Set<ConstraintViolation<Packaging>> result = validator.validate(packaging);
+
+        //ต้องมี 1 error เท่านั้น
+        assertEquals(1, result.size());
+
+        // error message ตรงชนิด และถูก field
+        ConstraintViolation<Packaging> v = result.iterator().next();
+        assertEquals("must not be null", v.getMessage());
+        assertEquals("sentBy", v.getPropertyPath().toString());
+    }
+
+    @Test
+    void b6009649_testAtStationMustNotBeNull(){
+
+        Employee employee = new Employee();
+        employee.setName("B6003234");
+        employee.setEmail("B6003234@g.sut.ac.th");
+        employee = employeeRepository.saveAndFlush(employee);
+
+        MemberType mtype = new MemberType();
+        mtype.setType("test");
+        mtype = memberTypeRepository.saveAndFlush(mtype);
+        MemberLevel mlevel = new MemberLevel();
+        mlevel.setPermission("test");
+        mlevel = memberLevelRepository.saveAndFlush(mlevel);
+
+        MemberCustomer memberCustomer = new MemberCustomer();
+        memberCustomer.setMemName("mem Test");
+        memberCustomer.setTel("0987654321");
+        memberCustomer.setEmail("test2542@gmail.com");
+        memberCustomer.setCreateBy(employee);
+        memberCustomer.setMemberLevel(mlevel);
+        memberCustomer.setMemberType(mtype);
+        memberCustomer = memberCustomerRepository.saveAndFlush(memberCustomer);
+
+        PackageType ptype = new PackageType();
+        ptype.setType("test");
+        ptype = packageTypeRepository.saveAndFlush(ptype);
+        SendingType stype = new SendingType();
+        stype.setType("test");
+        stype.setUnit(1);
+        stype = sendingTypeRepository.saveAndFlush(stype);
+
+        Date check = new Date();
+        Packaging packaging = new Packaging();
+        packaging.setSentBy(memberCustomer);
+        packaging.setAtStation(null);
+        packaging.setCreateBy(employee);
+        packaging.setPackageDate(check);
+        packaging.setCode("T2012345");
+        packaging.setPlace("test place");
+        packaging.setReciever("test receiver");
+        packaging.setVolume(10L);
+        packaging.setWeight(10L);
+        packaging.setPackageType(ptype);
+        packaging.setSendingType(stype);
+
+        Set<ConstraintViolation<Packaging>> result = validator.validate(packaging);
+
+        //ต้องมี 1 error เท่านั้น
+        assertEquals(1, result.size());
+
+        // error message ตรงชนิด และถูก field
+        ConstraintViolation<Packaging> v = result.iterator().next();
+        assertEquals("must not be null", v.getMessage());
+        assertEquals("atStation", v.getPropertyPath().toString());
+    }
+
+    @Test
+    void b6009649_testCreateByMustNotBeNull(){
+
+        Employee employee = new Employee();
+        employee.setName("B6003234");
+        employee.setEmail("B6003234@g.sut.ac.th");
+        employee = employeeRepository.saveAndFlush(employee);
+
+        Station station = new Station();
+        station.setName("test station");
+        station = stationRepository.saveAndFlush(station);
+
+        MemberType mtype = new MemberType();
+        mtype.setType("test");
+        mtype = memberTypeRepository.saveAndFlush(mtype);
+        MemberLevel mlevel = new MemberLevel();
+        mlevel.setPermission("test");
+        mlevel = memberLevelRepository.saveAndFlush(mlevel);
+
+        MemberCustomer memberCustomer = new MemberCustomer();
+        memberCustomer.setMemName("mem Test");
+        memberCustomer.setTel("0987654321");
+        memberCustomer.setEmail("test2542@gmail.com");
+        memberCustomer.setCreateBy(employee);
+        memberCustomer.setMemberLevel(mlevel);
+        memberCustomer.setMemberType(mtype);
+        memberCustomer = memberCustomerRepository.saveAndFlush(memberCustomer);
+
+        PackageType ptype = new PackageType();
+        ptype.setType("test");
+        ptype = packageTypeRepository.saveAndFlush(ptype);
+        SendingType stype = new SendingType();
+        stype.setType("test");
+        stype.setUnit(1);
+        stype = sendingTypeRepository.saveAndFlush(stype);
+
+        Date check = new Date();
+        Packaging packaging = new Packaging();
+        packaging.setSentBy(memberCustomer);
+        packaging.setAtStation(station);
+        packaging.setCreateBy(null);
+        packaging.setPackageDate(check);
+        packaging.setCode("T2012345");
+        packaging.setPlace("test place");
+        packaging.setReciever("test receiver");
+        packaging.setVolume(10L);
+        packaging.setWeight(10L);
+        packaging.setPackageType(ptype);
+        packaging.setSendingType(stype);
+
+        Set<ConstraintViolation<Packaging>> result = validator.validate(packaging);
+
+        //ต้องมี 1 error เท่านั้น
+        assertEquals(1, result.size());
+
+        // error message ตรงชนิด และถูก field
+        ConstraintViolation<Packaging> v = result.iterator().next();
+        assertEquals("must not be null", v.getMessage());
+        assertEquals("createBy", v.getPropertyPath().toString());
+    }
+
+    @Test
+    void b6009649_testPackageDateMustNotBeNull(){
+
+        Employee employee = new Employee();
+        employee.setName("B6003234");
+        employee.setEmail("B6003234@g.sut.ac.th");
+        employee = employeeRepository.saveAndFlush(employee);
+
+        Station station = new Station();
+        station.setName("test station");
+        station = stationRepository.saveAndFlush(station);
+
+        MemberType mtype = new MemberType();
+        mtype.setType("test");
+        mtype = memberTypeRepository.saveAndFlush(mtype);
+        MemberLevel mlevel = new MemberLevel();
+        mlevel.setPermission("test");
+        mlevel = memberLevelRepository.saveAndFlush(mlevel);
+
+        MemberCustomer memberCustomer = new MemberCustomer();
+        memberCustomer.setMemName("mem Test");
+        memberCustomer.setTel("0987654321");
+        memberCustomer.setEmail("test2542@gmail.com");
+        memberCustomer.setCreateBy(employee);
+        memberCustomer.setMemberLevel(mlevel);
+        memberCustomer.setMemberType(mtype);
+        memberCustomer = memberCustomerRepository.saveAndFlush(memberCustomer);
+
+        PackageType ptype = new PackageType();
+        ptype.setType("test");
+        ptype = packageTypeRepository.saveAndFlush(ptype);
+        SendingType stype = new SendingType();
+        stype.setType("test");
+        stype.setUnit(1);
+        stype = sendingTypeRepository.saveAndFlush(stype);
+
+        Packaging packaging = new Packaging();
+        packaging.setSentBy(memberCustomer);
+        packaging.setAtStation(station);
+        packaging.setCreateBy(employee);
+        packaging.setPackageDate(null);
+        packaging.setCode("T2012345");
+        packaging.setPlace("test place");
+        packaging.setReciever("test receiver");
+        packaging.setVolume(10L);
+        packaging.setWeight(10L);
+        packaging.setPackageType(ptype);
+        packaging.setSendingType(stype);
+
+        Set<ConstraintViolation<Packaging>> result = validator.validate(packaging);
+
+        //ต้องมี 1 error เท่านั้น
+        assertEquals(1, result.size());
+
+        // error message ตรงชนิด และถูก field
+        ConstraintViolation<Packaging> v = result.iterator().next();
+        assertEquals("must not be null", v.getMessage());
+        assertEquals("packageDate", v.getPropertyPath().toString());
+    }
+
+    @Test
+    void b6009649_testPackageTypeMustNotBeNull(){
+
+        Employee employee = new Employee();
+        employee.setName("B6003234");
+        employee.setEmail("B6003234@g.sut.ac.th");
+        employee = employeeRepository.saveAndFlush(employee);
+
+        Station station = new Station();
+        station.setName("test station");
+        station = stationRepository.saveAndFlush(station);
+
+        MemberType mtype = new MemberType();
+        mtype.setType("test");
+        mtype = memberTypeRepository.saveAndFlush(mtype);
+        MemberLevel mlevel = new MemberLevel();
+        mlevel.setPermission("test");
+        mlevel = memberLevelRepository.saveAndFlush(mlevel);
+
+        MemberCustomer memberCustomer = new MemberCustomer();
+        memberCustomer.setMemName("mem Test");
+        memberCustomer.setTel("0987654321");
+        memberCustomer.setEmail("test2542@gmail.com");
+        memberCustomer.setCreateBy(employee);
+        memberCustomer.setMemberLevel(mlevel);
+        memberCustomer.setMemberType(mtype);
+        memberCustomer = memberCustomerRepository.saveAndFlush(memberCustomer);
+
+        SendingType stype = new SendingType();
+        stype.setType("test");
+        stype.setUnit(1);
+        stype = sendingTypeRepository.saveAndFlush(stype);
+
+        Date check = new Date();
+        Packaging packaging = new Packaging();
+        packaging.setSentBy(memberCustomer);
+        packaging.setAtStation(station);
+        packaging.setCreateBy(employee);
+        packaging.setPackageDate(check);
+        packaging.setCode("T2012345");
+        packaging.setPlace("test place");
+        packaging.setReciever("test receiver");
+        packaging.setVolume(10L);
+        packaging.setWeight(10L);
+        packaging.setPackageType(null);
+        packaging.setSendingType(stype);
+
+        Set<ConstraintViolation<Packaging>> result = validator.validate(packaging);
+
+        //ต้องมี 1 error เท่านั้น
+        assertEquals(1, result.size());
+
+        // error message ตรงชนิด และถูก field
+        ConstraintViolation<Packaging> v = result.iterator().next();
+        assertEquals("must not be null", v.getMessage());
+        assertEquals("packageType", v.getPropertyPath().toString());
+    }
+
+    @Test
+    void b6009649_testSendingTypeMustNotBeNull(){
+
+        Employee employee = new Employee();
+        employee.setName("B6003234");
+        employee.setEmail("B6003234@g.sut.ac.th");
+        employee = employeeRepository.saveAndFlush(employee);
+
+        Station station = new Station();
+        station.setName("test station");
+        station = stationRepository.saveAndFlush(station);
+
+        MemberType mtype = new MemberType();
+        mtype.setType("test");
+        mtype = memberTypeRepository.saveAndFlush(mtype);
+        MemberLevel mlevel = new MemberLevel();
+        mlevel.setPermission("test");
+        mlevel = memberLevelRepository.saveAndFlush(mlevel);
+
+        MemberCustomer memberCustomer = new MemberCustomer();
+        memberCustomer.setMemName("mem Test");
+        memberCustomer.setTel("0987654321");
+        memberCustomer.setEmail("test2542@gmail.com");
+        memberCustomer.setCreateBy(employee);
+        memberCustomer.setMemberLevel(mlevel);
+        memberCustomer.setMemberType(mtype);
+        memberCustomer = memberCustomerRepository.saveAndFlush(memberCustomer);
+
+        PackageType ptype = new PackageType();
+        ptype.setType("test");
+        ptype = packageTypeRepository.saveAndFlush(ptype);
+
+        Date check = new Date();
+        Packaging packaging = new Packaging();
+        packaging.setSentBy(memberCustomer);
+        packaging.setAtStation(station);
+        packaging.setCreateBy(employee);
+        packaging.setPackageDate(check);
+        packaging.setCode("T2012345");
+        packaging.setPlace("test place");
+        packaging.setReciever("test receiver");
+        packaging.setVolume(10L);
+        packaging.setWeight(10L);
+        packaging.setPackageType(ptype);
+        packaging.setSendingType(null);
+
+        Set<ConstraintViolation<Packaging>> result = validator.validate(packaging);
+
+        //ต้องมี 1 error เท่านั้น
+        assertEquals(1, result.size());
+
+        // error message ตรงชนิด และถูก field
+        ConstraintViolation<Packaging> v = result.iterator().next();
+        assertEquals("must not be null", v.getMessage());
+        assertEquals("sendingType", v.getPropertyPath().toString());
+    }
 
 }
