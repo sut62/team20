@@ -32,6 +32,7 @@ public class MemberCustomer {
     private String MemName;
 
     @Pattern(regexp = "\\d{10}")
+    @NotNull
     @Column(name="MEMBER_TEL",unique = false, nullable = false)
     private String Tel;
 
