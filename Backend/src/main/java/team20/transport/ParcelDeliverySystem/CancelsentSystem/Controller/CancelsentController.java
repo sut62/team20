@@ -60,7 +60,7 @@ public class CancelsentController {
         newCancelsent.setOnStatus(onStatus);
         newCancelsent.setOnSenttoback(onSenttoback);
         newCancelsent.setOnHowtopay(onHowtopay);
-        newCancelsent.setEmail((allParams.get("email")));
+        newCancelsent.setEmail((allParams.get("cancelemail")));
 
         return cancelsentRepository.save(newCancelsent);
         //

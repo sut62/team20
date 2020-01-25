@@ -106,6 +106,11 @@
                     <b-form-input list="input-list" v-model="Cancelsent.cancelcomment" id="input-with-list"></b-form-input>
                 </b-col>
                 <b-col cols="1"></b-col>
+                <b-col>
+                <label for="input-with-list">*กรุณาใส่อีเมลเพื่อติดต่อกลับ</label>
+                    <b-form-input list="input-list" v-model="Cancelsent.cancelemail" id="input-with-list"></b-form-input>
+                </b-col>
+                <b-col cols="1"></b-col>
             </b-row>
             <div v-if="this.statusPackage">
                 <hr>
@@ -134,6 +139,7 @@ export default {
             Cancelsent: {
                 packageId: null,
                 cancelcomment: null,
+                cancelemail: null,
                 employeeId: null,
                 senttobackId: null,
                 howtopayId: null,
@@ -177,8 +183,7 @@ export default {
         CheckStatus() {
             this.checkPackageById()
             this.haveSearch2 = true
-        },
-// 
+        }, 
         Save() {
             api.post("/addCancelsent", {
                     packageId: this.Cancelsent.packageId,
@@ -186,7 +191,8 @@ export default {
                     employeeId: this.Cancelsent.employeeId,
                     senttobackId: this.Cancelsent.senttobackId,
                     howtopayId: this.Cancelsent.howtopayId,
-                    statusId: this.Cancelsent.statusId
+                    statusId: this.Cancelsent.statusId,
+                    cancelcomment: this.Cancelsent.cancelcomment
                 })
                 .then(
                      response => {
