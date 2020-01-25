@@ -192,7 +192,7 @@ export default {
                     senttobackId: this.Cancelsent.senttobackId,
                     howtopayId: this.Cancelsent.howtopayId,
                     statusId: this.Cancelsent.statusId,
-                    cancelcomment: this.Cancelsent.cancelcomment
+                    cancelemail: this.Cancelsent.cancelemail
                 })
                 .then(
                      response => {
