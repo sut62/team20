@@ -33,7 +33,6 @@ public class MemberCustomer {
 
     @Pattern(regexp = "\\d{10}")
     @Column(name="MEMBER_TEL",unique = false, nullable = false)
-    @NotEmpty
     private String Tel;
 
     @Email
