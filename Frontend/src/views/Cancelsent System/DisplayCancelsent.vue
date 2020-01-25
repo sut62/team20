@@ -76,6 +76,7 @@ export default {
                         item["วิธีการรับพัสดุ    	"] = object[i].OnSenttoback
                         item["วิธีการจ่าย      	"] = object[i].OnHowtopay
                         item["ราคา      	"] = object[i].price
+                        item["Email	"] = object[i].email
                         item["Comment	"] = object[i].Comment
                         dict[i] = item
                     }

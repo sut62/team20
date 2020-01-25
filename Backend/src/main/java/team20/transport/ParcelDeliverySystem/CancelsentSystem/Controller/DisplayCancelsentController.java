@@ -26,6 +26,7 @@ public class DisplayCancelsentController {
     		cancel.put("OnSenttoback",x.getOnSenttoback().getName());
 			cancel.put("OnHowtopay",x.getOnHowtopay().getName());
 			cancel.put("price",(x.getOnPackageing().getWeight() * x.getOnPackageing().getSendingType().getUnit())*0.5);
+			cancel.put("email",x.getEmail());
 			cancel.put("Comment",x.getComment());
     		allCancel.add(cancel);
     	}
