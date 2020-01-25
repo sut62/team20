@@ -155,43 +155,6 @@ public class MemberCustomerTests {
         assertEquals("Tel", v.getPropertyPath().toString());
     }
 
-    @Test
-    void b6011642_testTelMustNotBeNull(){
-
-
-        Employee employee = new Employee();
-        employee.setName("B6011642");
-        employee.setEmail("B6011642@g.sut.ac.th");
-        employee = employeeRepository.saveAndFlush(employee);
-
-        MemberType memberType = new MemberType();
-        memberType.setType("Business");
-        memberType = memberTypeRepository.saveAndFlush(memberType);
-
-        MemberLevel memberLevel = new MemberLevel();
-        memberLevel.setPermission("Premium");
-        memberLevel = memberLevelRepository.saveAndFlush(memberLevel);
-
-
-        MemberCustomer memberCustomer = new MemberCustomer();
-        memberCustomer.setMemName("mem Test");
-        memberCustomer.setTel(null);
-        memberCustomer.setCreateBy(employee);
-        memberCustomer.setEmail("cc@gmail.com");
-        memberCustomer.setMemberType(memberType);
-        memberCustomer.setMemberLevel(memberLevel);
-
-        Set<ConstraintViolation<MemberCustomer>> result = validator.validate(memberCustomer);
-
-        //ต้องมี 1 error เท่านั้น
-        assertEquals(1, result.size());
-
-        // error message ตรงชนิด และถูก field
-        ConstraintViolation<MemberCustomer> v = result.iterator().next();
-        assertEquals("must not be empty", v.getMessage());
-        assertEquals("Tel", v.getPropertyPath().toString());
-    }
-
 
     @Test
     void b6011642_testEmailMustBeEmailForm(){
