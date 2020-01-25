@@ -188,8 +188,8 @@ public class PackagingTests {
         try{
             packagingRepository.saveAndFlush(packagingDup);
         }catch(Exception e){
-            assertEquals("could not execute statement; SQL [n/a]; constraint [\"PUBLIC.UKJ6RW48HVA3YL94X4KXUS1ES1_INDEX_1 ON PUBLIC.PACKAGING(PACKAGE_CODE) VALUES 1\"; SQL statement:\n" +
-                    "insert into packaging (station_id, package_code, empolyee_id, package_date, ptype_id, place, reciever, stype_id, customer_id, volume, weight, packaging_id) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) [23505-200]]; nested exception is org.hibernate.exception.ConstraintViolationException: could not execute statement",e.getMessage());
+            String[] s = e.getMessage().split(";");
+            assertEquals("could not execute statement",s[0]);
         }
     }
 
@@ -955,5 +955,4 @@ public class PackagingTests {
         assertEquals("must not be null", v.getMessage());
         assertEquals("sendingType", v.getPropertyPath().toString());
     }
-
 }
