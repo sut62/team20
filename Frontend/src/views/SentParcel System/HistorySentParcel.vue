@@ -18,14 +18,14 @@
                     ยื่นยันระบบล้มเหลว กรุณายืนยันสถานะพนักงาน {{ this.employeeData.name }}
                 </div>
             </div>
-            <div v-else class="badge badge-primary">
+            <div v-else class="badge badge-warning">
                 กรุณายืนยันสถานะพนักงาน {{ this.employeeData.name }}
             </div>
 
             <div class="form-group">
                 <input type="text" class="form-control" placeholder="Email address" v-model="email" required="required">
             </div>
-            <b-button variant="primary" @click="this.chk">ยืนยันการรับข้อมูล</b-button>
+            <b-button pill variant="primary" @click="this.chk">ยืนยันการรับข้อมูล</b-button>
 
         </b-card-body>
         <div v-if="this.checkin">
