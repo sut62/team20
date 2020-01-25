@@ -15,6 +15,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 @Entity
 @Getter
@@ -34,6 +35,7 @@ public class Cancelsent {
     private String name;
 
     @Column(name="CANCLESENT_COMMENT", nullable = false)
+    @Size(min=1, max=20)
     @NotEmpty
     private String comment;
     
