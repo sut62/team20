@@ -19,7 +19,7 @@
                     <label for="selectList">เลือกชื่อพนักงาน</label>
                     <b-form-select v-model="ConfirmPackage.employeeId" :options="this.employeeData" class="mb-3" value-field="id" text-field="name" disabled-field="notEnabled" id="selectList"></b-form-select>
                     
-                    <label for="selectList">เลือก ID package</label>
+                    <label for="selectList">เลือก package code</label>
                     <b-form-select v-model="ConfirmPackage.packageId" :options="this.packageData" class="mb-3" value-field="id" text-field="code" disabled-field="notEnabled" id="selectList"></b-form-select>
     
                     <label for="selectList">เลือกระดับความพึงพอใจ</label>
