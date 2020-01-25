@@ -60,6 +60,7 @@ public class SentParcelController {
         newSentParcel.setAtArriveStation(atArriveStation);
         newSentParcel.setSenttime(toParcel);
         newSentParcel.setCode(code);
+        newSentParcel.setIsActive(true);
 
         return sentParcelRepository.save(newSentParcel);
     }
