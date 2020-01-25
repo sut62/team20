@@ -35,7 +35,6 @@ public class Cancelsent {
     private String name;
 
     @Column(name="CANCLESENT_COMMENT", nullable = false)
-    @Size(min=1, max=20)
     @NotEmpty
     private String comment;
     
@@ -53,12 +52,14 @@ public class Cancelsent {
     @JoinColumn(name = "HOWTOPAY_ID", insertable = true)
     @JsonBackReference
     @NotNull
+    @Size(min=1, max=20)
     private  Howtopay onHowtopay;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = team20.transport.ParcelDeliverySystem.CancelsentSystem.Entity.Senttoback.class)
     @JoinColumn(name = "SENTTOBACK_ID", insertable = true)
     @JsonBackReference
     @NotNull
+    @Size(min=1, max=20)
     private Senttoback onSenttoback;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Employee.class)
