@@ -17,7 +17,7 @@
         </b-card>
 
         <b-card header="" header-tag="header" footer="จัดทำโดย นายอธิษฐาน จิตรโสภาภรณ์ B6021405" footer-tag="footer" title="Display Cancelsent System">
-            <b-card-text>ระบบยกเลิกพัสดุ</b-card-text>
+            <b-card-text>ระบบแสดงประวัติยกเลิกพัสดุ</b-card-text>
             <b-button to="displaycancelsent" variant="primary">ไปที่หน้าโปรแกรม</b-button>
         </b-card>
 
