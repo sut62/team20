@@ -62,7 +62,7 @@ export default {
             }
             this.FO = true;
         },
-        getMemberCustomer() {
+        getSentParcel() {
             api.get("/getAllSentParcel")
                 .then(response => {
                     var object = this.sourceIndex(response.data)
@@ -91,7 +91,7 @@ export default {
     },
 
     mounted() {
-        this.getMemberCustomer();
+        this.getSentParcel();
         this.init();
     }
 }
