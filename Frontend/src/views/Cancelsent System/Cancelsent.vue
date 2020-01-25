@@ -102,7 +102,7 @@
                 </b-col>
                 <b-col cols="1"></b-col>
                 <b-col>
-                <label for="input-with-list">*กรุณาใส่เหตุผล</label>
+                <label for="input-with-list">*กรุณาใส่เหตุผล(ห้ามเกิน20อักขระ)</label>
                     <b-form-input list="input-list" v-model="Cancelsent.cancelcomment" id="input-with-list"></b-form-input>
                 </b-col>
                 <b-col cols="1"></b-col>
