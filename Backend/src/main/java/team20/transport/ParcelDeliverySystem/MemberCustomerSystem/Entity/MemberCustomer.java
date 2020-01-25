@@ -28,13 +28,11 @@ public class MemberCustomer {
     private @NonNull Long id;
 
     @Column(name="MEMBER_NAME",unique = false, nullable = false)
-    @NotNull
     @NotEmpty
     private String MemName;
 
     @Pattern(regexp = "\\d{10}")
     @Column(name="MEMBER_TEL",unique = false, nullable = false)
-    @NotEmpty
     private String Tel;
 
     @Email
