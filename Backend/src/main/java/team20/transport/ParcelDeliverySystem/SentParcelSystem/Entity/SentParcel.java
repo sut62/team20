@@ -15,7 +15,9 @@ import javax.validation.constraints.Pattern;
 @Entity
 @Getter
 @Setter
-@Table(name="SENTPARCEL")
+@Table(name="SENTPARCEL",
+        uniqueConstraints = @UniqueConstraint(columnNames = {"SENTPARCEL_CODE"})
+)
 public class SentParcel {
     @Id
     @SequenceGenerator(name="SENTPARCEL_SEQ",sequenceName="SENTPARCEL_SEQ",initialValue = 1,allocationSize = 1)
