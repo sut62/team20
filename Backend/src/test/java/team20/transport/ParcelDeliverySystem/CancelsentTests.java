@@ -421,9 +421,8 @@ public class CancelsentTests {
 
         // error message ตรงชนิด และถูก field
         final ConstraintViolation<Cancelsent> v = result.iterator().next();
-        assertEquals("must not be null", v.getMessage());
-        assertEquals("onStatus", v.getPropertyPath().toString());
-
+        assertEquals("size must be between 1 and 20", v.getMessage());
+        assertEquals("comment", v.getPropertyPath().toString());
     }
 
 
