@@ -5,6 +5,7 @@ import loginPage from './views/Login'
 import Dashboard from './views/Dashboard'
 import ShippingState from './views/ShippingState System/ShippingState'
 import Cancelsent from './views/Cancelsent System/Cancelsent'
+import DisplayCancelsent from './views/Cancelsent System/DisplayCancelsent'
 import SentParcel from './views/SentParcel System/SentParcel'
 import HistorySentParcel from './views/SentParcel System/HistorySentParcel'
 import Packaging from './views/Packaging System/Packaging'
@@ -16,7 +17,7 @@ import DisplayPackagePayment from './views/Packaging System/DisplayPackagePaymen
 import EnterCodeToFindPackagePayment from './views/Packaging System/EnterCodeToFindPackagePayment'
 import ShowConfirmPackage from './views/ConfirmPackage System/ShowConfirmPackage'
 Vue.use(Router)
-
+//
 export default new Router({
   linkExactActiveClass: 'active',
   routes: [
@@ -44,6 +45,11 @@ export default new Router({
           path: '/cancelsent',
           name: 'cancelsent',
           component: Cancelsent
+        },
+        {
+          path: '/displaycancelsent',
+          name: 'displaycancelsent',
+          component: DisplayCancelsent
         },
         {
           path: '/sentparcel',
