@@ -126,10 +126,8 @@ public class SentParcelTests {
 
         Set<ConstraintViolation<SentTime>> result = validator.validate(sentTime);
 
-        //ต้องมี 1 error เท่านั้น
         assertEquals(1, result.size());
 
-        // error message ตรงชนิด และถูก field
         ConstraintViolation<SentTime> v = result.iterator().next();
         assertEquals("must not be null", v.getMessage());
         assertEquals("fTime", v.getPropertyPath().toString());
@@ -207,16 +205,7 @@ public class SentParcelTests {
 
         assertEquals(new Time(1256175797428L),found.getFTime());
         assertEquals(new Time(1556175797428L),found.getLTime());
-//        assertEquals(memberCustomer,found.getSentBy());
-//        assertEquals(memberCustomer,found.getSentBy());
-//        assertEquals(station,found.getAtStation());
-//        assertEquals(employee,found.getCreateBy());
-//        assertEquals(check,found.getPackageDate());
-//        assertEquals("T2012345",found.getCode());
-//        assertEquals("test place",found.getPlace());
-//        assertEquals("123 reciever",found.getReciever());
-//        assertEquals(ptype,found.getPackageType());
-//        assertEquals(stype,found.getSendingType());
+
     }
 
 
@@ -289,10 +278,8 @@ public class SentParcelTests {
 
         Set<ConstraintViolation<SentParcel>> result = validator.validate(sentParcel);
 
-        //ต้องมี 1 error เท่านั้น
         assertEquals(1, result.size());
 
-        // error message ตรงชนิด และถูก field
         ConstraintViolation<SentParcel> v = result.iterator().next();
         assertEquals("must not be null", v.getMessage());
         assertEquals("code", v.getPropertyPath().toString());
@@ -366,12 +353,97 @@ public class SentParcelTests {
 
         Set<ConstraintViolation<SentParcel>> result = validator.validate(sentParcel);
 
-        //ต้องมี 1 error เท่านั้น
         assertEquals(1, result.size());
 
-        // error message ตรงชนิด และถูก field
         ConstraintViolation<SentParcel> v = result.iterator().next();
         assertEquals("must be true", v.getMessage());
         assertEquals("isActive", v.getPropertyPath().toString());
+    }
+
+
+
+
+
+    @Test
+    void b6004798_codeMustNotDuplicate(){
+
+        Employee employee = new Employee();
+        employee.setName("B6004798");
+        employee.setEmail("B6004798@g.sut.ac.th");
+        employee = employeeRepository.saveAndFlush(employee);
+
+        Station station = new Station();
+        station.setName("test station");
+        station = stationRepository.saveAndFlush(station);
+
+        MemberType mtype = new MemberType();
+        mtype.setType("test");
+        mtype = memberTypeRepository.saveAndFlush(mtype);
+        MemberLevel mlevel = new MemberLevel();
+        mlevel.setPermission("test");
+        mlevel = memberLevelRepository.saveAndFlush(mlevel);
+
+        MemberCustomer memberCustomer = new MemberCustomer();
+        memberCustomer.setMemName("mem Test");
+        memberCustomer.setTel("0999999999");
+        memberCustomer.setEmail("test2541@gmail.com");
+        memberCustomer.setCreateBy(employee);
+        memberCustomer.setMemberLevel(mlevel);
+        memberCustomer.setMemberType(mtype);
+        memberCustomer = memberCustomerRepository.saveAndFlush(memberCustomer);
+
+        PackageType ptype = new PackageType();
+        ptype.setType("test");
+        ptype = packageTypeRepository.saveAndFlush(ptype);
+
+        SendingType stype = new SendingType();
+        stype.setType("test");
+        stype.setUnit(1);
+        stype = sendingTypeRepository.saveAndFlush(stype);
+
+        Date check = new Date();
+        Packaging packaging = new Packaging();
+        packaging.setSentBy(memberCustomer);
+        packaging.setAtStation(station);
+        packaging.setCreateBy(employee);
+        packaging.setPackageDate(check);
+        packaging.setCode("T2001234");
+        packaging.setPlace("test place");
+        packaging.setReciever("123 reciever");
+        packaging.setVolume(10L);
+        packaging.setWeight(10L);
+        packaging.setPackageType(ptype);
+        packaging.setSendingType(stype);
+        packaging = packagingRepository.saveAndFlush(packaging);
+
+        SentTime sentTime = new SentTime();
+        sentTime.setFTime(new Time(1256175797428L));
+        sentTime.setLTime(new Time(1556175797428L));
+        sentTime = sentTimeRepository.saveAndFlush(sentTime);
+
+        SentParcel sentParcel = new SentParcel();
+        sentParcel.setCode("SN01234");
+        sentParcel.setSenttime(sentTime);
+        sentParcel.setAtArriveStation(station);
+        sentParcel.setPackaging(packaging);
+        sentParcel.setAtOriginStation(station);
+        sentParcel.setIsActive(true);
+        sentParcelRepository.saveAndFlush(sentParcel);
+
+        SentParcel sentParcelDup = new SentParcel();
+        sentParcelDup.setCode("SN01234");
+        sentParcelDup.setSenttime(sentTime);
+        sentParcelDup.setAtArriveStation(station);
+        sentParcelDup.setPackaging(packaging);
+        sentParcelDup.setAtOriginStation(station);
+        sentParcelDup.setIsActive(true);
+
+        try {
+            sentParcelRepository.saveAndFlush(sentParcelDup);
+        }
+        catch (Exception e){
+            String[] s = e.getMessage().split(";");
+            assertEquals("could not execute statement",s[0]);
+        }
     }
 }
