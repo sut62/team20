@@ -12,10 +12,10 @@ import team20.transport.ParcelDeliverySystem.Entity.Employee;
 import team20.transport.ParcelDeliverySystem.PackagingSystem.Entity.Packaging;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
 
 @Entity
 @Getter
@@ -37,6 +37,10 @@ public class Cancelsent {
     @Column(name="CANCLESENT_COMMENT", nullable = false)
     @NotEmpty
     private String comment;
+
+    @Email
+    @Column(name="MEMBER_EMAIL",unique = false, nullable = true)
+    private String email;
     
     @OneToOne
     @JsonBackReference
@@ -52,14 +56,12 @@ public class Cancelsent {
     @JoinColumn(name = "HOWTOPAY_ID", insertable = true)
     @JsonBackReference
     @NotNull
-    @Size(min=1, max=20)
     private  Howtopay onHowtopay;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = team20.transport.ParcelDeliverySystem.CancelsentSystem.Entity.Senttoback.class)
     @JoinColumn(name = "SENTTOBACK_ID", insertable = true)
     @JsonBackReference
     @NotNull
-    @Size(min=1, max=20)
     private Senttoback onSenttoback;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Employee.class)
