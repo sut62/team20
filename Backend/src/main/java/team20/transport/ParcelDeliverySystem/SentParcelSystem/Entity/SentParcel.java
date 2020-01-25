@@ -8,6 +8,7 @@ import team20.transport.ParcelDeliverySystem.Entity.Station;
 import team20.transport.ParcelDeliverySystem.PackagingSystem.Entity.Packaging;
 
 import javax.persistence.*;
+import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
@@ -50,4 +51,9 @@ public class SentParcel {
     @Pattern(regexp = "SN\\d{5}")
     @NotNull
     private String code;
+
+    @Column(name="SENTPARCEL_ISACTIVE", nullable = false)
+    @AssertTrue
+    @NotNull
+    private Boolean isActive;
 }
