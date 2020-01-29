@@ -13,9 +13,9 @@
                 <b-col cols="1"></b-col>
                 <b-col cols="5">
 
-                    <b-form-input class="mt-4" list="my-list-id" name="packageCode" id="packageCode" v-model="packageCode" placeholder="กรอก package code"></b-form-input>
+                    <b-form-input class="mt-4" list="my-list-id" name="packageCode" id="packageCode" v-model="packageSearchData.packageCode" placeholder="กรอก-เลือก package code"></b-form-input>
                     <datalist id="my-list-id">
-                        <option v-for="pack in allPackage" v-bind:key="pack">{{ pack.code }}</option>
+                        <option v-for="pack in allPackage" v-bind:key="pack.id">{{ pack.code }}</option>
                     </datalist>
 
                     <b-button class="mt-2" @click="this.Search">แสดง Timeline</b-button>
@@ -94,9 +94,8 @@ export default {
                     "name": "Origin"
                 }
             },
-            allPackage: "",
+            allPackage: [],
             packageSearchData: {
-                packageId: "",
                 packageCode: "",
             },
             shippingStateData: null,
@@ -109,7 +108,7 @@ export default {
             this.haveSearch = true
         },
         findPackageById() {
-            api.get("/findPackageByCode/" + this.packageCode)
+            api.get("/findPackageByCode/" + this.packageSearchData.packageCode)
                 .then(
                     response => {
                         this.packageData = response.data
@@ -118,7 +117,7 @@ export default {
                 )
         },
         getShippingStateByPackageCode() {
-            api.get("/getShippingStateByPackageCode/" + this.packageCode)
+            api.get("/getShippingStateByPackageCode/" + this.packageSearchData.packageCode)
                 .then(
                     response => {
                         var object = this.sourceIndex(response.data)
