@@ -21,7 +21,7 @@
             
                     <b-form-input list="my-list-id" name="packageCode" id="packageCode"  v-model="packageCode" placeholder="กรอก-เลือก package code"></b-form-input>
                     <datalist id="my-list-id">
-                        <option v-for="pack in allPackage" v-bind:key="pack">{{ pack.code }}</option>
+                        <option v-for="pack in allPackage" v-bind:key="pack.id">{{ pack.code }}</option>
                     </datalist>
 
                     <b-button class="mt-2" @click="this.Search">ค้นหา</b-button>
