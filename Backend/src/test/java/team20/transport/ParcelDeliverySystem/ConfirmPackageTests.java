@@ -137,10 +137,8 @@ public class ConfirmPackageTests {
         satisfactionLevel.setSatisfactionlevel_name("test sat");
         satisfactionLevel = satisfactionLevelRepository.saveAndFlush(satisfactionLevel);
 
-        Date time = new Date();
         ConfirmPackage confirmPackage = new ConfirmPackage();
         confirmPackage.setCreateBy(employee);
-        confirmPackage.setConfirmDate(time);
         confirmPackage.setCode("CPT2001234");
         confirmPackage.setName("C20");
         confirmPackage.setComment("Test");
@@ -151,7 +149,6 @@ public class ConfirmPackageTests {
         ConfirmPackage found = confirmPackageRepository.findById(confirmPackage.getId()).get();
 
         assertEquals(employee, found.getCreateBy());
-        assertEquals(time, found.getConfirmDate());
         assertEquals("CPT2001234",found.getCode());
         assertEquals("C20",found.getName());
         assertEquals("Test",found.getComment());
@@ -221,10 +218,8 @@ public class ConfirmPackageTests {
         satisfactionLevel.setSatisfactionlevel_name("test sat");
         satisfactionLevel = satisfactionLevelRepository.saveAndFlush(satisfactionLevel);
 
-        Date time = new Date();
         ConfirmPackage confirmPackage = new ConfirmPackage();
         confirmPackage.setCreateBy(employee);
-        confirmPackage.setConfirmDate(time);
         confirmPackage.setCode("CPT2001234");
         confirmPackage.setName("C20");
         confirmPackage.setComment("Test");
@@ -303,10 +298,8 @@ public class ConfirmPackageTests {
         satisfactionLevel.setSatisfactionlevel_name("test sat");
         satisfactionLevel = satisfactionLevelRepository.saveAndFlush(satisfactionLevel);
 
-        Date time = new Date();
         ConfirmPackage confirmPackage = new ConfirmPackage();
         confirmPackage.setCreateBy(employee);
-        confirmPackage.setConfirmDate(time);
         confirmPackage.setCode("CPT20012345");
         confirmPackage.setName("C20");
         confirmPackage.setComment("Test");
@@ -385,10 +378,8 @@ public class ConfirmPackageTests {
         satisfactionLevel.setSatisfactionlevel_name("test sat");
         satisfactionLevel = satisfactionLevelRepository.saveAndFlush(satisfactionLevel);
 
-        Date time = new Date();
         ConfirmPackage confirmPackage = new ConfirmPackage();
         confirmPackage.setCreateBy(employee);
-        confirmPackage.setConfirmDate(time);
         confirmPackage.setCode("CPT2001234");
         confirmPackage.setName("");
         confirmPackage.setComment("Test");
@@ -467,10 +458,8 @@ public class ConfirmPackageTests {
         satisfactionLevel.setSatisfactionlevel_name("test sat");
         satisfactionLevel = satisfactionLevelRepository.saveAndFlush(satisfactionLevel);
 
-        Date time = new Date();
         ConfirmPackage confirmPackage = new ConfirmPackage();
         confirmPackage.setCreateBy(null);
-        confirmPackage.setConfirmDate(time);
         confirmPackage.setCode("CPT2001234");
         confirmPackage.setName("C20");
         confirmPackage.setComment("Test");
@@ -549,10 +538,8 @@ public class ConfirmPackageTests {
         satisfactionLevel.setSatisfactionlevel_name("test sat");
         satisfactionLevel = satisfactionLevelRepository.saveAndFlush(satisfactionLevel);
 
-        Date time = new Date();
         ConfirmPackage confirmPackage = new ConfirmPackage();
         confirmPackage.setCreateBy(employee);
-        confirmPackage.setConfirmDate(time);
         confirmPackage.setCode("CPT2001234");
         confirmPackage.setName("C20");
         confirmPackage.setComment("Test");
@@ -631,13 +618,11 @@ public class ConfirmPackageTests {
         satisfactionLevel.setSatisfactionlevel_name("test sat");
         satisfactionLevel = satisfactionLevelRepository.saveAndFlush(satisfactionLevel);
 
-        Date time = new Date();
         ConfirmPackage confirmPackage = new ConfirmPackage();
         confirmPackage.setCreateBy(employee);
-        confirmPackage.setConfirmDate(time);
         confirmPackage.setCode("CPT2001234");
         confirmPackage.setName("C20");
-        confirmPackage.setComment("");
+        confirmPackage.setComment("me");
         confirmPackage.setPackaging(packaging);
         confirmPackage.setSatisfactionLevel(satisfactionLevel);
 
@@ -648,7 +633,7 @@ public class ConfirmPackageTests {
 
         // error message ตรงชนิด และถูก field
         ConstraintViolation<ConfirmPackage> v = result.iterator().next();
-        assertEquals("size must be between 1 and 20", v.getMessage());
+        assertEquals("size must be between 3 and 50", v.getMessage());
         assertEquals("comment", v.getPropertyPath().toString());
     }
 
@@ -713,10 +698,8 @@ public class ConfirmPackageTests {
         satisfactionLevel.setSatisfactionlevel_name("test sat");
         satisfactionLevel = satisfactionLevelRepository.saveAndFlush(satisfactionLevel);
 
-        Date time = new Date();
         ConfirmPackage confirmPackage = new ConfirmPackage();
         confirmPackage.setCreateBy(employee);
-        confirmPackage.setConfirmDate(time);
         confirmPackage.setCode(null);
         confirmPackage.setName("C20");
         confirmPackage.setComment("Test");
@@ -734,4 +717,83 @@ public class ConfirmPackageTests {
         assertEquals("code", v.getPropertyPath().toString());
     }
 
+    @Test
+    void b6012496_CommentMustNotBeNull() {
+
+        Employee employee = new Employee();
+        employee.setName("B6012496");
+        employee.setEmail("B6012496@g.sut.ac.th");
+        employee = employeeRepository.saveAndFlush(employee);
+
+        Station station = new Station();
+        station.setName("test station");
+        station = stationRepository.saveAndFlush(station);
+
+        Status status = new Status();
+        status.setName("test status");
+        status = statusRepository.saveAndFlush(status);
+
+        MemberLevel memberLevel = new MemberLevel();
+        memberLevel.setPermission("Regular");
+        memberLevel = memberLevelRepository.save(memberLevel);
+
+        MemberType memberType = new MemberType();
+        memberType.setType("Company");
+        memberType = memberTypeRepository.save(memberType);
+
+        MemberCustomer memberCustomer = new MemberCustomer();
+        memberCustomer.setMemName("mem Test");
+        memberCustomer.setTel("0987654321");
+        memberCustomer.setCreateBy(employee);
+        memberCustomer.setEmail("test@localhost");
+        memberCustomer.setMemberType(memberType);
+        memberCustomer.setMemberLevel(memberLevel);
+        memberCustomer = memberCustomerRepository.saveAndFlush(memberCustomer);
+
+        PackageType ptype = new PackageType();
+        ptype.setType("test");
+        ptype = packageTypeRepository.saveAndFlush(ptype);
+
+        SendingType stype = new SendingType();
+        stype.setType("test");
+        stype.setUnit(1);
+        stype = sendingTypeRepository.saveAndFlush(stype);
+
+        Date check = new Date();
+        Packaging packaging = new Packaging();
+        packaging.setSentBy(memberCustomer);
+        packaging.setAtStation(station);
+        packaging.setCreateBy(employee);
+        packaging.setPackageDate(check);
+        packaging.setCode("T2012345");
+        packaging.setPlace("test place");
+        packaging.setReciever("123 reciever");
+        packaging.setVolume(10L);
+        packaging.setWeight(10L);
+        packaging.setPackageType(ptype);
+        packaging.setSendingType(stype);
+        packaging = packagingRepository.saveAndFlush(packaging);
+
+        SatisfactionLevel satisfactionLevel = new SatisfactionLevel();
+        satisfactionLevel.setSatisfactionlevel_name("test sat");
+        satisfactionLevel = satisfactionLevelRepository.saveAndFlush(satisfactionLevel);
+
+        ConfirmPackage confirmPackage = new ConfirmPackage();
+        confirmPackage.setCreateBy(employee);
+        confirmPackage.setCode("CPT2001234");
+        confirmPackage.setName("C20");
+        confirmPackage.setComment(null);
+        confirmPackage.setPackaging(packaging);
+        confirmPackage.setSatisfactionLevel(satisfactionLevel);
+
+        Set<ConstraintViolation<ConfirmPackage>> result = validator.validate(confirmPackage);
+
+        //ต้องมี 1 error เท่านั้น
+        assertEquals(1, result.size());
+
+        // error message ตรงชนิด และถูก field
+        ConstraintViolation<ConfirmPackage> v = result.iterator().next();
+        assertEquals("must not be null", v.getMessage());
+        assertEquals("comment", v.getPropertyPath().toString());
+    }
 }
