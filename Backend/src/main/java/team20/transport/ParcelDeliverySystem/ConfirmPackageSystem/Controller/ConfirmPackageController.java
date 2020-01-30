@@ -50,7 +50,6 @@ public class ConfirmPackageController {
         newConfirmPackage.setCode(code);
         newConfirmPackage.setName(name);
         newConfirmPackage.setComment(comment);
-        newConfirmPackage.setConfirmDate(new Date());
         newConfirmPackage.setSatisfactionLevel(satisfactionLevel);
         newConfirmPackage.setCreateBy(createBy);
         newConfirmPackage.setPackaging(packaging);
