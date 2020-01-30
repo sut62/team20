@@ -8,7 +8,6 @@ import team20.transport.ParcelDeliverySystem.Entity.Employee;
 import team20.transport.ParcelDeliverySystem.PackagingSystem.Entity.Packaging;
 import team20.transport.ParcelDeliverySystem.ConfirmPackageSystem.Entity.SatisfactionLevel;
 import javax.validation.constraints.*;
-import java.util.Date;
 
 @Entity
 @Getter
@@ -23,7 +22,8 @@ public class ConfirmPackage {
     private @NonNull Long id;
 
     @Column(name="CONFIRM_PACKAGE_COMMENT", nullable = false)
-    @Size(min=1, max=20)
+    @Size(min=3, max=50)
+    @NotNull
     private String comment;
 
     @Column(name="CONFIRM_PACKAGE_NAME", nullable = false)
@@ -34,9 +34,6 @@ public class ConfirmPackage {
     @Pattern(regexp = "CPT20\\d{5}")
     @NotNull
     private String code;
-
-    @Column(name="Confirm_DATE" , nullable = false)
-    private @NonNull Date confirmDate;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Employee.class)
     @JoinColumn(name = "EMPOLYEE_ID", insertable = true)
