@@ -120,17 +120,26 @@ public class SentParcelTests {
         packaging = packagingRepository.saveAndFlush(packaging);
 
         SentTime sentTime = new SentTime();
-        sentTime.setFTime(null);
+        sentTime.setFTime(new Time(1256175797428L));
         sentTime.setLTime(new Time(1556175797428L));
+        sentTime = sentTimeRepository.saveAndFlush(sentTime);
+
+        SentParcel sentParcel = new SentParcel();
+        sentParcel.setCode(null);
+        sentParcel.setSenttime(sentTime);
+        sentParcel.setAtArriveStation(station);
+        sentParcel.setPackaging(packaging);
+        sentParcel.setAtOriginStation(station);
+        sentParcel.setIsActive(true);
 
 
-        Set<ConstraintViolation<SentTime>> result = validator.validate(sentTime);
+        Set<ConstraintViolation<SentParcel>> result = validator.validate(sentParcel);
 
         assertEquals(1, result.size());
 
-        ConstraintViolation<SentTime> v = result.iterator().next();
+        ConstraintViolation<SentParcel> v = result.iterator().next();
         assertEquals("must not be null", v.getMessage());
-        assertEquals("fTime", v.getPropertyPath().toString());
+        assertEquals("code", v.getPropertyPath().toString());
     }
 
 
@@ -269,7 +278,7 @@ public class SentParcelTests {
         sentTime = sentTimeRepository.saveAndFlush(sentTime);
 
         SentParcel sentParcel = new SentParcel();
-        sentParcel.setCode(null);
+        sentParcel.setCode("SN0000");
         sentParcel.setSenttime(sentTime);
         sentParcel.setAtArriveStation(station);
         sentParcel.setPackaging(packaging);
@@ -281,7 +290,7 @@ public class SentParcelTests {
         assertEquals(1, result.size());
 
         ConstraintViolation<SentParcel> v = result.iterator().next();
-        assertEquals("must not be null", v.getMessage());
+        assertEquals("must match \"SN\\d{5}\"", v.getMessage());
         assertEquals("code", v.getPropertyPath().toString());
     }
 
