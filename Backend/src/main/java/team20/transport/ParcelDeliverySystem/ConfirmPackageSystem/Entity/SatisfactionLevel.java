@@ -5,7 +5,6 @@ import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Collection;
-import team20.transport.ParcelDeliverySystem.ConfirmPackageSystem.Entity.*;
 
 @Entity
 @Getter
