@@ -40,11 +40,7 @@
 
                 <b-alert class="mt-3 mb-4" :show="saveStatus.popup.dismissCountDown" dismissible fade :variant="saveStatus.popup.variant">
                 {{this.saveStatus.popup.message}}
-            </b-alert>
-
-            <div v-if="this.foundPackage">            
-            <hr>
-            </div>            
+            </b-alert>            
         </b-card-body>
     </b-card>
 </div>
