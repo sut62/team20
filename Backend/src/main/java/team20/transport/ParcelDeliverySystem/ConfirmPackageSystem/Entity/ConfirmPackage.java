@@ -3,10 +3,8 @@ package team20.transport.ParcelDeliverySystem.ConfirmPackageSystem.Entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 import javax.persistence.*;
-import java.util.Collection;
 import team20.transport.ParcelDeliverySystem.Entity.Employee;
 import team20.transport.ParcelDeliverySystem.PackagingSystem.Entity.Packaging;
-import team20.transport.ParcelDeliverySystem.ConfirmPackageSystem.Entity.SatisfactionLevel;
 import javax.validation.constraints.*;
 
 @Entity
