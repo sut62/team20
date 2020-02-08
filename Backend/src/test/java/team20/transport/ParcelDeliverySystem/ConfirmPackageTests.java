@@ -4,7 +4,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.data.jpa.repository.JpaRepository;
 import team20.transport.ParcelDeliverySystem.ConfirmPackageSystem.Entity.SatisfactionLevel;
 import team20.transport.ParcelDeliverySystem.Entity.Employee;
 import team20.transport.ParcelDeliverySystem.Entity.Station;
@@ -25,18 +24,13 @@ import team20.transport.ParcelDeliverySystem.Repository.StationRepository;
 import team20.transport.ParcelDeliverySystem.Repository.StatusRepository;
 import team20.transport.ParcelDeliverySystem.ConfirmPackageSystem.Entity.ConfirmPackage;
 import team20.transport.ParcelDeliverySystem.ConfirmPackageSystem.Repository.ConfirmPackageRepository;
-import team20.transport.ParcelDeliverySystem.ConfirmPackageSystem.Entity.SatisfactionLevel;
 import team20.transport.ParcelDeliverySystem.ConfirmPackageSystem.Repository.SatisfactionLevelRepository;
 import team20.transport.ParcelDeliverySystem.PackagingSystem.Entity.PackageType;
-import team20.transport.ParcelDeliverySystem.PackagingSystem.Repository.SendingTypeRepository;
-import team20.transport.ParcelDeliverySystem.PackagingSystem.Entity.SendingType;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
-import javax.validation.constraints.NotEmpty;
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Set;
 
