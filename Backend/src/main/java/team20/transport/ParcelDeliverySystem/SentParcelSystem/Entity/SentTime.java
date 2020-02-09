@@ -7,7 +7,6 @@ import lombok.NonNull;
 import lombok.Setter;
 import javax.persistence.*;
 
-import javax.validation.constraints.NotNull;
 import java.sql.Time;
 import java.util.Collection;
 
@@ -21,9 +20,9 @@ public class SentTime {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="SENTTIME_SEQ")
     @Column(name="SENTTIME_ID",unique = true, nullable = true)
     private @NonNull Long id;
-    @NotNull
+    @NonNull
     private Time fTime;
-    @NotNull
+    @NonNull
     private Time lTime;
 
     @OneToMany(orphanRemoval = true, mappedBy = "senttime")
