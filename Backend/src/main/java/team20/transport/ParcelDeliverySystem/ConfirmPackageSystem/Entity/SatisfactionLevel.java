@@ -3,7 +3,6 @@ package team20.transport.ParcelDeliverySystem.ConfirmPackageSystem.Entity;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.Collection;
 
 @Entity
@@ -16,7 +15,6 @@ public class SatisfactionLevel {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="SATISFACTIONLEVEL_SEQ")
     @Column(name="SATISFACTIONLEVEL_ID",unique = true, nullable = true)
     private @NonNull Long satisfactionlevel_id;
-    @NotNull
     private @NonNull String satisfactionlevel_name;
 
     @OneToMany(orphanRemoval = true,mappedBy = "satisfactionLevel")
