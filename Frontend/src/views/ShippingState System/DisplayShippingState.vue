@@ -85,13 +85,13 @@ export default {
             foundPackage: false,
             haveSearch: false,
             packageData: {
-                receiever: "None",
-                place: "Arrive",
+                receiever: "",
+                place: "",
                 createBy: {
-                    name: "Annonymous"
+                    name: ""
                 },
                 station: {
-                    "name": "Origin"
+                    name: ""
                 }
             },
             allPackage: [],
