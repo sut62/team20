@@ -47,7 +47,7 @@
                             <hr>
                             <div class="ml-2">
                                 <p class="text-center mb-1"><b>ข้อมูล Package</b></p>
-                                ชื่อผู้ส่ง : {{this.packageData.createBy.name}} <br>
+                                ชื่อพนักงานรับฝากพัสดุ: {{this.packageData.createBy.name}} <br>
                                 ชื่อผู้รับ : {{this.packageData.receiever}} <br>
                                 ต้นสถานี : {{this.packageData.station.name}} <br>
                                 ปลายทางสถานี : {{this.packageData.place}} <br>
