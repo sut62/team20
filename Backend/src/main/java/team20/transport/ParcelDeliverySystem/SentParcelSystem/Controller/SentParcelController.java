@@ -51,7 +51,7 @@ public class SentParcelController {
         SentTime toParcel = sentTimeRepository.findById(allParams.get("senttimeId")).get();
 
 
-        Long countAllSent = packagingRepository.count();
+        Long countAllSent = sentParcelRepository.count();
         String code = String.format("SN%05d",countAllSent + 1);
 
         SentParcel newSentParcel = new SentParcel();
