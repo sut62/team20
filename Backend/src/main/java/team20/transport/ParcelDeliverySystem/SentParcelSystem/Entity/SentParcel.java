@@ -54,8 +54,4 @@ public class SentParcel {
     @NotNull
     private String code;
 
-    @Column(name="SENTPARCEL_ISACTIVE", nullable = false)
-    @AssertTrue
-    @NotNull
-    private Boolean isActive;
 }
