@@ -67,7 +67,6 @@ public class ShippingStateController {
 
         newShippingState.setTimestamp(LocalDateTime.now());
         newShippingState.setCode(code);
-        newShippingState.setIsActive(true);
         newShippingState.setOnStatus(onStatus);
         newShippingState.setAtStation(atStation);
         newShippingState.setCreateBy(createBy);
