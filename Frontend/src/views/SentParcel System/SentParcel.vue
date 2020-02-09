@@ -59,7 +59,7 @@
                 <b-col cols="1"></b-col>
             </b-row>
 
-            <b-alert class="mt-3 mb-4" :show="saveStatus.popup.dismissCountDown" dismissible fade :variant="saveStatus.popup.variant">
+            <b-alert class="mt-3 mb-4" :show="saveStatus.popup.showAlert" dismissible fade :variant="saveStatus.popup.variant">
                                     {{this.saveStatus.popup.message}}
             </b-alert>
 
@@ -91,15 +91,12 @@ export default {
             },
             saveStatus: {
                 popup: {
-                    dismissSecs: 3,
-                    dismissCountDown: 0,
-                    showDismissibleAlert: false,
+                    showAlert: false,
                     variant: "danger",
                     message: ""
                 }
             },
             items: [
-
             ]
         }
     },
@@ -116,20 +113,28 @@ export default {
                 receiveId: this.SentParcel.receiveId
             })
             .then(
-                    response => {
-                        if (response.data)
-                            this.saveStatus.popup.dismissCountDown = this.saveStatus.popup.dismissSecs
+                     response => {
+                        if (response.data) {
+                            this.saveStatus.popup.showAlert = true
+                            setTimeout(()=> {
+                                this.saveStatus.popup.showAlert = false
+                            }, 3000);
                             this.saveStatus.popup.variant = "success"
                             this.saveStatus.popup.message = "บันทึกข้อมูลสำเร็จ"
+                        }
                     },
                     error => {
-                        if (error)
-                            this.saveStatus.popup.dismissCountDown = this.saveStatus.popup.dismissSecs
+                        if (error) {
+                            this.saveStatus.popup.showAlert = true
+                            setTimeout(()=> {
+                                this.saveStatus.popup.showAlert = false
+                            }, 3000);
                             this.saveStatus.popup.variant = "danger"
                             this.saveStatus.popup.message = "บันทึกข้อมูลไม่สำเร็จ"
+
+                        }
                     }
                 )
-
         },
         getpackage() {
             api.get("/getAllPackage")
