@@ -11,8 +11,6 @@ import team20.transport.ParcelDeliverySystem.PackagingSystem.Entity.Packaging;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-import javax.validation.constraints.AssertTrue;
-import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -37,7 +35,7 @@ public class ShippingState {
 
     @Column(name="SHIPPINGSTATE_TIMESTAMP", nullable = false)
     @NotNull
-    private LocalDateTime timestamp;
+    private Date timestamp;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = Employee.class)
     @JoinColumn(name = "EMPOLYEE_ID", insertable = true)
