@@ -22,7 +22,6 @@
                     <label for="input-with-list">กรอกเบอร์โทรศัพท์</label>
                     <b-form-input list="input-list" v-model="MemberCustomer.tel" id="input-with-list"></b-form-input>
 
-
                     <label for="input-with-list">กรอกEmail(สามารถเว้นว่างได้)</label>
                     <b-form-input list="input-list" v-model="MemberCustomer.email" id="input-with-list"></b-form-input>
 
@@ -43,12 +42,12 @@
                         <div class="badge badge-warning text-wrap">
                             โปรดระมัดระวังข้อมูล!!! การบันทึกซ่ำซ้อนอาจทำให้เสียค่าใช้จ่ายในการสมัครเพิ่มเติมเพิ่มเติม
                         </div>
-                        <b-alert class="mt-3 mb-4" :show="saveStatus.popup.dismissCountDown" dismissible fade :variant="saveStatus.popup.variant">
-                                    {{this.saveStatus.popup.message}}
+                        <b-alert class="mt-3 mb-4" :show="saveStatus.popup.showAlert" dismissible fade :variant="saveStatus.popup.variant">
+                            {{this.saveStatus.popup.message}}
                         </b-alert>
                         <div>
-                                <div class="badge badge-light text-wrap" style="width: 15rem;">
-                                </div>
+                            <div class="badge badge-light text-wrap" style="width: 15rem;">
+                            </div>
                         </div>
 
                     </div>
@@ -77,16 +76,14 @@ export default {
             MemberCustomer: {
                 mname: null,
                 tel: null,
-                email:null,
+                email: null,
                 memberLevelId: null,
                 memberTypeId: null,
                 employeeId: null
             },
             saveStatus: {
                 popup: {
-                    dismissSecs: 3,
-                    dismissCountDown: 0,
-                    showDismissibleAlert: false,
+                    showAlert: false,
                     variant: "danger",
                     message: ""
                 }
@@ -106,18 +103,25 @@ export default {
                 })
                 .then(
                     response => {
-                        if (response.data){                                                        this.saveStatus.popup.dismissCountDown = this.saveStatus.popup.dismissSecs
-                        this.saveStatus.popup.variant = "success"
-                        this.saveStatus.popup.message = "สมัครสมาชิกสำเร็จ สมาชิกใหม่IDคือ "+response.data.id
+                        if (response.data) {
+                            this.saveStatus.popup.showAlert = true
+                            setTimeout(()=> {
+                                this.saveStatus.popup.showAlert = false
+                            }, 3000);
+                            this.saveStatus.popup.variant = "success"
+                            this.saveStatus.popup.message = "สมัครสมาชิกสำเร็จ สมาชิกใหม่IDคือ " + response.data.id
 
                         }
                     },
                     error => {
-                        if (error){
-                            this.saveStatus.popup.dismissCountDown = this.saveStatus.popup.dismissSecs
+                        if (error) {
+                            this.saveStatus.popup.showAlert = true
+                            setTimeout(()=> {
+                                this.saveStatus.popup.showAlert = false
+                            }, 3000);
                             this.saveStatus.popup.variant = "danger"
                             this.saveStatus.popup.message = "สมัครสมาชิกไม่สำเร็จ"
-                            
+
                         }
                     }
                 )
