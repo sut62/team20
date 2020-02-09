@@ -29,7 +29,6 @@ import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Set;
 
@@ -138,7 +137,7 @@ public class ShippingStateSystemTests {
         String code = String.format("SHP%s_%02d" , packaging.getCode(),countShippingState+1);
 
         shippingState.setCode(code);
-        shippingState.setTimestamp(LocalDateTime.now());
+        shippingState.setTimestamp(new Date());
         
         shippingState.setOnStatus(status);
         shippingState.setAtStation(station);
@@ -233,7 +232,7 @@ public class ShippingStateSystemTests {
         String code = String.format("SHP%s_%02d" , packaging.getCode(),countShippingState+1);
 
         shippingState.setCode(code);
-        shippingState.setTimestamp(LocalDateTime.now());
+        shippingState.setTimestamp(new Date());
         
         shippingState.setCode(null);
         shippingState.setOnStatus(status);
@@ -325,7 +324,7 @@ public class ShippingStateSystemTests {
         String code = String.format("ABC%s_%02d" , packaging.getCode(),countShippingState+1);
 
         shippingState.setCode(code);
-        shippingState.setTimestamp(LocalDateTime.now());
+        shippingState.setTimestamp(new Date());
         
         shippingState.setOnStatus(status);
         shippingState.setAtStation(station);
@@ -419,7 +418,7 @@ public class ShippingStateSystemTests {
         String code = String.format("098%s_%02d" , packaging.getCode(),countShippingState+1);
 
         shippingState.setCode(code);
-        shippingState.setTimestamp(LocalDateTime.now());
+        shippingState.setTimestamp(new Date());
         
         shippingState.setOnStatus(status);
         shippingState.setAtStation(station);
@@ -513,7 +512,7 @@ public class ShippingStateSystemTests {
         ShippingState shippingState = new ShippingState();
 
         shippingState.setCode(code);
-        shippingState.setTimestamp(LocalDateTime.now());
+        shippingState.setTimestamp(new Date());
         
         shippingState.setOnStatus(status);
         shippingState.setAtStation(station);
@@ -525,7 +524,7 @@ public class ShippingStateSystemTests {
         ShippingState dup_shippingState = new ShippingState();
 
         dup_shippingState.setCode(code);
-        dup_shippingState.setTimestamp(LocalDateTime.now());
+        dup_shippingState.setTimestamp(new Date());
         dup_shippingState.setOnStatus(status);
         dup_shippingState.setAtStation(station);
         dup_shippingState.setCreateBy(employee);
@@ -711,7 +710,7 @@ public class ShippingStateSystemTests {
         String code = String.format("SHP%s_%02d" , packaging.getCode(),countShippingState+1);
 
         shippingState.setCode(code);
-        shippingState.setTimestamp(LocalDateTime.now());
+        shippingState.setTimestamp(new Date());
         
         shippingState.setOnStatus(status);
         shippingState.setAtStation(station);
@@ -803,7 +802,7 @@ public class ShippingStateSystemTests {
         String code = String.format("SHP%s_%02d" , packaging.getCode(),countShippingState+1);
 
         shippingState.setCode(code);
-        shippingState.setTimestamp(LocalDateTime.now());
+        shippingState.setTimestamp(new Date());
         
         shippingState.setOnStatus(null);
         shippingState.setAtStation(station);
@@ -895,7 +894,7 @@ public class ShippingStateSystemTests {
         String code = String.format("SHP%s_%02d" , packaging.getCode(),countShippingState+1);
 
         shippingState.setCode(code);
-        shippingState.setTimestamp(LocalDateTime.now());
+        shippingState.setTimestamp(new Date());
         
         shippingState.setOnStatus(status);
         shippingState.setAtStation(null);
@@ -987,7 +986,7 @@ public class ShippingStateSystemTests {
         String code = String.format("SHP%s_%02d" , packaging.getCode(),countShippingState+1);
 
         shippingState.setCode(code);
-        shippingState.setTimestamp(LocalDateTime.now());
+        shippingState.setTimestamp(new Date());
         
         shippingState.setOnStatus(status);
         shippingState.setAtStation(station);
