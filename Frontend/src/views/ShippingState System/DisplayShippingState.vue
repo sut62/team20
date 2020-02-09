@@ -159,8 +159,20 @@ export default {
         },
         getDateWithFormat(date){
             var newDate = new Date(date)
-            return newDate.getDate() + "/" + newDate.getMonth()+1 + "/" + newDate.getFullYear() + " " + newDate.getHours() +
-                    ":" + newDate.getMinutes() + ":" + newDate.getSeconds()
+            var dd = (newDate.getDate() < 10 ? '0' : '') 
+                        + newDate.getDate(); 
+                          
+            var mm = ((newDate.getMonth() + 1) < 10 ? '0' : '') 
+                        + (newDate.getMonth() + 1); 
+
+            var HH = ('0'+newDate.getHours()).substr(-2);
+
+            var MM = ('0'+newDate.getMinutes()).substr(-2);
+
+            var SS = ('0'+newDate.getSeconds()).substr(-2);
+
+            return dd + "/" + mm + "/" + newDate.getFullYear() + " " + HH +
+                    ":" + MM + ":" + SS
         }
     },
     mounted() {
