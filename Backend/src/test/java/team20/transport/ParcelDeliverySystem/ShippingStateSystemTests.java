@@ -29,9 +29,6 @@ import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
-import java.lang.reflect.Field;
-import java.sql.SQLDataException;
-import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Set;
@@ -142,7 +139,7 @@ public class ShippingStateSystemTests {
 
         shippingState.setCode(code);
         shippingState.setTimestamp(LocalDateTime.now());
-        shippingState.setIsActive(true);
+        
         shippingState.setOnStatus(status);
         shippingState.setAtStation(station);
         shippingState.setCreateBy(employee);
@@ -154,7 +151,6 @@ public class ShippingStateSystemTests {
 
         assertEquals(shippingState.getTimestamp(),found.getTimestamp());
         assertEquals(code,found.getCode());
-        assertEquals(true,found.getIsActive());
         assertEquals(status,found.getOnStatus());
         assertEquals(station,found.getAtStation());
         assertEquals(employee,found.getCreateBy());
@@ -238,7 +234,7 @@ public class ShippingStateSystemTests {
 
         shippingState.setCode(code);
         shippingState.setTimestamp(LocalDateTime.now());
-        shippingState.setIsActive(true);
+        
         shippingState.setCode(null);
         shippingState.setOnStatus(status);
         shippingState.setAtStation(station);
@@ -330,7 +326,7 @@ public class ShippingStateSystemTests {
 
         shippingState.setCode(code);
         shippingState.setTimestamp(LocalDateTime.now());
-        shippingState.setIsActive(true);
+        
         shippingState.setOnStatus(status);
         shippingState.setAtStation(station);
         shippingState.setCreateBy(employee);
@@ -424,7 +420,7 @@ public class ShippingStateSystemTests {
 
         shippingState.setCode(code);
         shippingState.setTimestamp(LocalDateTime.now());
-        shippingState.setIsActive(true);
+        
         shippingState.setOnStatus(status);
         shippingState.setAtStation(station);
         shippingState.setCreateBy(employee);
@@ -518,7 +514,7 @@ public class ShippingStateSystemTests {
 
         shippingState.setCode(code);
         shippingState.setTimestamp(LocalDateTime.now());
-        shippingState.setIsActive(true);
+        
         shippingState.setOnStatus(status);
         shippingState.setAtStation(station);
         shippingState.setCreateBy(employee);
@@ -530,7 +526,6 @@ public class ShippingStateSystemTests {
 
         dup_shippingState.setCode(code);
         dup_shippingState.setTimestamp(LocalDateTime.now());
-        dup_shippingState.setIsActive(true);
         dup_shippingState.setOnStatus(status);
         dup_shippingState.setAtStation(station);
         dup_shippingState.setCreateBy(employee);
@@ -543,102 +538,12 @@ public class ShippingStateSystemTests {
         catch (Exception e){
 
             // error message ตรงชนิด
-
             assertEquals("could not execute statement; SQL [n/a]; constraint [\"PUBLIC.UK6JH0LD8A7ATRD4ELOAT1NWM3F_INDEX_D ON PUBLIC.SHIPPINGSTATE(SHIPPINGSTATE_CODE) VALUES 1\"; SQL statement:\n" +
-                    "insert into shippingstate (station_id, shippingstate_code, empolyee_id, shippingstate_isactive, packaging_id, status_id, shippingstate_timestamp, shippingstate_id) values (?, ?, ?, ?, ?, ?, ?, ?) [23505-200]]; nested exception is org.hibernate.exception.ConstraintViolationException: could not execute statement",e.getMessage());
+                    "insert into shippingstate (station_id, shippingstate_code, empolyee_id, packaging_id, status_id, shippingstate_timestamp, shippingstate_id) values (?, ?, ?, ?, ?, ?, ?) [23505-200]]; nested exception is org.hibernate.exception.ConstraintViolationException: could not execute statement",e.getMessage());
         }
 
     }
 
-    @Test
-    void b6003234_isActiveMustBeTrue(){
-
-        Employee employee = new Employee();
-        employee.setName("B6003234");
-        employee.setEmail("B6003234@g.sut.ac.th");
-        employee = employeeRepository.saveAndFlush(employee);
-
-        Status status = new Status();
-        status.setName("test status");
-        status = statusRepository.saveAndFlush(status);
-
-
-        Station station = new Station();
-        station.setName("test station");
-        station = stationRepository.saveAndFlush(station);
-
-        MemberLevel memberLevel = new MemberLevel();
-        memberLevel.setPermission("Regular");
-        memberLevel = memberLevelRepository.save(memberLevel);
-
-        MemberType memberType = new MemberType();
-        memberType.setType("Company");
-        memberType = memberTypeRepository.save(memberType);
-
-
-        MemberCustomer memberCustomer = new MemberCustomer();
-        memberCustomer.setMemName("mem Test");
-        memberCustomer.setTel("0987654321");
-        memberCustomer.setCreateBy(employee);
-        memberCustomer.setEmail("test@localhost");
-        memberCustomer.setMemberType(memberType);
-        memberCustomer.setMemberLevel(memberLevel);
-        memberCustomer = memberCustomerRepository.saveAndFlush(memberCustomer);
-
-        PackageType ptype = new PackageType();
-        ptype.setType("test");
-        ptype = packageTypeRepository.saveAndFlush(ptype);
-
-        SendingType stype = new SendingType();
-        stype.setType("test");
-        stype.setUnit(1);
-        stype = sendingTypeRepository.saveAndFlush(stype);
-
-        Date check = new Date();
-        Packaging packaging = new Packaging();
-        packaging.setSentBy(memberCustomer);
-        packaging.setAtStation(station);
-        packaging.setCreateBy(employee);
-        packaging.setPackageDate(check);
-        packaging.setCode("T2012345");
-        packaging.setPlace("test place");
-        packaging.setReciever("123 reciever");
-        packaging.setVolume(10L);
-        packaging.setWeight(10L);
-        packaging.setPackageType(ptype);
-        packaging.setSendingType(stype);
-        packaging = packagingRepository.saveAndFlush(packaging);
-
-
-        int countShippingState = 0;
-        if (packaging.getHaveShippingState() != null) {
-            countShippingState = packaging.getHaveShippingState().size();
-        }
-
-        ShippingState shippingState = new ShippingState();
-
-        // Generate code by package id
-        String code = String.format("SHP%s_%02d" , packaging.getCode(),countShippingState+1);
-
-        shippingState.setCode(code);
-        shippingState.setTimestamp(LocalDateTime.now());
-        shippingState.setIsActive(false);
-        shippingState.setOnStatus(status);
-        shippingState.setAtStation(station);
-        shippingState.setCreateBy(employee);
-        shippingState.setOfPackage(packaging);
-
-        Set<ConstraintViolation<ShippingState>> result = validator.validate(shippingState);
-
-        //ต้องมี 1 error เท่านั้น
-        assertEquals(1, result.size());
-
-        // error message ตรงชนิด และถูก field
-        ConstraintViolation<ShippingState> v = result.iterator().next();
-        assertEquals("must be true", v.getMessage());
-        assertEquals("isActive", v.getPropertyPath().toString());
-
-    }
 
     @Test
     void b6003234_timeStampMustNotBeNull(){
@@ -714,7 +619,7 @@ public class ShippingStateSystemTests {
 
         shippingState.setCode(code);
         shippingState.setTimestamp(null);
-        shippingState.setIsActive(true);
+        
         shippingState.setOnStatus(status);
         shippingState.setAtStation(station);
         shippingState.setCreateBy(employee);
@@ -807,7 +712,7 @@ public class ShippingStateSystemTests {
 
         shippingState.setCode(code);
         shippingState.setTimestamp(LocalDateTime.now());
-        shippingState.setIsActive(true);
+        
         shippingState.setOnStatus(status);
         shippingState.setAtStation(station);
         shippingState.setCreateBy(null);
@@ -899,7 +804,7 @@ public class ShippingStateSystemTests {
 
         shippingState.setCode(code);
         shippingState.setTimestamp(LocalDateTime.now());
-        shippingState.setIsActive(true);
+        
         shippingState.setOnStatus(null);
         shippingState.setAtStation(station);
         shippingState.setCreateBy(employee);
@@ -991,7 +896,7 @@ public class ShippingStateSystemTests {
 
         shippingState.setCode(code);
         shippingState.setTimestamp(LocalDateTime.now());
-        shippingState.setIsActive(true);
+        
         shippingState.setOnStatus(status);
         shippingState.setAtStation(null);
         shippingState.setCreateBy(employee);
@@ -1083,7 +988,7 @@ public class ShippingStateSystemTests {
 
         shippingState.setCode(code);
         shippingState.setTimestamp(LocalDateTime.now());
-        shippingState.setIsActive(true);
+        
         shippingState.setOnStatus(status);
         shippingState.setAtStation(station);
         shippingState.setCreateBy(employee);

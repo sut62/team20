@@ -34,11 +34,6 @@ public class ShippingState {
     @NotNull
     private String code;
 
-    @Column(name="SHIPPINGSTATE_ISACTIVE", nullable = false)
-    @AssertTrue
-    @NotNull
-    private Boolean isActive;
-
 
     @Column(name="SHIPPINGSTATE_TIMESTAMP", nullable = false)
     @NotNull
