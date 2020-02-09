@@ -112,13 +112,13 @@ export default {
                 statusId: null,
             },
             packageData: {
-                receiever: "None",
-                place: "Arrive",
+                receiever: "",
+                place: "",
                 createBy: {
-                    name: "Annonymous"
+                    name: ""
                 },
                 station: {
-                    "name": "Origin"
+                    name: ""
                 }
             },
             allPackage: [],
